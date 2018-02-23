@@ -1,0 +1,96 @@
+{
+  "rules": {
+    "categories": {
+      ".indexOn": ["slug", "weight"],
+      ".read": true,
+      ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)"
+    },
+    "admins": {
+      ".indexOn": "email",
+      ".write": true,
+      ".read": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
+      "$uid": {
+        ".read": "$uid == auth.uid || root.child('admins/'+auth.uid).exists() || data.child('email').val() == auth.email",
+        ".write": "$uid == auth.uid || root.child('admins/'+auth.uid).exists() || data.child('email').val() == auth.email"
+      }
+    },
+    "approvals": {
+      ".read": "root.child('admins/'+auth.uid).exists()",
+      ".write": "root.child('admins/'+auth.uid).exists()",
+      "categories": {
+        ".indexOn": ["updatedBy", "entityKey"]
+      },
+      "products": {
+        ".indexOn": ["updatedBy", "entityKey"]
+      },
+      "pages": {
+        ".indexOn": ["updatedBy", "entityKey"]
+      },
+      "posts": {
+        ".indexOn": ["updatedBy", "entityKey"]
+      }
+    },
+    "orders": {
+      ".read": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
+      ".write": "auth != null",
+      ".indexOn": ["uid", "rdate"],
+      "$order_id": {
+        ".read": "data.child('uid').val() == auth.uid || root.child('admins/'+auth.uid).exists()"
+      }
+    },
+    "menus": {
+      ".read": true,
+      ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)"
+    },
+    "theme": {
+      ".read": true,
+      ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)"
+    },
+    "pages": {
+      ".read": true,
+      ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
+      ".indexOn": ["rdateUpdated", "url"]
+    },
+    "products": {
+      ".read": true,
+      ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
+      ".indexOn": ["published", "category", "rdateUpdated", "url"],
+      "$p_id": {
+        ".read": "data.child('published').val() == true || root.child('admins/'+auth.uid).exists()"
+      }
+    },
+    "posts": {
+      ".read": true,
+      ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
+      ".indexOn": ["published", "url"]
+    },
+    "users": {
+      ".read": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
+      ".write": true,
+      "$uid": {
+        ".read": "$uid == auth.uid || root.child('admins/'+auth.uid).exists()",
+        ".write": "$uid == auth.uid || root.child('admins/'+auth.uid).exists()"
+      }
+    },
+    "stripe_customers": {
+      "$uid": {
+        ".read": "$uid == auth.uid",
+        "sources": {
+          "$chargeId" : {
+            ".write": "$uid == auth.uid",
+            "token": { ".validate": "newData.isString()" },
+            "$other": { ".validate": false }
+          }
+        },
+        "charges": {
+          "$sourceId" : {
+            ".write": "$uid == auth.uid",
+            "source": { ".validate": "newData.isString()" },
+            "amount": { ".validate": "newData.isNumber()" },
+            "$other": { ".validate": false }
+          }
+        }
+      }
+    }
+  }
+}
