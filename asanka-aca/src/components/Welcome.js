@@ -30,7 +30,7 @@ export default class Welcome extends React.Component {
     signIn(evt) {
         evt.preventDefault();
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.props.history.push(constants.routes.messages))
+            .then(() => this.props.history.push(constants.routes.content))
             .catch(err => window.alert(err));
     }
 
