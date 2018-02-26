@@ -13,15 +13,13 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to Messenger</h1>
+          <h1 className="App-title">Welcome to Asanka</h1>
         </header>
 
         <BrowserRouter>
           <Switch>
-            <Route exact path={constants.routes.welcome} component={Welcome}/>
-            {/* <Route path={constants.routes.signup} component={SignUp}/>
-            <Route path={constants.routes.messages} component={Messages}/> */}
-            <Redirect to={constants.routes.welcome}/>
+            <Route path={constants.routes.welcome} component={Welcome}/>
+            {/* <Redirect to={constants.routes.welcome}/> */}
           </Switch>
         </BrowserRouter>
       </div>
