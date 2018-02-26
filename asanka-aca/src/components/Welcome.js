@@ -73,7 +73,7 @@ export default class Welcome extends React.Component {
                     </div>
                 </form>
 
-                <p>Need an account? <Link to={constants.routes.signup}>Sign Up</Link></p>
+                <p>Need an account? <Link to={constants.routes.welcome}>Sign Up</Link></p>
             </div>
         </div>
         );
