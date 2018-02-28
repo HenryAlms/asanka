@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import constants from "./components/constants";
 
 import Welcome from "./components/Welcome";
-// import SignUp from "./components/SignUp";
+import Profile from "./components/Profile";
 // import Messages from "./components/Messages";
 
 class App extends Component {
@@ -18,7 +18,7 @@ class App extends Component {
 
         <BrowserRouter>
           <Switch>
-            <Route path={constants.routes.welcome} component={Welcome}/>
+            <Route path={constants.routes.profile} component={Profile}/>
             {/* <Redirect to={constants.routes.welcome}/> */}
           </Switch>
         </BrowserRouter>
