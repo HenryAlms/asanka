@@ -30,13 +30,16 @@ export default class Welcome extends React.Component {
     signIn(evt) {
         evt.preventDefault();
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.props.history.push(constants.routes.messages))
+            .then(() => this.props.history.push(constants.routes.dashboard))
             .catch(err => window.alert(err));
     }
 
     render() {
         return (
             <div>
+                <header className="App-header">
+                    <h1 className="App-title text-center mt-3">Welcome to Asanka</h1>
+                </header>
             <header className="jumbotron jumbotron-fluid bg-success text-light">
                 <div className='container'>
                     <h1>Sign In</h1>
