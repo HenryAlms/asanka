@@ -56,51 +56,50 @@ export default class Profile extends React.Component {
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">First name:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text"></input>
+                                        <input className="form-control" type="text" placeholder='John'></input>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Last name:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text"></input>
+                                        <input className="form-control" type="text" placeholder='Smith'></input>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">School:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text"></input>
+                                        <input className="form-control" type="text" placeholder='Alpha Beta'></input>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Email:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text"></input>
+                                        <input className="form-control" type="text" placeholder='email@address.com'></input>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Username:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text"></input>
+                                        <input className="form-control" type="text" placeholder='CurrentUser'></input>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Password:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="password"></input>
+                                        <input className="form-control" type="password" placeholder='CurrentPassword'></input>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Confirm password:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="password"></input>
+                                        <input className="form-control" type="password" placeholder='CurrentPassword'></input>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label"></label>
                                     <div className="col-lg-8">
-                                        <input type="button" className="btn btn-primary"></input>
+                                        <button type="button" className="btn btn-success">Submit Changes</button>
                                         <span></span>
-                                        <input type="reset" className="btn btn-primary"></input>
                                     </div>
                                 </div>
                             </form>
