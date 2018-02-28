@@ -4,6 +4,8 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import constants from './constants';
+import Dropdown from './Dropdown';
+
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -13,6 +15,8 @@ export default class Content extends React.Component {
             title: "",
             date: "",
             description:"",
+            school: "",
+            device: ""
         }
     }
 
@@ -83,7 +87,7 @@ export default class Content extends React.Component {
                         onInput={evt => this.setState({description: evt.target.value})}/>
                     </div>
                     <div>
-                        dropdown categories
+                        <Dropdown school={this.state.school} device={this.state.device}/>
                     </div>
                     <div>
                         upload file button

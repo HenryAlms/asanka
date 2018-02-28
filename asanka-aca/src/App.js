@@ -5,16 +5,12 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import constants from "./components/constants";
 
 import Welcome from "./components/Welcome";
-
 import Content from './components/Content';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to Asanka</h1>
-        </header>
 
         <BrowserRouter>
           <Switch>
