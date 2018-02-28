@@ -1,6 +1,8 @@
 export default {
     routes: {
         welcome: "/",
-        dashboard: "/Dashboard"
+        dashboard: "/Dashboard",
+        content: "/NewContent",
+        profile: "/"
     }
 }

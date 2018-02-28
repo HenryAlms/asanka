@@ -6,10 +6,17 @@ import constants from "./components/constants";
 
 import Welcome from "./components/Welcome";
 import Dashboard from "./components/Dashboard";
-// import SignUp from "./components/SignUp";
-// import Messages from "./components/Messages";
+import SignUp from "./components/SignUp";
+import Messages from "./components/Messages";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+  }
+
   render() {
     return (
       <div className="App">

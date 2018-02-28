@@ -8,7 +8,11 @@
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
+<<<<<<< HEAD
     "reactstrap": "^4.8.0"
+=======
+    "reactfire": "^1.0.0"
+>>>>>>> 6d9c1c93a070661b2c5a45a0d1cbe84951fca816
   },
   "scripts": {
     "start": "react-scripts start",
