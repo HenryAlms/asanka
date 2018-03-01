@@ -1,9 +1,8 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-
 import constants from './constants';
 
 export default class Profile extends React.Component {
@@ -18,8 +17,8 @@ export default class Profile extends React.Component {
 
 
     componentDidMount() {
-        const itemsRef = firebase.database().ref('Alpha Beta/Users');
-        console.log(itemsRef)
+        //const itemsRef = firebase.database().ref('Alpha Beta/Users');
+        //console.log(itemsRef)
         // itemsRef.on('value', (snapshot) => {
         //     let items = snapshot.val();
         //     let newState = [];
@@ -39,6 +38,7 @@ export default class Profile extends React.Component {
     render() {
         return (
             <section className='display-item'>
+                {!this.props.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="container">
                     <h1>User Profile</h1>
 	                <div className="row">
