@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Col, Container, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
+import constants from './constants';
 
 export class MyNav extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export class MyNav extends React.Component {
     return (
         <Col className="m-0" xs="0 " md="3" lg="2">
             <Container className="sidebar">
-                <NavList />
+                <NavList signOutCallback={()=>this.props.signOutCallback()}/>
             </Container>  
         </Col> 
     );
@@ -25,7 +26,7 @@ export class MyNav extends React.Component {
         return(
             <Nav navbar className="mr-auto navLinks">
                 <NavItem className="navText">
-                    <NavLink to="/Dashboard">
+                    <NavLink to={constants.routes.dashboard}>
                         <i className="fa fa-home" aria-hidden="true"></i>{'    '}Dashboard
                     </NavLink>
                 </NavItem>
@@ -45,7 +46,7 @@ export class MyNav extends React.Component {
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/Dashboard">
+                    <NavLink to="/Profile">
                         <i className="fa fa-pencil-square-o" aria-hidden="true"></i>{'    '}Profile
                     </NavLink>
                 </NavItem>

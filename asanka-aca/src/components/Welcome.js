@@ -1,40 +1,25 @@
 import React from "react";
-//import {Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
 import "../css/headimg.css";
-
+import "../css/Welcome.css";
 import constants from './constants';
 
 export default class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userID: undefined,
-            email: "",
-            password: "",
-            errorMessage: "",
-            school:""
+            email: undefined,
+            password: undefined
         }
     }
 
-    componentDidMount() {
-        this.authUnsub = firebase.auth().onAuthStateChanged(user => {
-            this.setState({userID: user});
-        });
-    }
-
-    componentWillUnmount() {
-        this.authUnsub();
-    }
-
-    signIn(evt) {
-        evt.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.props.history.push(constants.routes.dashboard))
-            .catch(err => window.alert(err));
+    handleSignIn(event) {
+        event.preventDefault(); //don't submit
+        this.props.signInCallback(this.state.email, this.state.password);
     }
 
     render() {
@@ -48,6 +33,7 @@ export default class Welcome extends React.Component {
                             {this.state.errorMessage}
                         </div>
                         : undefined}
+                    {this.props.user && <Redirect to={constants.routes.dashboard} />}    
 
                     <div className='formContainer rounded'>
                     <div className='Asanka-Logo'>
@@ -81,7 +67,7 @@ export default class Welcome extends React.Component {
                             <div className='form-group'>
                                 <button disabled={this.state.working}
                                 type='submit'
-                                className='btn'>
+                                className='btn' onClick={(event) => this.handleSignIn(event)}>
                                 Sign In</button>
                             </div>
                         </form>

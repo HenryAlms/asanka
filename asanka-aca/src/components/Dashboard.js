@@ -1,12 +1,12 @@
 import React from "react";
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import constants from './constants';
 import MyNav from './Navbar.js';
 import './Navbar.css';
-import './Dashboard.css';
+import '../css/Dashboard.css';
 
 export default class Dashboard extends React.Component {
     constructor(props) {
@@ -20,11 +20,21 @@ export default class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.loadData('Alpha Beta');
+        //this.loadData('Alpha Beta');
+        this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) { //someone logged in!
+              this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
+            }
+            else { //someone logged out
+              this.setState({ user: null, duplicateGames: [] });
+            }
+          });
     }
 
     componentWillUnmount() {
-        this.folderRef.off();
+        //this.folderRef.off();
+        this.unregisterFunction();
+        
     }
 
     loadData() {
@@ -47,7 +57,7 @@ export default class Dashboard extends React.Component {
         })
         return (
             <div className="container-fluid main">
-                <MyNav />
+                {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
                     <h1 className="my-5">Dashboard</h1>
                 </div>
