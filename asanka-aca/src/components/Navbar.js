@@ -27,27 +27,27 @@ export class MyNav extends React.Component {
             <Nav navbar className="mr-auto navLinks">
                 <NavItem className="navText">
                     <NavLink to={constants.routes.dashboard}>
-                        <i className="fa fa-home" aria-hidden="true"></i>{'    '}Dashboard
+                        Dashboard
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/Dashboard">
-                        <i className="fa fa-users" aria-hidden="true"></i>{'    '}Categories
+                    <NavLink to="/">
+                        Categories
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/Dashboard">
-                        <i className="fa fa-calendar" aria-hidden="true"></i>{'    '}Devices
+                    <NavLink to="/">
+                        Devices
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/Dashboard">
-                        <i className="fa fa-pencil-square-o" aria-hidden="true"></i>{'    '}Users
+                    <NavLink to="/">
+                        Users
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
                     <NavLink to="/Profile">
-                        <i className="fa fa-pencil-square-o" aria-hidden="true"></i>{'    '}Profile
+                        Profile
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">

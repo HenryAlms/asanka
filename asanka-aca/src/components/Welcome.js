@@ -12,8 +12,8 @@ export default class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: undefined,
-            password: undefined
+            email: '',
+            password: ''
         }
     }
 
@@ -23,7 +23,6 @@ export default class Welcome extends React.Component {
     }
 
     render() {
-
         return (
             <div>
             <header className="jumbotron jumbotron-fluid p-0 text-light">

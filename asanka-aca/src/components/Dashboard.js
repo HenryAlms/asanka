@@ -21,6 +21,7 @@ export default class Dashboard extends React.Component {
 
     componentDidMount() {
         //this.loadData('Alpha Beta');
+        console.log(this.state.user);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
               this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
@@ -28,7 +29,7 @@ export default class Dashboard extends React.Component {
             else { //someone logged out
               this.setState({ user: null, duplicateGames: [] });
             }
-          });
+        });
     }
 
     componentWillUnmount() {

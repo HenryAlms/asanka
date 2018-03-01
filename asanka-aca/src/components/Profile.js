@@ -9,7 +9,6 @@ export default class Profile extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: null,
             fName: '',
             lName: ''
         }
@@ -18,8 +17,8 @@ export default class Profile extends React.Component {
 
 
     componentDidMount() {
-        const itemsRef = firebase.database().ref('Alpha Beta/Users');
-        console.log(itemsRef)
+        //const itemsRef = firebase.database().ref('Alpha Beta/Users');
+        //console.log(itemsRef)
         // itemsRef.on('value', (snapshot) => {
         //     let items = snapshot.val();
         //     let newState = [];
@@ -39,7 +38,7 @@ export default class Profile extends React.Component {
     render() {
         return (
             <section className='display-item'>
-                {!this.state.user && <Redirect to={constants.routes.welcome} />}    
+                {!this.props.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="container">
                     <h1>User Profile</h1>
 	                <div className="row">

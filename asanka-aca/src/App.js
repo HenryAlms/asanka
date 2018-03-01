@@ -62,20 +62,18 @@ class App extends Component {
     console.log(this.state.user);      
     
     return (
-      <div className="App">
-        <BrowserRouter>
-          <Row>
-            {this.state.user && <MyNav signOutCallback={() => this.handleSignOut()}/>}
-            <Col>  
-              <Switch>
-                <Route exact path={constants.routes.dashboard} render={renderDashboard}/>
-                <Route path={constants.routes.welcome} render={renderWelcome} />
-                <Route path={constants.routes.profile} render={renderProfile} />
-              </Switch>
-            </Col>
-          </Row>  
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Row>
+          {this.state.user && <MyNav signOutCallback={() => this.handleSignOut()}/>}
+          <Col>  
+            <Switch>
+              <Route exact path={constants.routes.dashboard} render={renderDashboard} />
+              <Route path={constants.routes.welcome} render={renderWelcome} />
+              <Route path={constants.routes.profile} render={renderProfile} />
+            </Switch>
+          </Col>
+        </Row>  
+      </BrowserRouter>
     );
   }
 }
