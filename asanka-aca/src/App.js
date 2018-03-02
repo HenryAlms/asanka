@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import Content from "./components/Content"
 
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
       else {
         this.setState({ user: null, loading: false });
       }
-    });    
+    });
   }
 
   componentWillUnmount() {
@@ -59,6 +60,9 @@ class App extends Component {
     let renderProfile = (routerProps) => {
       return <Profile {...routerProps} user={this.state.user} />
     }
+    let renderContent = (routerProps) => {
+      return <Content {...routerProps} user={this.state.user}/>
+    }
     console.log(this.state.user);      
     
     return (
@@ -70,6 +74,7 @@ class App extends Component {
               <Route exact path={constants.routes.dashboard} render={renderDashboard} />
               <Route path={constants.routes.welcome} render={renderWelcome} />
               <Route path={constants.routes.profile} render={renderProfile} />
+              <Route path={constants.routes.content} render={renderContent} />
             </Switch>
           </Col>
         </Row>  

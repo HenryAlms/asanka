@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import constants from './constants';
-import Dropdown from './Dropdown';
+import CategoryList from './CategoryList';
 
 
 export default class Content extends React.Component {
@@ -21,13 +21,21 @@ export default class Content extends React.Component {
     }
 
     componentDidMount() {
-        this.authUnsub = firebase.auth().onAuthStateChanged(user => {
-            this.setState({userID: user});
-        });
+        // this.authUnsub = firebase.auth().onAuthStateChanged(user => {
+        //     this.setState({userID: user});
+        // });
+        this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
+              this.setState({ user: firebaseUser, loading: false });
+            }
+            else {
+              this.setState({ user: null, loading: false });
+            }
+          });
     }
 
     componentWillUnmount() {
-        this.authUnsub();
+        this.unregisterFunction();
     }
 
     logOff() {
@@ -86,8 +94,20 @@ export default class Content extends React.Component {
                         value={this.state.description}
                         onInput={evt => this.setState({description: evt.target.value})}/>
                     </div>
-                    <div>
-                        <Dropdown school={this.state.school} device={this.state.device}/>
+                    <div className="dropdown">
+                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Choose a Device<span className="caret"></span></button>
+                        <CategoryList refPath={null}/>
+                    </div>
+                    <div className="dropdown">
+                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Choose a Subject<span className="caret"></span></button>
+                        <CategoryList refPath={"Device 1/Subjects/"}/>
+                    </div>
+                    <div className="dropdown">
+                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Choose a Location<span className="caret"></span></button>
+                        <CategoryList refPath={"Device 1/Subjects/Math"}/>
                     </div>
                     <div>
                         upload file button
