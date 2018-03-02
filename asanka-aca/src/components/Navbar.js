@@ -41,6 +41,11 @@ export class MyNav extends React.Component {
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
+                    <NavLink to="/NewContent">
+                        New Content
+                    </NavLink>
+                </NavItem>
+                <NavItem className="navText">
                     <NavLink to="/">
                         Users
                     </NavLink>
