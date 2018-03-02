@@ -2,10 +2,13 @@
     background-color: rgb(1, 51, 105);
     border-bottom: solid rgb(0, 36, 75) 1px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px;
+    font-family: 'Roboto', sans-serif;    
 }
 
 .navText a {
     color:white;
+    font-size: 12pt;
+    letter-spacing: 1px;
 }
 
 .navText {

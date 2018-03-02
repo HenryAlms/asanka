@@ -7,6 +7,9 @@ import Welcome from "./components/Welcome";
 import Dashboard from "./components/Dashboard";
 import MyNav from "./components/Navbar";
 import Profile from "./components/Profile";
+import Users from "./components/Users";
+import Devices from "./components/Devices";
+import Header from "./components/Header";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -59,18 +62,29 @@ class App extends Component {
     let renderProfile = (routerProps) => {
       return <Profile {...routerProps} user={this.state.user} />
     }
+    let renderUsers = (routerProps) => {
+      return <Users {...routerProps} user={this.state.user} />
+    }
+    let renderDevices = (routerProps) => {
+      return <Devices {...routerProps} user={this.state.user} />
+    }
     console.log(this.state.user);      
     
     return (
       <BrowserRouter>
         <Row>
           {this.state.user && <MyNav signOutCallback={() => this.handleSignOut()}/>}
-          <Col>  
-            <Switch>
-              <Route exact path={constants.routes.dashboard} render={renderDashboard} />
-              <Route path={constants.routes.welcome} render={renderWelcome} />
-              <Route path={constants.routes.profile} render={renderProfile} />
-            </Switch>
+          {this.state.user && <Header />}
+          <Col>
+            <div className="switch">  
+              <Switch>
+                <Route exact path={constants.routes.dashboard} render={renderDashboard} />
+                <Route path={constants.routes.welcome} render={renderWelcome} />
+                <Route path={constants.routes.profile} render={renderProfile} />
+                <Route path={constants.routes.users} render={renderUsers} />
+                <Route path={constants.routes.devices} render={renderDevices} />
+              </Switch>
+            </div>  
           </Col>
         </Row>  
       </BrowserRouter>
