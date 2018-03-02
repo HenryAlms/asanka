@@ -13,6 +13,7 @@ import Header from "./components/Header";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import Content from "./components/Content"
 
 
 class App extends Component {
@@ -31,7 +32,7 @@ class App extends Component {
       else {
         this.setState({ user: null, loading: false });
       }
-    });    
+    });
   }
 
   componentWillUnmount() {
@@ -67,6 +68,9 @@ class App extends Component {
     }
     let renderDevices = (routerProps) => {
       return <Devices {...routerProps} user={this.state.user} />
+    }  
+    let renderContent = (routerProps) => {
+      return <Content {...routerProps} user={this.state.user}/>
     }
     console.log(this.state.user);      
     
@@ -83,12 +87,13 @@ class App extends Component {
                 <Route path={constants.routes.profile} render={renderProfile} />
                 <Route path={constants.routes.users} render={renderUsers} />
                 <Route path={constants.routes.devices} render={renderDevices} />
+                <Route path={constants.routes.content} render={renderContent} />
               </Switch>
             </div>  
           </Col>
         </Row>  
       </BrowserRouter>
-    );
+    )
   }
 }
 
