@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Col, Container, Button } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Col, Row, Container, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import './Navbar.css';
+import '../css/TopNav.css';
+import CategoryList from './CategoryList';
 
 export class TopNav extends React.Component {
     constructor(props) {
@@ -13,9 +14,7 @@ export class TopNav extends React.Component {
     render() {
     return (
         <Row className="m-0" xs="0 " md="3" lg="2">
-            <Container className="sidebar">
-                <TopNavList />
-            </Container>  
+            <TopNavList/>
         </Row> 
     );
   }}
@@ -23,35 +22,21 @@ export class TopNav extends React.Component {
   class TopNavList extends Component {
     render() {
         return(
-            <Nav navbar className="mr-auto navLinks">
-                <NavItem className="navText">
-                    <NavLink to="/Dashboard">
-                        <i className="fa fa-home" aria-hidden="true"></i>{'    '}Dashboard
-                    </NavLink>
+            <Nav className="navLinksTop w-100">
+                <NavItem className="navText ml-0">
+                    <img id="aLogo" className="ml-auto" src="./imgs/Asanka-logo.png" alt="Asanka Logo"/>
                 </NavItem>
-
-                
-
-                
-
-                <NavItem className="navText">
-                    <Dropdown id="Device Dropdown"/>
-                    {/* <NavLink to="/Dashboard">
-                        <i className="fa fa-pencil-square-o" aria-hidden="true"></i>{'    '}Users
-                    </NavLink> */}
+                <NavItem className="navText mx-auto my-2">
+                        <button id="dev" className="btn btn-primary dropdown-toggle mx-auto" type="button" data-toggle="dropdown">
+                        Choose a Device<span className="caret"></span></button>
+                    <CategoryList id="Device Dropdown" refPath={null}/>
                 </NavItem>
-                <NavItem className="navText">
-                    <Dropdown id="Profile Dropdown"/>
-                    {/* <NavLink to="/Dashboard">
-                        <i className="fa fa-pencil-square-o" aria-hidden="true"></i>{'    '}Profile
-                    </NavLink> */}
-                </NavItem>
-                <NavItem className="navText">
-                    <Button onClick={() => this.props.signOutCallback()} className="btn">Log Out</Button>
+                <NavItem className="navText mr-2 my-2">
+                    <Button id="logout" onClick={() => this.props.signOutCallback()} className="btn">Log Out</Button>
                 </NavItem>
             </Nav>
         )
     }
 }
 
-export default MyNav;
+export default TopNav;
