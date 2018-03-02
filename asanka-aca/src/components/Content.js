@@ -74,7 +74,6 @@ export default class Content extends React.Component {
     render() {
         return (
             <div>
-                <TopNav/>
                 <div className='container'>
                     <form className="">
                     <div className='form-group'>
