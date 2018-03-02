@@ -32,17 +32,18 @@ export default class Dropdown extends React.Component {
 
     render() {
         //something
+        let path = this.props.refPath;
         //let device = firebase.database().ref(this.state.school + "/" + this.state.device);
-        let terms = firebase.database().ref("Device 1/" + this.state.term);         //this.state.school + "/" + 
-        let subjects = firebase.database().ref("Device 1/Term 1/"  + this.state.subjects);      //this.state.school + "/" + + this.state.term + "/"
+        let terms = firebase.database().ref(this.props.refPath);      //this.state.school + "/" + 
+        //let subjects = firebase.database().ref("Device 1/Term 1/"  + this.state.subjects);      //this.state.school + "/" + + this.state.term + "/"
         //let teachers = firebase.database().ref("users/");       //this.state.school + 
         let cat = <CategoryList category={terms}/>
-        let sub = <CategoryList category={subjects}/>
+        //let sub = <CategoryList category={subjects}/>
+        // {sub}
         return (
-            <div>
+            <ul className="dropdown-menu">
                 {cat}
-                {sub}
-            </div>
+            </ul>
         )
     }
 }
