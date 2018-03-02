@@ -10,30 +10,53 @@ export default class CategoryList extends React.Component {
         super(props);
         this.state = {
             userID:undefined,
-            categories: undefined,
+            categories: [],
+            selections: []
         }
     }
 
     componentDidMount() {
-        this.unlisten = this.props.category.on("value", snapshot => this.setState({categories: snapshot}));
+        this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
+              this.setState({ user: firebaseUser, loading: false });
+              this.loadData();
+            }
+            else {
+              this.setState({ user: null, loading: false });
+            }
+          });
     }
 
     componentWillUnmount() {
-        this.props.category.off("value", this.unlisten);
+        this.unregisterFunction();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.props.category.off("value", this.unlisten);
-        this.props.category.on("value", snapshot => this.setState({categories: snapshot}));
+    loadData() {
+        let ref;
+        console.log(this.props.refPath);
+        if(this.props.refPath) {
+            ref = firebase.database().ref(this.props.refPath);
+            console.log("here")
+        } else {
+            console.log("THERE")
+            ref = firebase.database().ref();
+        }
+        ref.on('value', (snapshot) => {
+            let catValue = snapshot.val();
+            let catArray = Object.keys(catValue).map((key) => {
+                console.log(key);
+                return {name: key};
+            })
+            console.log(catArray);
+            this.setState({categories: catArray})
+        });
     }
 
     render() {
-        let selections = [];
-        if(this.state.categories) {
-            console.log(this.state.categories)            
+        if(this.state.categories) {        
             this.state.categories.forEach(category => {
-                console.log(category.val() + " category value");
-                selections.push(<Category key={category.key} level={category.val()}/>)
+                console.log(category.key);
+                this.state.selections.push(<Category name={category.name}/>);
             });
         } else {
             return (
@@ -44,11 +67,9 @@ export default class CategoryList extends React.Component {
         }
 
         return (
-            <div>
-                <ul>
-                    {selections}
-                </ul>
-            </div>
+            <ul className="dropdown-menu">
+                {this.state.selections}
+            </ul>
         )
     }
 }

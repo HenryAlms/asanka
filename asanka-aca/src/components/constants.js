@@ -1,8 +1,10 @@
 export default {
     routes: {
-        welcome: "/",
-        dashboard: "/Dashboard",
+        welcome: "/Welcome",
+        dashboard: "/",
         content: "/NewContent",
-        profile: "/"
+        profile: "/Profile",
+        users: "/Users",
+        devices: "/Devices"
     }
 }
