@@ -1,3 +1,7 @@
+body {
+    font-size: 10pt;    
+}
+
 .folders-section {
     background-color: #B4B4B4;
     border-radius: 10px;
@@ -6,7 +10,7 @@
 .folderBtn {
     background-color: white;
     color: #333;
-    font-size: 12pt;
+    font-size: 10pt;
     letter-spacing: 1px; 
     border-radius: 6px; 
     border: none;
@@ -15,7 +19,6 @@
 
 .folderBtn:hover {
     box-shadow: rgba(180, 135, 135, 0.2) 0px 0px 15px;  
-    size: 2;
     background-color: white;
     color: #333;
     transform: scale(1.1);
@@ -25,6 +28,8 @@
     background-color: #333;
     border-radius: 10px;    
     color: white;
+    letter-spacing: 2px;
+    font-weight: 0;
 }
 
 .myTable {

@@ -62,7 +62,7 @@ export default class Dashboard extends React.Component {
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
-                    <h1 className="my-5">DASHBOARD</h1>
+                    <h1 className="my-5">Dashboard</h1>
                 </div>
                 <div className="content-management">
                     <h2 className="mb-4">Content Management</h2>

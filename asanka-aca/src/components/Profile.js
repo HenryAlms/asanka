@@ -37,7 +37,7 @@ export default class Profile extends React.Component {
 
     render() {
         return (
-            <section className='display-item'>
+            <section className='display-item my-5'>
                 {!this.props.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="container">
                     <h1>User Profile</h1>
