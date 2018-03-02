@@ -5,6 +5,8 @@ import 'firebase/database';
 
 import constants from './constants';
 import CategoryList from './CategoryList';
+import TopNav from './TopNav';
+import '../css/Content.css'
 
 
 export default class Content extends React.Component {
@@ -21,9 +23,6 @@ export default class Content extends React.Component {
     }
 
     componentDidMount() {
-        // this.authUnsub = firebase.auth().onAuthStateChanged(user => {
-        //     this.setState({userID: user});
-        // });
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
               this.setState({ user: firebaseUser, loading: false });
@@ -62,12 +61,20 @@ export default class Content extends React.Component {
         this.setState({body: ""});
     }
 
+    // catSelect(button, value) {
+    //     if(button = device) {
+    //         this.device = 
+    //     } else if (button = subject) {
+    //         this.subject = ;
+    //     } else {
+    //         this.location = ;
+    //     }
+    // }
+
     render() {
         return (
             <div>
-                <div>
-                    <p> Hello, user </p>
-                </div>
+                <TopNav/>
                 <div className='container'>
                     <form className="">
                     <div className='form-group'>
@@ -94,29 +101,25 @@ export default class Content extends React.Component {
                         value={this.state.description}
                         onInput={evt => this.setState({description: evt.target.value})}/>
                     </div>
-                    <div className="dropdown">
-                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Choose a Device<span className="caret"></span></button>
-                        <CategoryList refPath={null}/>
-                    </div>
-                    <div className="dropdown">
-                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Choose a Subject<span className="caret"></span></button>
-                        <CategoryList refPath={"Device 1/Subjects/"}/>
-                    </div>
-                    <div className="dropdown">
-                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Choose a Location<span className="caret"></span></button>
-                        <CategoryList refPath={"Device 1/Subjects/Math"}/>
-                    </div>
-                    <div>
-                        upload file button
-                    </div>
-                    <div className='form-group'>
-                        <button disabled={this.state.working}
-                        type='submit'
-                        className='btn btn-success'>
-                        Add File</button>
+                    <div className="dropGroup">
+                        <div className="dropdown">
+                            <button id="device" className="btn btn-primary dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                            Choose a Device<span className="caret"></span></button>
+                            <CategoryList refPath={null}/>
+                        </div>
+                        <div className="dropdown">
+                            <button id="subject" className="btn btn-primary dropdown-toggle my-3 mx-auto" title="Choose Category" type="button" data-toggle="dropdown">
+                            Choose a Subject<span className="caret"></span></button>
+                            <CategoryList refPath={"Device 1/Subjects/"}/>
+                        </div>
+                        <div className="dropdown">
+                            <button id="location" className="btn btn-primary dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                            Choose a Location<span className="caret"></span></button>
+                            <CategoryList refPath={"Device 1/Subjects/Math"}/>
+                        </div>
+                        <div className='dropdown form-group'>
+                            <input className="mr-auto" type="file"/>
+                        </div>
                     </div>
                     </form>
                 </div>
