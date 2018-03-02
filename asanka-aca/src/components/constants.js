@@ -3,6 +3,8 @@ export default {
         welcome: "/Welcome",
         dashboard: "/",
         content: "/NewContent",
-        profile: "/Profile"
+        profile: "/Profile",
+        users: "/Users",
+        devices: "/Devices"
     }
 }
