@@ -74,7 +74,6 @@ export default class Content extends React.Component {
     render() {
         return (
             <div>
-                <TopNav/>
                 <div className='container'>
                     <form className="">
                     <div className='form-group'>
@@ -103,17 +102,17 @@ export default class Content extends React.Component {
                     </div>
                     <div className="dropGroup">
                         <div className="dropdown">
-                            <button id="device" className="btn btn-primary dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                            <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                             Choose a Device<span className="caret"></span></button>
                             <CategoryList refPath={null}/>
                         </div>
                         <div className="dropdown">
-                            <button id="subject" className="btn btn-primary dropdown-toggle my-3 mx-auto" title="Choose Category" type="button" data-toggle="dropdown">
+                            <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" title="Choose Category" type="button" data-toggle="dropdown">
                             Choose a Subject<span className="caret"></span></button>
                             <CategoryList refPath={"Device 1/Subjects/"}/>
                         </div>
                         <div className="dropdown">
-                            <button id="location" className="btn btn-primary dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                            <button id="location" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                             Choose a Location<span className="caret"></span></button>
                             <CategoryList refPath={"Device 1/Subjects/Math"}/>
                         </div>
