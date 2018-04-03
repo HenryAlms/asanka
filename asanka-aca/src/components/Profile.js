@@ -39,6 +39,12 @@ export default class Profile extends React.Component {
     }
 
     render() {
+        var user = firebase.auth().currentUser;
+        console.log(user);
+        var uid = user.uid;
+        var email = user.email;
+        console.log(uid);
+        var dateCreated = user.metadata.creationTime;
         return (
             <section className='display-item'>
                 {!this.props.user && <Redirect to={constants.routes.welcome} />}    
@@ -57,52 +63,21 @@ export default class Profile extends React.Component {
                         <div className="col-md-9 personal-info">        
                             <form className="form-horizontal" role="form">
                                 <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">First name:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='John'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Last name:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='Smith'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">School:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='Alpha Beta'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Email:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='email@address.com'></input>
+                                        <p>{email}</p>
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Username:</label>
+                                    <label className="col-lg-3 col-form-label">User UID:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='CurrentUser'></input>
+                                        <p>{uid}</p>
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Password:</label>
+                                    <label className="col-lg-3 col-form-label">Date Created:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="password" placeholder='CurrentPassword'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Confirm password:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="password" placeholder='CurrentPassword'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label"></label>
-                                    <div className="col-lg-8">
-                                        <button type="button" className="btn btn-success">Submit Changes</button>
-                                        <span></span>
+                                        <p>{dateCreated}</p>
                                     </div>
                                 </div>
                             </form>
