@@ -4,9 +4,7 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import constants from './constants';
-import CategoryList from './CategoryList';
-import TopNav from './TopNav';
-import '../css/Content.css'
+import '../css/Content.css';
 
 
 export default class Content extends React.Component {
@@ -18,7 +16,10 @@ export default class Content extends React.Component {
             date: "",
             description:"",
             school: "",
-            device: ""
+            device: "",
+            refPath: null,
+            devRef: "",
+            locRef: "",
         }
     }
 
@@ -61,17 +62,21 @@ export default class Content extends React.Component {
         this.setState({body: ""});
     }
 
-    // catSelect(button, value) {
-    //     if(button = device) {
-    //         this.device = 
-    //     } else if (button = subject) {
-    //         this.subject = ;
-    //     } else {
-    //         this.location = ;
-    //     }
-    // }
+    handleRefChange() {
+        this.setState({devRef:this.handleRefChange})
+    }
+
+    handleSubRef() {
+        //
+    }
+
+    handleLocRef() {
+        //
+    }
+
 
     render() {
+        
         return (
             <div>
                 <div className='container'>
@@ -101,20 +106,22 @@ export default class Content extends React.Component {
                         onInput={evt => this.setState({description: evt.target.value})}/>
                     </div>
                     <div className="dropGroup">
-                        <div className="dropdown">
-                            <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                            Choose a Device<span className="caret"></span></button>
-                            <CategoryList refPath={null}/>
-                        </div>
-                        <div className="dropdown">
-                            <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" title="Choose Category" type="button" data-toggle="dropdown">
-                            Choose a Subject<span className="caret"></span></button>
-                            <CategoryList refPath={"Device 1/Subjects/"}/>
-                        </div>
-                        <div className="dropdown">
-                            <button id="location" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                            Choose a Location<span className="caret"></span></button>
-                            <CategoryList refPath={"Device 1/Subjects/Math"}/>
+                        <div>
+                            <div className="dropdown">
+                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Choose A Device<span className="caret"></span></button>
+                                <CategoryList refPath={null} handleDevRef={this.handleRefChange}/>
+                            </div>
+                            <div className="dropdown">
+                                <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Choose A Subject<span className="caret"></span></button>
+                                <CategoryList refPath={this.devRef} handleSubRef={this.handleSubRef}/>
+                            </div>
+                            <div className="dropdown">
+                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Choose A Location<span className="caret"></span></button>
+                                <CategoryList refPath={this.locRef} handleLocRef={this.handleLocRef}/>
+                            </div>
                         </div>
                         <div className='dropdown form-group'>
                             <input className="mr-auto" type="file"/>
@@ -124,5 +131,74 @@ export default class Content extends React.Component {
                 </div>
             </div>
         );
+    }
+}
+
+class CategoryList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userID:undefined,
+            categories: [],
+            selections: [],
+        }
+    }
+
+    componentDidMount() {
+        this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
+              this.setState({ user: firebaseUser, loading: false });
+              this.loadData(this.props.refPath);
+            }
+            else {
+              this.setState({ user: null, loading: false });
+            }
+          });
+    }
+
+    componentWillUnmount() {
+        this.unregisterFunction();
+    }
+
+    loadData() {
+        let ref;
+        if(this.props.refPath) {
+            ref = firebase.database().ref(this.props.refPath);
+        } else {
+            ref = firebase.database().ref();
+        }
+        ref.on('value', (snapshot) => {
+            let catValue = snapshot.val();
+            let catArray = Object.keys(catValue).map((key) => {
+                console.log(key);
+                return {name: key};
+            })
+            console.log(catArray);
+            this.setState({categories: catArray})
+        });
+    }
+
+    handleClick(name) {
+        //something
+    }
+
+    render() {
+        if(this.state.categories) {        
+            this.state.categories.forEach(category => {
+                this.state.selections.push(<li><a href="#" onClick={this.handleClick(category.name)}>{category.name}</a></li>);
+            });
+        } else {
+            return (
+                <div>
+                    loading...
+                </div>
+            )
+        }
+
+        return (
+            <ul className="dropdown-menu">
+                {this.state.selections}
+            </ul>
+        )
     }
 }
