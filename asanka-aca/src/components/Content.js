@@ -63,7 +63,8 @@ export default class Content extends React.Component {
     }
 
     handleRefChange() {
-        this.setState({devRef:this.handleRefChange})
+        console.log(this.props.handleDevRef);
+        this.setState({devRef:this.props.handleDevRef})
     }
 
     handleSubRef() {

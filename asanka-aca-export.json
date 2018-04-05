@@ -1,0 +1,61 @@
+{
+  "Device 1" : {
+    "Subjects" : {
+      "English" : {
+        "test" : "test"
+      },
+      "Math" : {
+        "test" : "test"
+      },
+      "Science" : {
+        "test" : "test"
+      }
+    }
+  },
+  "Device 2" : {
+    "Subjects" : {
+      "English" : {
+        "test" : "test"
+      },
+      "Math" : {
+        "test" : "test"
+      },
+      "Science" : {
+        "test" : "test"
+      }
+    }
+  },
+  "Device 3" : {
+    "Subjects" : {
+      "English" : {
+        "test" : "test"
+      },
+      "Math" : {
+        "test" : "test"
+      },
+      "Science" : {
+        "test" : "test"
+      }
+    }
+  },
+  "Users" : {
+    "User 1" : {
+      "Age" : 26,
+      "Phone" : "111-111-1111",
+      "Photo" : "test.jpg",
+      "School" : "AlphaBeta",
+      "email" : "janedoe@uw.edu",
+      "fName" : "Jane",
+      "lName" : "Doe"
+    },
+    "User2" : {
+      "Age" : 26,
+      "Phone" : "222-222-2222",
+      "Photo" : "test2.jpg",
+      "School" : "Bishop Dowd",
+      "email" : "maryjones@uw.edu",
+      "fName" : "Mary",
+      "lName" : "Jones"
+    }
+  }
+}
