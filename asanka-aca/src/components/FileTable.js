@@ -15,7 +15,7 @@ export default class FileTable extends React.Component {
         this.setState({files: this.props.files});
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.setState({files: nextProps.files})
     }
 
@@ -23,12 +23,8 @@ export default class FileTable extends React.Component {
         console.log(this.state.files);
         let fileItems = [];
         if (this.state.files) {
-            console.log('hello');
-            fileItems = this.state.files;
-            console.log(fileItems);
-            fileItems.map((file) => {
-                console.log('hello');
-                console.log(file.title);
+            fileItems = this.state.files.map((file) => {
+                console.log('yay');
                 return (
                     <tr key={file.title}>
                         <td>{file.title}</td>
@@ -37,8 +33,9 @@ export default class FileTable extends React.Component {
                     </tr>    
                 )
             })
-        }
-
+        }    
+            
+        console.log(fileItems);
         return (
             <Table className="myTable">
                 <thead>

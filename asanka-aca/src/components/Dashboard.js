@@ -26,7 +26,6 @@ export default class Dashboard extends React.Component {
     componentDidMount() {
         this.loadFolders();
         this.loadFiles();
-        console.log(this.state.user);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
               this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
@@ -45,11 +44,10 @@ export default class Dashboard extends React.Component {
 
     loadFolders() {
         this.folderRef = firebase.database().ref(this.state.query + '/Folders');
-        console.log(this.state.query);
         this.folderRef.on('value', (snapshot) => {
             let foldersValue = snapshot.val();
+            console.log(foldersValue);
             let foldersArray = Object.keys(foldersValue).map((key) => {
-                console.log(key);
                 return {name: key};
             })
             this.setState({folders: foldersArray})
@@ -58,31 +56,27 @@ export default class Dashboard extends React.Component {
 
     loadFiles() {
         this.fileRef = firebase.database().ref(this.state.query + '/Files');
-        console.log(this.state.query);
-        /*this.fileRef.on('value', (snapshot) => {
+        this.fileRef.on('value', (snapshot) => {
             let fileValue = snapshot.val();
             console.log(fileValue)
             let fileArray = Object.keys(fileValue).map((key) => {
                 console.log(key);
                 return {name: key};
             })
-            this.setState({files: fileArray})
-        });  */
+            this.setState({files: fileValue})
+        }); 
+        /*
         let filesArray = [];
         this.fileRef.once('value')
             .then((snapshot) => {
                 snapshot.forEach(function(childSnapshot) {
                     let key = childSnapshot.key;
-                    console.log(key);
                     let childData = childSnapshot.val();
-                    console.log(childData);
                     childData.key = key;
-                    console.log(childData);
                     filesArray.push(childData);
                 })
             })
-        console.log(filesArray);
-        this.setState({files: filesArray});    
+        this.setState({files: filesArray});    */
     }
 
     folderOnClick(folder) {
@@ -95,8 +89,6 @@ export default class Dashboard extends React.Component {
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClick={this.folderOnClick} />
             )
         })
-
-        console.log(this.state.files);
         return (
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
