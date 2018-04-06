@@ -1,19 +1,31 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
+import {} from "reactstrap";
+import './components/AsankaCloudPage.js';
+
 
 class App extends Component {
   render() {
+    let renderAsankaCloud = (routerProps) => {
+      return <AsankaCloud {...routerProps} />
+    }
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">ASANKA</h1>
+          </header>
+          <p className="App-intro">
+            Home Page
+          </p>
+        </div>
+        <Switch>
+          <Route exact path="/" render={renderAsankaCloud} />
+        </Switch>  
+      </BrowserRouter>  
     );
   }
 }
