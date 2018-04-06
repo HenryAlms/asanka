@@ -6,38 +6,47 @@ import 'firebase/database';
 import constants from './constants';
 
 export default class Profile extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
+            userID: '',
             fName: '',
-            lName: ''
+            lName: '',
+            pWord: '',
+            email: '',
+            school: ''
         }
-        // console.log(this.state)
     }
 
 
     componentDidMount() {
-        //const itemsRef = firebase.database().ref('Alpha Beta/Users');
-        //console.log(itemsRef)
-        // itemsRef.on('value', (snapshot) => {
-        //     let items = snapshot.val();
-        //     let newState = [];
-        //     for (let item in items) {
-        //         newState.push({
-        //             id: item,
-        //             title: items[item].fName,
-        //             user: items[item].user
-        //         });
-        //     }
-        //     this.setState({
-        //         items: newState
-        //     });
-        // });
+        this.authUnsub = firebase.auth().onAuthStateChanged(user => {
+            this.setState({userID: user});
+        });
+        this.loadData(this.state.user);
+    }
+
+    loadData() {
+        this.folderRef = firebase.database().ref(this.state.query);
+        this.folderRef.on('value', (snapshot) => {
+            let foldersValue = snapshot.val();
+            let foldersArray = Object.keys(foldersValue).map((key) => {
+                console.log(key);
+                return {name: key};
+            })
+            this.setState({folders: foldersArray})
+        });  
     }
 
     render() {
+        var user = firebase.auth().currentUser;
+        console.log(user);
+        var uid = user.uid;
+        var email = user.email;
+        console.log(uid);
+        var dateCreated = user.metadata.creationTime;
         return (
-            <section className='display-item'>
+            <section className='display-item my-5'>
                 {!this.props.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="container">
                     <h1>User Profile</h1>
@@ -54,52 +63,21 @@ export default class Profile extends React.Component {
                         <div className="col-md-9 personal-info">        
                             <form className="form-horizontal" role="form">
                                 <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">First name:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='John'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Last name:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='Smith'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">School:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='Alpha Beta'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Email:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='email@address.com'></input>
+                                        <p>{email}</p>
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Username:</label>
+                                    <label className="col-lg-3 col-form-label">User UID:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="text" placeholder='CurrentUser'></input>
+                                        <p>{uid}</p>
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Password:</label>
+                                    <label className="col-lg-3 col-form-label">Date Created:</label>
                                     <div className="col-lg-8">
-                                        <input className="form-control" type="password" placeholder='CurrentPassword'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label">Confirm password:</label>
-                                    <div className="col-lg-8">
-                                        <input className="form-control" type="password" placeholder='CurrentPassword'></input>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-lg-3 col-form-label"></label>
-                                    <div className="col-lg-8">
-                                        <button type="button" className="btn btn-success">Submit Changes</button>
-                                        <span></span>
+                                        <p>{dateCreated}</p>
                                     </div>
                                 </div>
                             </form>

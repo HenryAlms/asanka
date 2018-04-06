@@ -1,5 +1,15 @@
 body {
-    font-size: 10pt;    
+    padding-top: 75px;
+    background-color: #dbdbdb;
+}
+
+.main {
+    background-color: white;
+    width: 75%;
+    border-radius: 10px;
+    margin: auto;
+    box-shadow: rgba(70, 70, 70, 0.2) 0px 0px 20px;
+
 }
 
 .folders-section {
@@ -48,4 +58,9 @@ body {
 
 .search {
     float: left;
+}
+
+.back-button {
+    color: green;
+    margin-right: 10px;
 }
