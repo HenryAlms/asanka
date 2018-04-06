@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import constants from './constants';
-import CategoryList from './CategoryList';
+import '../css/Content.css';
 
 
 export default class Content extends React.Component {
@@ -16,14 +16,14 @@ export default class Content extends React.Component {
             date: "",
             description:"",
             school: "",
-            device: ""
+            device: "",
+            refPath: null,
+            devRef: "",
+            locRef: "",
         }
     }
 
     componentDidMount() {
-        // this.authUnsub = firebase.auth().onAuthStateChanged(user => {
-        //     this.setState({userID: user});
-        // });
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
               this.setState({ user: firebaseUser, loading: false });
@@ -62,12 +62,24 @@ export default class Content extends React.Component {
         this.setState({body: ""});
     }
 
+    handleRefChange() {
+        console.log(this.props.handleDevRef);
+        this.setState({devRef:this.props.handleDevRef})
+    }
+
+    handleSubRef() {
+        //
+    }
+
+    handleLocRef() {
+        //
+    }
+
+
     render() {
+        
         return (
             <div>
-                <div>
-                    <p> Hello, user </p>
-                </div>
                 <div className='container'>
                     <form className="">
                     <div className='form-group'>
@@ -94,33 +106,100 @@ export default class Content extends React.Component {
                         value={this.state.description}
                         onInput={evt => this.setState({description: evt.target.value})}/>
                     </div>
-                    <div className="dropdown">
-                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Choose a Device<span className="caret"></span></button>
-                        <CategoryList refPath={null}/>
-                    </div>
-                    <div className="dropdown">
-                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Choose a Subject<span className="caret"></span></button>
-                        <CategoryList refPath={"Device 1/Subjects/"}/>
-                    </div>
-                    <div className="dropdown">
-                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Choose a Location<span className="caret"></span></button>
-                        <CategoryList refPath={"Device 1/Subjects/Math"}/>
-                    </div>
-                    <div>
-                        upload file button
-                    </div>
-                    <div className='form-group'>
-                        <button disabled={this.state.working}
-                        type='submit'
-                        className='btn btn-success'>
-                        Add File</button>
+                    <div className="dropGroup">
+                        <div>
+                            <div className="dropdown">
+                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Choose A Device<span className="caret"></span></button>
+                                <CategoryList refPath={null} handleDevRef={this.handleRefChange}/>
+                            </div>
+                            <div className="dropdown">
+                                <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Choose A Subject<span className="caret"></span></button>
+                                <CategoryList refPath={this.devRef} handleSubRef={this.handleSubRef}/>
+                            </div>
+                            <div className="dropdown">
+                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Choose A Location<span className="caret"></span></button>
+                                <CategoryList refPath={this.locRef} handleLocRef={this.handleLocRef}/>
+                            </div>
+                        </div>
+                        <div className='dropdown form-group'>
+                            <input className="mr-auto" type="file"/>
+                        </div>
                     </div>
                     </form>
                 </div>
             </div>
         );
+    }
+}
+
+class CategoryList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userID:undefined,
+            categories: [],
+            selections: [],
+        }
+    }
+
+    componentDidMount() {
+        this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
+              this.setState({ user: firebaseUser, loading: false });
+              this.loadData(this.props.refPath);
+            }
+            else {
+              this.setState({ user: null, loading: false });
+            }
+          });
+    }
+
+    componentWillUnmount() {
+        this.unregisterFunction();
+    }
+
+    loadData() {
+        let ref;
+        if(this.props.refPath) {
+            ref = firebase.database().ref(this.props.refPath);
+        } else {
+            ref = firebase.database().ref();
+        }
+        ref.on('value', (snapshot) => {
+            let catValue = snapshot.val();
+            let catArray = Object.keys(catValue).map((key) => {
+                console.log(key);
+                return {name: key};
+            })
+            console.log(catArray);
+            this.setState({categories: catArray})
+        });
+    }
+
+    handleClick(name) {
+        //something
+    }
+
+    render() {
+        if(this.state.categories) {        
+            this.state.categories.forEach(category => {
+                this.state.selections.push(<li><a href="#" onClick={this.handleClick(category.name)}>{category.name}</a></li>);
+            });
+        } else {
+            return (
+                <div>
+                    loading...
+                </div>
+            )
+        }
+
+        return (
+            <ul className="dropdown-menu">
+                {this.state.selections}
+            </ul>
+        )
     }
 }

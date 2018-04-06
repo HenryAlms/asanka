@@ -6,33 +6,36 @@ import 'firebase/database';
 import constants from './constants';
 
 export default class Profile extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
+            userID: '',
             fName: '',
-            lName: ''
+            lName: '',
+            pWord: '',
+            email: '',
+            school: ''
         }
-        // console.log(this.state)
     }
 
 
     componentDidMount() {
-        //const itemsRef = firebase.database().ref('Alpha Beta/Users');
-        //console.log(itemsRef)
-        // itemsRef.on('value', (snapshot) => {
-        //     let items = snapshot.val();
-        //     let newState = [];
-        //     for (let item in items) {
-        //         newState.push({
-        //             id: item,
-        //             title: items[item].fName,
-        //             user: items[item].user
-        //         });
-        //     }
-        //     this.setState({
-        //         items: newState
-        //     });
-        // });
+        this.authUnsub = firebase.auth().onAuthStateChanged(user => {
+            this.setState({userID: user});
+        });
+        this.loadData(this.state.user);
+    }
+
+    loadData() {
+        this.folderRef = firebase.database().ref(this.state.query);
+        this.folderRef.on('value', (snapshot) => {
+            let foldersValue = snapshot.val();
+            let foldersArray = Object.keys(foldersValue).map((key) => {
+                console.log(key);
+                return {name: key};
+            })
+            this.setState({folders: foldersArray})
+        });  
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import {Container, Table, Button} from 'reactstrap';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -103,7 +103,7 @@ export default class Dashboard extends React.Component {
                 </Container>
                 <div>
                     <div className="fileBtns">
-                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i>Add New File</Button>
+                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link to={constants.routes.content}>Add New File</Link></Button>
                         <Button color="secondary" className="m-2"><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
                     </div>    
                     <FileTable files={this.state.files} />   
