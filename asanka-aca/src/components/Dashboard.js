@@ -60,23 +60,26 @@ export default class Dashboard extends React.Component {
             let fileValue = snapshot.val();
             console.log(fileValue)
             let fileArray = Object.keys(fileValue).map((key) => {
-                console.log(key);
-                return {name: key};
+                console.log(fileValue[key]);
+                fileValue.key = key;
+                return fileValue[key];
             })
-            this.setState({files: fileValue})
+            this.setState({files: fileArray});
         }); 
-        /*
-        let filesArray = [];
-        this.fileRef.once('value')
-            .then((snapshot) => {
-                snapshot.forEach(function(childSnapshot) {
-                    let key = childSnapshot.key;
-                    let childData = childSnapshot.val();
-                    childData.key = key;
-                    filesArray.push(childData);
-                })
-            })
-        this.setState({files: filesArray});    */
+        
+        // let filesArray = [];
+        // this.fileRef.once('value').then((snapshot) => {
+        //         snapshot.forEach(function(childSnapshot) {
+        //             let key = childSnapshot.key;
+        //             console.log(key);
+        //             let childData = childSnapshot.val();
+        //             console.log(childData);
+        //             childData.key = key;
+        //             filesArray.push(childData);
+        //             console.log(filesArray);
+        //         })
+        //     })
+        // this.setState({files: filesArray});
     }
 
     folderOnClick(folder) {
