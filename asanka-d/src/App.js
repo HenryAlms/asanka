@@ -42,9 +42,8 @@ class App extends Component {
   }
 
   handleSignOut() {
-    this.setState({ errorMessage: null });
     firebase.auth().signOut()
-      .catch((err) => this.setState({ errorMessage: err.message }))
+      .catch((err) => this.setState({ user: null }))
   }
 
   render() {
@@ -77,7 +76,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Row>
-          <Header />
+          <Header handleSignOut={this.handleSignOut()}/>
           <Col>
             <div className="switch">  
               <Switch>

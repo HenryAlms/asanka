@@ -31,7 +31,7 @@ export default class DeviceHome extends React.Component {
                         <div class="card-body">
                             <h5 class="card-title">Personal Files</h5>
                             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-danger">Cloud Account</a>
+                            <Link to={constants.routes.aca}><a href="#" class="btn btn-danger">Cloud Account</a></Link>
                         </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ export default class DeviceHome extends React.Component {
                         <div class="card-body">
                             <h5 class="card-title">Interactive Games</h5>
                             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <Link to={constants.routes.aca}><a href="#" class="btn btn-danger">Interactive Games</a></Link>
+                            <a href="#" class="btn btn-danger">Interactive Games</a>
                         </div>
                         </div>
                     </div>
