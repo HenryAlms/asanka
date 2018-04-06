@@ -15,12 +15,14 @@ export default class Content extends React.Component {
             title: "",
             date: "",
             description:"",
-            school: "",
-            device: "",
-            refPath: null,
-            devRef: "",
-            locRef: "",
-        }
+            query: null,
+            devRef: "Choose A Device",
+            subRef: "Choose A Subject",
+            locRef: "Choose A Location",
+        },
+        this.handleRefChange = this.handleRefChange.bind(this),
+        this.handleSubChange = this.handleSubChange.bind(this),
+        this.handleLocChange = this.handleLocChange.bind(this)
     }
 
     componentDidMount() {
@@ -62,17 +64,17 @@ export default class Content extends React.Component {
         this.setState({body: ""});
     }
 
-    handleRefChange() {
-        console.log(this.props.handleDevRef);
-        this.setState({devRef:this.props.handleDevRef})
+    handleRefChange(device) {
+        //this.setState({devRef:device});
+        console.log(device);
     }
 
-    handleSubRef() {
-        //
+    handleSubChange(subject) {
+        //something
     }
 
-    handleLocRef() {
-        //
+    handleLocChange(location) {
+        //omo
     }
 
 
@@ -110,18 +112,18 @@ export default class Content extends React.Component {
                         <div>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                Choose A Device<span className="caret"></span></button>
-                                <CategoryList refPath={null} handleDevRef={this.handleRefChange}/>
+                                {this.state.devRef}<span className="caret"></span></button>
+                                <CategoryList refPath={null} handleChange={(e) => this.handleRefChange(e)}/>
                             </div>
                             <div className="dropdown">
                                 <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                Choose A Subject<span className="caret"></span></button>
-                                <CategoryList refPath={this.devRef} handleSubRef={this.handleSubRef}/>
+                                {this.state.subRef}<span className="caret"></span></button>
+                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleSubChange(e)}/>
                             </div>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                Choose A Location<span className="caret"></span></button>
-                                <CategoryList refPath={this.locRef} handleLocRef={this.handleLocRef}/>
+                                {this.state.locRef}<span className="caret"></span></button>
+                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleLocChange(e)}/>
                             </div>
                         </div>
                         <div className='dropdown form-group'>
@@ -143,6 +145,7 @@ class CategoryList extends React.Component {
             categories: [],
             selections: [],
         }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -174,19 +177,19 @@ class CategoryList extends React.Component {
                 console.log(key);
                 return {name: key};
             })
-            console.log(catArray);
             this.setState({categories: catArray})
         });
     }
 
     handleClick(name) {
-        //something
+        console.log(name);
+        this.props.handleChange(name);
     }
 
     render() {
         if(this.state.categories) {        
             this.state.categories.forEach(category => {
-                this.state.selections.push(<li><a href="#" onClick={this.handleClick(category.name)}>{category.name}</a></li>);
+                this.state.selections.push(<li><a href="#" onclick={this.handleClick(category.name)}>{category.name}</a></li>);
             });
         } else {
             return (
