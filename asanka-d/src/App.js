@@ -8,7 +8,7 @@ import Header from "./components/header";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import Content from "./components/Content"
+import ACA from "./components/aca.js";
 
 
 class App extends Component {
@@ -47,6 +47,10 @@ class App extends Component {
   }
 
   render() {
+    let renderACA = (routerProps) => {
+      return <ACA {...routerProps} user={this.state.user} />
+    }
+
     // this is how you pass props to the components you render through the switch. pass props here, 
     //and use "render={renderComponentName}" in the switch
     // let renderWelcome = (routerProps) => {
@@ -72,12 +76,12 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Row>
-          {this.state.user && <MyNav signOutCallback={() => this.handleSignOut()}/>}
-          {this.state.user && <Header />}
+          <Header />
           <Col>
             <div className="switch">  
               <Switch>
-                <Route path={constants.routes.welcome} render={renderWelcome} />
+                {/*<Route path={constants.routes.welcome} render={renderWelcome} />*/}
+                <Route path={constants.routes.aca} render={renderACA} />
                 {/* <Route exact path={constants.routes.dashboard} render={renderDashboard} />
                 <Route path={constants.routes.welcome} render={renderWelcome} />
                 <Route path={constants.routes.profile} render={renderProfile} />
