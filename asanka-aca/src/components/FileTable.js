@@ -41,7 +41,7 @@ export default class FileTable extends React.Component {
             fileItems = this.state.files.map((file, i) => {
                 console.log('yay');
                 let active;
-                if (file) {
+                if (file.active) {
                     active = "Active";
                 } else {
                     active = "Inactive";
