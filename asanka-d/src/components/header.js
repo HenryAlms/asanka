@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Col, Container, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import '../css/Header.css';
+import '../css/header.css';
 import constants from './constants';
 
 export default class Header extends React.Component {

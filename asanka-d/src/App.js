@@ -4,11 +4,12 @@ import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import constants from "./components/constants";
 import { Col, Row } from 'reactstrap';
 import Welcome from "./components/homepage";
+import DeviceHome from './components/devicehome'
 import Header from "./components/header";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import Content from "./components/Content"
+// import Content from "./components/Content"
 
 
 class App extends Component {
@@ -49,12 +50,12 @@ class App extends Component {
   render() {
     // this is how you pass props to the components you render through the switch. pass props here, 
     //and use "render={renderComponentName}" in the switch
-    // let renderWelcome = (routerProps) => {
-    //   return <Welcome {...routerProps} user={this.state.user} signInCallback={(email, password) => this.handleSignIn(email, password)}  />
-    // }
-    // let renderDashboard = (routerProps) => {
-    //   return <Dashboard {...routerProps} user={this.state.user} />
-    // }
+    let renderWelcome = (routerProps) => {
+      return <Welcome {...routerProps} user={this.state.user} signInCallback={(email, password) => this.handleSignIn(email, password)}  />
+    }
+    let renderDevice = (routerProps) => {
+      return <DeviceHome {...routerProps} user={this.state.user} />
+    }
     // let renderProfile = (routerProps) => {
     //   return <Profile {...routerProps} user={this.state.user} />
     // }
@@ -72,12 +73,13 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Row>
-          {this.state.user && <MyNav signOutCallback={() => this.handleSignOut()}/>}
+          {/* {this.state.user && <MyNav signOutCallback={() => this.handleSignOut()}/>} */}
           {this.state.user && <Header />}
           <Col>
             <div className="switch">  
               <Switch>
                 <Route path={constants.routes.welcome} render={renderWelcome} />
+                <Route exact path={constants.routes.device} render={renderDevice} />
                 {/* <Route exact path={constants.routes.dashboard} render={renderDashboard} />
                 <Route path={constants.routes.welcome} render={renderWelcome} />
                 <Route path={constants.routes.profile} render={renderProfile} />
