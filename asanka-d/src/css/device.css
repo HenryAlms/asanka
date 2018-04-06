@@ -1,0 +1,39 @@
+.card {
+    height: 350px;
+    margin-top: 25%;
+    border-radius: 2%;
+}
+
+.btn {
+    margin-left: 20%;
+}
+
+img {
+    height: 150px;
+}
+
+#ges {
+    padding: 8px;
+}
+
+.background {
+    height: 100%;
+    width: 100%;
+}
+
+#welcome {
+    background-color: rgb(241, 241, 241);
+    justify-content: center;
+    font-size: 1.5em;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message {
+    height: 45px;
+    padding-top: .25em;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgb(83, 83, 83);
+}
