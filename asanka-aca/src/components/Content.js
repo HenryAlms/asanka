@@ -19,10 +19,10 @@ export default class Content extends React.Component {
             devRef: "Choose A Device",
             subRef: "Choose A Subject",
             locRef: "Choose A Location",
-        }
-        // this.handleRefChange = this.handleRefChange.bind(this),
-        // this.handleSubChange = this.handleSubChange.bind(this),
-        // this.handleLocChange = this.handleLocChange.bind(this)
+        },
+        this.handleRefChange = this.handleRefChange.bind(this),
+        this.handleSubChange = this.handleSubChange.bind(this),
+        this.handleLocChange = this.handleLocChange.bind(this)
     }
 
     componentDidMount() {
@@ -65,7 +65,7 @@ export default class Content extends React.Component {
     }
 
     handleRefChange(device) {
-        this.setState({devRef:device});
+        //this.setState({devRef:device});
         console.log(device);
     }
 
@@ -113,17 +113,17 @@ export default class Content extends React.Component {
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.devRef}<span className="caret"></span></button>
-                                <CategoryList refPath={null} handleChange={this.handleRefChange}/>
+                                <CategoryList refPath={null} handleChange={(e) => this.handleRefChange(e)}/>
                             </div>
                             <div className="dropdown">
                                 <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.subRef}<span className="caret"></span></button>
-                                <CategoryList refPath={this.state.query} handleChange={this.handleSubChange}/>
+                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleSubChange(e)}/>
                             </div>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.locRef}<span className="caret"></span></button>
-                                <CategoryList refPath={this.state.query} handleChange={this.handleLocChange}/>
+                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleLocChange(e)}/>
                             </div>
                         </div>
                         <div className='dropdown form-group'>
@@ -182,13 +182,14 @@ class CategoryList extends React.Component {
     }
 
     handleClick(name) {
+        console.log(name);
         this.props.handleChange(name);
     }
 
     render() {
         if(this.state.categories) {        
             this.state.categories.forEach(category => {
-                this.state.selections.push(<li><a href="#" onClick={this.handleClick(category.name)}>{category.name}</a></li>);
+                this.state.selections.push(<li><a href="#" onclick={this.handleClick(category.name)}>{category.name}</a></li>);
             });
         } else {
             return (
