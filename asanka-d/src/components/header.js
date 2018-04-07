@@ -11,6 +11,9 @@ export default class Header extends React.Component {
 
         }
     }
+
+
+
     render() {
         return (
             <Navbar className="fixed-top header" color="faded" light>
@@ -19,7 +22,7 @@ export default class Header extends React.Component {
                     <NavItem className="pr-5 nav-active">START</NavItem>
                     <NavItem className="pr-5">ADMIN</NavItem>
                     <NavItem className="pr-5">PROFILE</NavItem>
-                    <NavItem className="pr-5">LOG OUT</NavItem>
+                    <NavItem className="pr-5"> <Button onClick={() => this.props.handleSignOut()}>LOG OUT</Button></NavItem>
                 </Nav>    
             </Navbar>    
         )

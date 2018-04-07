@@ -5,7 +5,6 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import "../css/headimg.css";
-import "../css/Welcome.css";
 import constants from './constants';
 
 export default class Welcome extends React.Component {
@@ -66,7 +65,7 @@ export default class Welcome extends React.Component {
                             <div className='form-group'>
                                 <button disabled={this.state.working}
                                 type='submit'
-                                className='btn' onClick={(event) => this.handleSignIn(event)}>
+                                className='btn-danger' onClick={(event) => this.handleSignIn(event)}>
                                 Sign In</button>
                             </div>
                         </form>
