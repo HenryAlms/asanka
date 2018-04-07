@@ -83,13 +83,13 @@ export default class Dashboard extends React.Component {
     }
 
     folderOnClick(folder) {
-        console.log(folder.value);
+        console.log('hello');
     }
 
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
-                <Folder folderName={folder.name} key={folder.name} value={folder.name} onClick={this.folderOnClick} />
+                <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick()} />
             )
         })
         return (
@@ -106,7 +106,7 @@ export default class Dashboard extends React.Component {
                 </Container>
                 <div>
                     <div className="fileBtns">
-                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link to={constants.routes.content}>Add New File</Link></Button>
+                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
                         <Button color="secondary" className="m-2"><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
                     </div>    
                     <FileTable files={this.state.files} />   
