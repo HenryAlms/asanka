@@ -60,26 +60,21 @@ export default class Content extends React.Component {
             },
             createdAt: date,
         };
-        this.props.messageList.push(message);
         this.setState({body: ""});
     }
 
     handleRefChange(device) {
-        console.log(this.state.query);
-        this.setState({query: device, devRef: device});
-        console.log(device);
-        console.log(this.state.query);
+        let devQ = device + "/Folders/";
+        this.setState({query: devQ, devRef: device});
     }
 
     handleSubChange(subject) {
-        console.log(this.state.query);
         let subjectQ = this.state.query + "/" + subject;
         this.setState({query: subjectQ, subRef: subject});
-        console.log(this.state.query);
+        
     }
 
     handleLocChange(location) {
-        console.log(this.state.query);
         let locationQ = this.state.query + "/" + location;
         this.setState({query: locationQ, locRef: location});
     }
@@ -125,7 +120,7 @@ export default class Content extends React.Component {
                             <div className="dropdown">
                                 <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.subRef}<span className="caret"></span></button>
-                                <CategoryList refPath={"Device3/Folders/"} handleChange={(e) => this.handleSubChange(e)}/>
+                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleSubChange(e)}/>
                             </div>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
@@ -151,6 +146,7 @@ class CategoryList extends React.Component {
             userID:undefined,
             categories: [],
             selections: [],
+            refPathQ: this.props.refPath
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -161,12 +157,17 @@ class CategoryList extends React.Component {
               this.setState({ user: firebaseUser, loading: false });
               this.loadData(this.props.refPath);
               console.log("loading data");
-              console.log(this.state.categories)
+
             }
             else {
               this.setState({ user: null, loading: false });
             }
           });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({refPathQ: nextProps.refPath});
+        this.loadData();
     }
 
     componentWillUnmount() {
@@ -175,7 +176,7 @@ class CategoryList extends React.Component {
 
     loadData() {
         let ref;
-        if(this.props.refPath) {
+        if(this.state.refPathQ) {
             ref = firebase.database().ref(this.props.refPath); //categories
         } else {
             ref = firebase.database().ref();
@@ -183,30 +184,22 @@ class CategoryList extends React.Component {
         ref.on('value', (snapshot) => {
             let catValue = snapshot.val();
             let catArray = Object.keys(catValue).map((key) => {
-                console.log(key);
                 return {name: key};
             })
-            console.log(this.state.categories)
             this.setState({categories: catArray});
-            console.log(this.state.categories)
         });
     }
 
     handleClick(name) {
         this.props.handleChange(name);
-        // this.setState({categories: []});s
-        // this.loadData();
-        console.log(name);
     }
 
     render() {
         if(this.state.categories) {
-            console.log(this.state.categories)
             this.state.selections = [];
             this.state.categories.forEach(category => {
                 this.state.selections.push(<li><a href="#" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
             });
-            console.log(this.state.selections);
         } else {
             return (
                 <div>
