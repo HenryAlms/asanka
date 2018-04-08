@@ -65,16 +65,23 @@ export default class Content extends React.Component {
     }
 
     handleRefChange(device) {
-        //this.setState({devRef:device});
+        console.log(this.state.query);
+        this.setState({query: device, devRef: device});
         console.log(device);
+        console.log(this.state.query);
     }
 
     handleSubChange(subject) {
-        //something
+        console.log(this.state.query);
+        let subjectQ = this.state.query + "/" + subject;
+        this.setState({query: subjectQ, subRef: subject});
+        console.log(this.state.query);
     }
 
     handleLocChange(location) {
-        //omo
+        console.log(this.state.query);
+        let locationQ = this.state.query + "/" + location;
+        this.setState({query: locationQ, locRef: location});
     }
 
 
@@ -118,7 +125,7 @@ export default class Content extends React.Component {
                             <div className="dropdown">
                                 <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.subRef}<span className="caret"></span></button>
-                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleSubChange(e)}/>
+                                <CategoryList refPath={"Device3/Folders/"} handleChange={(e) => this.handleSubChange(e)}/>
                             </div>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
@@ -153,6 +160,8 @@ class CategoryList extends React.Component {
             if (firebaseUser) {
               this.setState({ user: firebaseUser, loading: false });
               this.loadData(this.props.refPath);
+              console.log("loading data");
+              console.log(this.state.categories)
             }
             else {
               this.setState({ user: null, loading: false });
@@ -167,7 +176,7 @@ class CategoryList extends React.Component {
     loadData() {
         let ref;
         if(this.props.refPath) {
-            ref = firebase.database().ref(this.props.refPath);
+            ref = firebase.database().ref(this.props.refPath); //categories
         } else {
             ref = firebase.database().ref();
         }
@@ -177,20 +186,27 @@ class CategoryList extends React.Component {
                 console.log(key);
                 return {name: key};
             })
-            this.setState({categories: catArray})
+            console.log(this.state.categories)
+            this.setState({categories: catArray});
+            console.log(this.state.categories)
         });
     }
 
     handleClick(name) {
-        console.log(name);
         this.props.handleChange(name);
+        // this.setState({categories: []});s
+        // this.loadData();
+        console.log(name);
     }
 
     render() {
-        if(this.state.categories) {        
+        if(this.state.categories) {
+            console.log(this.state.categories)
+            this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<li><a href="#" onclick={this.handleClick(category.name)}>{category.name}</a></li>);
+                this.state.selections.push(<li><a href="#" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
             });
+            console.log(this.state.selections);
         } else {
             return (
                 <div>
