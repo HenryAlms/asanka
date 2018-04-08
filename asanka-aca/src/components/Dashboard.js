@@ -17,15 +17,17 @@ export default class Dashboard extends React.Component {
         this.state = {
             user: this.props.user,
             query: 'Device3',
-            current: 'Device 1',
+            prevPath: '',
+            prev: '',
+            current: 'Device3',
             folders: [],
             files: []
         }
     }
 
     componentDidMount() {
-        this.loadFolders();
-        this.loadFiles();
+        this.loadFolders(this.state.query);
+        this.loadFiles(this.state.query);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
               this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
@@ -42,11 +44,11 @@ export default class Dashboard extends React.Component {
         this.unregisterFunction();
     }
 
-    loadFolders() {
-        this.folderRef = firebase.database().ref(this.state.query + '/Folders');
+    loadFolders(query) {
+        console.log('clicked');
+        this.folderRef = firebase.database().ref(query + "/Folders");
         this.folderRef.on('value', (snapshot) => {
             let foldersValue = snapshot.val();
-            console.log(foldersValue);
             let foldersArray = Object.keys(foldersValue).map((key) => {
                 return {name: key};
             })
@@ -54,8 +56,8 @@ export default class Dashboard extends React.Component {
         });  
     }
 
-    loadFiles() {
-        this.fileRef = firebase.database().ref(this.state.query + '/Files');
+    loadFiles(query) {
+        this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.on('value', (snapshot) => {
             let fileValue = snapshot.val();
             console.log(fileValue)
@@ -66,30 +68,34 @@ export default class Dashboard extends React.Component {
             })
             this.setState({files: fileArray});
         }); 
-        
-        // let filesArray = [];
-        // this.fileRef.once('value').then((snapshot) => {
-        //         snapshot.forEach(function(childSnapshot) {
-        //             let key = childSnapshot.key;
-        //             console.log(key);
-        //             let childData = childSnapshot.val();
-        //             console.log(childData);
-        //             childData.key = key;
-        //             filesArray.push(childData);
-        //             console.log(filesArray);
-        //         })
-        //     })
-        // this.setState({files: filesArray});
     }
 
     folderOnClick(folder) {
-        console.log('hello');
+        this.setState({prev: this.state.query, current: folder.name});
+        let newQuery = this.state.query + "/Folders/" + folder.name;
+        this.setState({query: newQuery});
+        this.loadFolders(newQuery);
+        this.loadFiles(newQuery);
+    }
+
+    backOnClick() {
+        console.log(this.state.query);
+        let remove = "Folders/" + this.state.current;
+        let newQuery = this.state.query.replace(remove, '');
+        console.log(this.state.current);
+        console.log(newQuery);
+        let newPrev = this.state.query.split('/Folders/');
+        newPrev = newPrev[newPrev.length - 2];
+        let newCurrent = this.state.prev;
+        this.loadFolders(newQuery);
+        this.loadFiles(newQuery);
+        this.setState({current: newCurrent, prev: newPrev, query: newQuery});
     }
 
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
-                <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick()} />
+                <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
             )
         })
         return (
@@ -101,6 +107,10 @@ export default class Dashboard extends React.Component {
                 <div className="content-management">
                     <h2 className="mb-4">Content Management</h2>
                 </div>
+                
+                {this.state.prev !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left"></i>Back</Button>}
+                
+
                 <Container className="folders-section p-3 mb-5">
                     {folderItems}
                 </Container>
