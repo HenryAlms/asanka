@@ -45,13 +45,15 @@ export default class Dashboard extends React.Component {
     }
 
     loadFolders(query) {
-        console.log('clicked');
         this.folderRef = firebase.database().ref(query + "/Folders");
         this.folderRef.on('value', (snapshot) => {
             let foldersValue = snapshot.val();
-            let foldersArray = Object.keys(foldersValue).map((key) => {
-                return {name: key};
-            })
+            let foldersArray = [];
+            if (foldersValue !== null) {
+                foldersArray = Object.keys(foldersValue).map((key) => {
+                    return {name: key};
+                })
+            }
             this.setState({folders: foldersArray})
         });  
     }
@@ -60,9 +62,7 @@ export default class Dashboard extends React.Component {
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.on('value', (snapshot) => {
             let fileValue = snapshot.val();
-            console.log(fileValue)
             let fileArray = Object.keys(fileValue).map((key) => {
-                console.log(fileValue[key]);
                 fileValue.key = key;
                 return fileValue[key];
             })
@@ -79,14 +79,25 @@ export default class Dashboard extends React.Component {
     }
 
     backOnClick() {
-        console.log(this.state.query);
-        let remove = "Folders/" + this.state.current;
+        console.log("current current: " + this.state.current);
+        console.log("state previous: " + this.state.prev);
+        console.log("current query: " + this.state.query);
+        let remove = "/Folders/" + this.state.current;
+        console.log("remove: " + remove);
         let newQuery = this.state.query.replace(remove, '');
-        console.log(this.state.current);
-        console.log(newQuery);
+        console.log("new query: " + newQuery);
         let newPrev = this.state.query.split('/Folders/');
-        newPrev = newPrev[newPrev.length - 2];
+        console.log("newPrev: " + newPrev);
+        if (newPrev.length < 3) {
+            newPrev = '';
+        } else {
+            newPrev = newPrev[newPrev.length - 2];
+        }    
+        console.log("newPrev: " + newPrev);
         let newCurrent = this.state.prev;
+        console.log('prev: ' + newPrev);
+        console.log('current: ' + newCurrent);
+        console.log('query: ' + newQuery);
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
         this.setState({current: newCurrent, prev: newPrev, query: newQuery});
@@ -108,12 +119,14 @@ export default class Dashboard extends React.Component {
                     <h2 className="mb-4">Content Management</h2>
                 </div>
                 
-                {this.state.prev !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left"></i>Back</Button>}
+                {this.state.prev !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left"></i>{this.state.prev}</Button>}
                 
+                {this.state.folders.length > 0 &&
+                    <Container className="folders-section p-3 mb-5">
+                        {folderItems}
+                    </Container>
+                }    
 
-                <Container className="folders-section p-3 mb-5">
-                    {folderItems}
-                </Container>
                 <div>
                     <div className="fileBtns">
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
