@@ -14,7 +14,6 @@ export default class FileTable extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.files);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
               this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
@@ -27,19 +26,14 @@ export default class FileTable extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('Next props length is ' + nextProps.files.length);
         this.setState({files: nextProps.files})
     }
 
     render() {
-        console.log(this.state.files);
-        console.log(this.state.files.length);
-        console.log(this.state.files[0]);
+
         let fileItems = [];
         if (this.state.files != null && this.state.files != undefined && this.state.files.length != 0) {
-            console.log('not empty!');
             fileItems = this.state.files.map((file, i) => {
-                console.log('yay');
                 let active;
                 if (file.active) {
                     active = "Active";
@@ -55,7 +49,6 @@ export default class FileTable extends React.Component {
                 )
             })
         }    
-        console.log(fileItems);
         return (
             <Table className="myTable">
                 <thead>

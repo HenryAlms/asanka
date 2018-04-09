@@ -49,3 +49,12 @@ body {
 .search {
     float: left;
 }
+
+.add-file-btn, .add-file-btn:hover, .add-file-btn:visited, .add-file-btn:active {
+    color: white;
+    text-decoration: none;
+}
+
+i {
+    margin-right: 5px;
+}

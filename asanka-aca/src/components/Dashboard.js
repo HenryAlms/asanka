@@ -17,15 +17,17 @@ export default class Dashboard extends React.Component {
         this.state = {
             user: this.props.user,
             query: 'Device3',
-            current: 'Device 1',
+            prevPath: '',
+            prev: '',
+            current: 'Device3',
             folders: [],
             files: []
         }
     }
 
     componentDidMount() {
-        this.loadFolders();
-        this.loadFiles();
+        this.loadFolders(this.state.query);
+        this.loadFiles(this.state.query);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
               this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
@@ -42,54 +44,69 @@ export default class Dashboard extends React.Component {
         this.unregisterFunction();
     }
 
-    loadFolders() {
-        this.folderRef = firebase.database().ref(this.state.query + '/Folders');
+    loadFolders(query) {
+        this.folderRef = firebase.database().ref(query + "/Folders");
         this.folderRef.on('value', (snapshot) => {
             let foldersValue = snapshot.val();
-            console.log(foldersValue);
-            let foldersArray = Object.keys(foldersValue).map((key) => {
-                return {name: key};
-            })
+            let foldersArray = [];
+            if (foldersValue !== null) {
+                foldersArray = Object.keys(foldersValue).map((key) => {
+                    return {name: key};
+                })
+            }
             this.setState({folders: foldersArray})
         });  
     }
 
-    loadFiles() {
-        this.fileRef = firebase.database().ref(this.state.query + '/Files');
+    loadFiles(query) {
+        this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.on('value', (snapshot) => {
             let fileValue = snapshot.val();
-            console.log(fileValue)
             let fileArray = Object.keys(fileValue).map((key) => {
-                console.log(fileValue[key]);
                 fileValue.key = key;
                 return fileValue[key];
             })
             this.setState({files: fileArray});
         }); 
-        
-        // let filesArray = [];
-        // this.fileRef.once('value').then((snapshot) => {
-        //         snapshot.forEach(function(childSnapshot) {
-        //             let key = childSnapshot.key;
-        //             console.log(key);
-        //             let childData = childSnapshot.val();
-        //             console.log(childData);
-        //             childData.key = key;
-        //             filesArray.push(childData);
-        //             console.log(filesArray);
-        //         })
-        //     })
-        // this.setState({files: filesArray});
     }
 
     folderOnClick(folder) {
-        console.log(folder.value);
+        this.setState({prev: this.state.query, current: folder.name});
+        let newQuery = this.state.query + "/Folders/" + folder.name;
+        this.setState({query: newQuery});
+        this.loadFolders(newQuery);
+        this.loadFiles(newQuery);
+    }
+
+    backOnClick() {
+        console.log("current current: " + this.state.current);
+        console.log("state previous: " + this.state.prev);
+        console.log("current query: " + this.state.query);
+        let remove = "/Folders/" + this.state.current;
+        console.log("remove: " + remove);
+        let newQuery = this.state.query.replace(remove, '');
+        console.log("new query: " + newQuery);
+        let newPrev = this.state.query.split('/Folders/');
+        console.log("newPrev: " + newPrev);
+        if (newPrev.length < 3) {
+            newPrev = '';
+        } else {
+            newPrev = newPrev[newPrev.length - 2];
+        }    
+        console.log("newPrev: " + newPrev);
+        let newCurrent = this.state.prev;
+        console.log('prev: ' + newPrev);
+        console.log('current: ' + newCurrent);
+        console.log('query: ' + newQuery);
+        this.loadFolders(newQuery);
+        this.loadFiles(newQuery);
+        this.setState({current: newCurrent, prev: newPrev, query: newQuery});
     }
 
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
-                <Folder folderName={folder.name} key={folder.name} value={folder.name} onClick={this.folderOnClick} />
+                <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
             )
         })
         return (
@@ -101,12 +118,18 @@ export default class Dashboard extends React.Component {
                 <div className="content-management">
                     <h2 className="mb-4">Content Management</h2>
                 </div>
-                <Container className="folders-section p-3 mb-5">
-                    {folderItems}
-                </Container>
+                
+                {this.state.prev !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left"></i>{this.state.prev}</Button>}
+                
+                {this.state.folders.length > 0 &&
+                    <Container className="folders-section p-3 mb-5">
+                        {folderItems}
+                    </Container>
+                }    
+
                 <div>
                     <div className="fileBtns">
-                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link to={constants.routes.content}>Add New File</Link></Button>
+                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
                         <Button color="secondary" className="m-2"><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
                     </div>    
                     <FileTable files={this.state.files} />   
