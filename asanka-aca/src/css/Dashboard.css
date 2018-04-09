@@ -55,6 +55,6 @@ body {
     text-decoration: none;
 }
 
-i {
-    margin-right: 5px;
+.back-icon {
+    margin-right: 10px;
 }

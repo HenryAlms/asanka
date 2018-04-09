@@ -71,30 +71,36 @@ export default class Dashboard extends React.Component {
     }
 
     folderOnClick(folder) {
-        this.setState({prev: this.state.query, current: folder.name});
+        console.log('current: ' + this.state.current);
+        console.log('prev: ' + this.state.prev);
+        console.log('prevPath: ' + this.state.prevPath);
+        console.log('query: ' + this.state.query);
+        let newPrev = this.state.current;
         let newQuery = this.state.query + "/Folders/" + folder.name;
-        this.setState({query: newQuery});
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
+        this.setState({prevPath: this.state.query, current: folder.name, prev: newPrev, query: newQuery});
+        
     }
 
     backOnClick() {
         let remove = "/Folders/" + this.state.current;
         let newQuery = this.state.query.replace(remove, '');
-        let newPrev = '';
+        let newPrevPath = '';
         let prevCurr = '';
-        if (this.state.prev.split('/Folders/').length < 2) {
-            newPrev = '';
+        let prevArr = this.state.prevPath.split('/Folders/');
+        if (prevArr.length < 2) {
+            newPrevPath = '';            
         } else {
-            let prevArr = this.state.prev.split('/Folders/');
             prevCurr = prevArr[prevArr.length - 1];
             let prevRemove = "/Folders/" + prevCurr;
-            newPrev = this.state.prev.replace(prevRemove, '');
+            newPrevPath = this.state.prevPath.replace(prevRemove, '');
         } 
-        let newCurrent = prevCurr;
+        let newPrev = prevArr[prevArr.length - 2];
+        let newCurrent = this.state.prev;
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
-        this.setState({current: newCurrent, prev: newPrev, query: newQuery});
+        this.setState({current: newCurrent, prev: newPrev, prevPath: newPrevPath, query: newQuery});
     }
 
     render() {
@@ -113,7 +119,7 @@ export default class Dashboard extends React.Component {
                     <h2 className="mb-4">Content Management</h2>
                 </div>
                 
-                {this.state.prev !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left"></i>{this.state.prev}</Button>}
+                {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon"></i>{this.state.prev}</Button>}
                 
                 {this.state.folders.length > 0 &&
                     <Container className="folders-section p-3 mb-5">
