@@ -37,19 +37,25 @@ export default class FileTable extends React.Component {
         console.log(this.state.files[0]);
         let fileItems = [];
         if (this.state.files != null && this.state.files != undefined && this.state.files.length != 0) {
-            console.log(this.state.files);
-            fileItems = this.state.files.map((file) => {
-                console.log(file.key);
+            console.log('not empty!');
+            fileItems = this.state.files.map((file, i) => {
+                console.log('yay');
+                let active;
+                if (file) {
+                    active = "Active";
+                } else {
+                    active = "Inactive";
+                }
                 return (
-                    <tr key={file.key}>
-                        <td>{file.title}</td>
-                        <td>{file.type}</td>
-                        <td>{file.active}</td>
+                    <tr key={i}>
+                        <td key={file.title + i}>{file.title}</td>
+                        <td key={file.type + i}>{file.type}</td>
+                        <td key={active + i}>{active}</td>
                     </tr>    
                 )
             })
         }    
-            
+        console.log(fileItems);
         return (
             <Table className="myTable">
                 <thead>
