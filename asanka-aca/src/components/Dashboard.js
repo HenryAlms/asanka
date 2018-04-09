@@ -71,10 +71,6 @@ export default class Dashboard extends React.Component {
     }
 
     folderOnClick(folder) {
-        console.log('current: ' + this.state.current);
-        console.log('prev: ' + this.state.prev);
-        console.log('prevPath: ' + this.state.prevPath);
-        console.log('query: ' + this.state.query);
         let newPrev = this.state.current;
         let newQuery = this.state.query + "/Folders/" + folder.name;
         this.loadFolders(newQuery);
@@ -119,7 +115,7 @@ export default class Dashboard extends React.Component {
                     <h2 className="mb-4">Content Management</h2>
                 </div>
                 
-                {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon"></i>{this.state.prev}</Button>}
+                {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                 
                 {this.state.folders.length > 0 &&
                     <Container className="folders-section p-3 mb-5">
