@@ -72,9 +72,7 @@ export default class Dashboard extends React.Component {
 
     folderOnClick(folder) {
         this.setState({prev: this.state.query, current: folder.name});
-        console.log('Prev Query: ' + this.state.query);
         let newQuery = this.state.query + "/Folders/" + folder.name;
-        console.log('Current Query: ' + newQuery);
         this.setState({query: newQuery});
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
@@ -83,10 +81,8 @@ export default class Dashboard extends React.Component {
     backOnClick() {
         let remove = "/Folders/" + this.state.current;
         let newQuery = this.state.query.replace(remove, '');
-        console.log("new query: " + newQuery);
         let newPrev = '';
         let prevCurr = '';
-        console.log(this.state.prev.split('/Folders/'));
         if (this.state.prev.split('/Folders/').length < 2) {
             newPrev = '';
         } else {
@@ -96,12 +92,9 @@ export default class Dashboard extends React.Component {
             newPrev = this.state.prev.replace(prevRemove, '');
         } 
         let newCurrent = prevCurr;
-        console.log('new prev: ' + newPrev);
-        console.log('new current: ' + newCurrent);
-        console.log('new query: ' + newQuery);
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
-        this.setState({current: newCurrent, query: newQuery, prev: newPrev});
+        this.setState({current: newCurrent, prev: newPrev, query: newQuery});
     }
 
     render() {
