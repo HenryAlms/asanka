@@ -60,21 +60,23 @@ export default class Content extends React.Component {
             },
             createdAt: date,
         };
-        this.props.messageList.push(message);
         this.setState({body: ""});
     }
 
     handleRefChange(device) {
-        //this.setState({devRef:device});
-        console.log(device);
+        let devQ = device + "/Folders/";
+        this.setState({query: devQ, devRef: device});
     }
 
     handleSubChange(subject) {
-        //something
+        let subjectQ = this.state.query + "/" + subject;
+        this.setState({query: subjectQ, subRef: subject});
+        
     }
 
     handleLocChange(location) {
-        //omo
+        let locationQ = this.state.query + "/" + location;
+        this.setState({query: locationQ, locRef: location});
     }
 
 
@@ -144,6 +146,7 @@ class CategoryList extends React.Component {
             userID:undefined,
             categories: [],
             selections: [],
+            refPathQ: this.props.refPath
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -153,11 +156,18 @@ class CategoryList extends React.Component {
             if (firebaseUser) {
               this.setState({ user: firebaseUser, loading: false });
               this.loadData(this.props.refPath);
+              console.log("loading data");
+
             }
             else {
               this.setState({ user: null, loading: false });
             }
           });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({refPathQ: nextProps.refPath});
+        this.loadData();
     }
 
     componentWillUnmount() {
@@ -166,30 +176,29 @@ class CategoryList extends React.Component {
 
     loadData() {
         let ref;
-        if(this.props.refPath) {
-            ref = firebase.database().ref(this.props.refPath);
+        if(this.state.refPathQ) {
+            ref = firebase.database().ref(this.props.refPath); //categories
         } else {
             ref = firebase.database().ref();
         }
         ref.on('value', (snapshot) => {
             let catValue = snapshot.val();
             let catArray = Object.keys(catValue).map((key) => {
-                console.log(key);
                 return {name: key};
             })
-            this.setState({categories: catArray})
+            this.setState({categories: catArray});
         });
     }
 
     handleClick(name) {
-        console.log(name);
         this.props.handleChange(name);
     }
 
     render() {
-        if(this.state.categories) {        
+        if(this.state.categories) {
+            this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<li><a href="#" onclick={this.handleClick(category.name)}>{category.name}</a></li>);
+                this.state.selections.push(<li><a href="#" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
             });
         } else {
             return (
