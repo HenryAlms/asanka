@@ -86,12 +86,13 @@ export default class Dashboard extends React.Component {
         console.log("remove: " + remove);
         let newQuery = this.state.query.replace(remove, '');
         console.log("new query: " + newQuery);
-        let newPrev = this.state.query.split('/Folders/');
-        console.log("newPrev: " + newPrev);
-        if (newPrev.length < 3) {
+        let findPrev = newQuery.split('/Folders/');
+        console.log("findPrev: " + findPrev);
+        let newPrev;
+        if (findPrev.length < 3) {
             newPrev = '';
         } else {
-            newPrev = newPrev[newPrev.length - 2];
+            newPrev = findPrev[findPrev.length - 2];
         }    
         console.log("newPrev: " + newPrev);
         let newCurrent = this.state.prev;
