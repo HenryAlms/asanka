@@ -81,11 +81,7 @@ export default class Dashboard extends React.Component {
     }
 
     backOnClick() {
-        console.log("current: " + this.state.current);
-        console.log("state previous: " + this.state.prev);
-        console.log("current query: " + this.state.query);
         let remove = "/Folders/" + this.state.current;
-        console.log("remove: " + remove);
         let newQuery = this.state.query.replace(remove, '');
         console.log("new query: " + newQuery);
         let newPrev = '';
