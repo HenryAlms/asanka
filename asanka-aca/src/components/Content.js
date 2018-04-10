@@ -131,6 +131,9 @@ export default class Content extends React.Component {
                         <div className='dropdown form-group'>
                             <input className="mr-auto" type="file"/>
                         </div>
+                        <div>
+                            <button>Submit File</button>
+                        </div>
                     </div>
                     </form>
                 </div>
