@@ -31,23 +31,8 @@ export class MyNav extends React.Component {
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/">
-                        Categories
-                    </NavLink>
-                </NavItem>
-                <NavItem className="navText">
-                    <NavLink to={constants.routes.devices}>
-                        Devices
-                    </NavLink>
-                </NavItem>
-                <NavItem className="navText">
                     <NavLink to="/NewContent">
                         New Content
-                    </NavLink>
-                </NavItem>
-                <NavItem className="navText">
-                    <NavLink to="/">
-                        Users
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">

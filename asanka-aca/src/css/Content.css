@@ -10,3 +10,8 @@
 .container {
     margin-top: 2em;
 }
+
+.form-title {
+    font-size: 20px;
+    font-weight: bold;
+}
