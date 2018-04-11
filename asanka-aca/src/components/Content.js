@@ -95,7 +95,7 @@ export default class Content extends React.Component {
                 <div className='container'>
                     <form className="">
                     <div className='form-group'>
-                        <label htmlFor='FileTitle'>Title:</label>
+                        <label className="form-title" htmlFor='FileTitle'>Title:</label>
                         <input id='FileTitle' type='text'
                         className='form-control' 
                         placeholder='Enter Document Title'
@@ -103,7 +103,7 @@ export default class Content extends React.Component {
                         onInput={evt => this.setState({title: evt.target.value})}/>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='Date'>Date:</label>
+                        <label className="form-title" htmlFor='Date'>Date:</label>
                         <input id="Date" type='date'
                         className='form-control' 
                         placeholder='File Description'
@@ -111,7 +111,7 @@ export default class Content extends React.Component {
                         onInput={evt => this.setState({date: evt.target.value})}/>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='Description'>Description:</label>
+                        <label className="form-title" htmlFor='Description'>Description:</label>
                         <input id="Description" type='text'
                         className='form-control' 
                         placeholder='File Description'
@@ -119,7 +119,7 @@ export default class Content extends React.Component {
                         onInput={evt => this.setState({description: evt.target.value})}/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor='Active'>Active on Device</label>
+                        <label className="form-title" htmlFor='Active'>Active on Device:</label>
                         <FormGroup>
                             <FormGroup check>
                                 <Label check>
