@@ -20,46 +20,34 @@ export default class FileTable extends React.Component {
     }
 
     render() {
-        /*console.log(this.state.files);
         let fileItems = [];
-        if (this.state.files) {
-            fileItems = this.state.files.map((file) => {
-                console.log('yay');
+        if (this.state.files != null && this.state.files != undefined && this.state.files.length != 0) {
+            fileItems = this.state.files.map((file, i) => {
+                let active;
+                if (file.active) {
+                    active = "Active";
+                } else {
+                    active = "Inactive";
+                }
                 return (
-                    <tr key={file.title}>
-                        <td>{file.title}</td>
-                        <td>{file.type}</td>
-                        <td>{file.active}</td>
+                    <tr key={i}>
+                        <td key={file.title + i}>{file.title}</td>
+                        <td key={file.type + i}>{file.type}</td>
                     </tr>    
                 )
             })
-        }    */
+        }    
             
         return (
             <Table className="myTable">
                 <thead>
                 <tr className="topRow">
-                    <th>File Title</th>
-
+                    <th>Title</th>
+                    <th>File Type</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>GES English Syllabus</td>
-
-                    </tr> 
-                    <tr>
-                        <td>Standard Test 1</td>
-
-                    </tr> 
-                    <tr>
-                        <td>Standard Test 2</td>
-
-                    </tr> 
-                    <tr>
-                        <td>Standard Test Study Guide</td>
-
-                    </tr>    
+                    {fileItems}
                 </tbody>
             </Table>
         )
