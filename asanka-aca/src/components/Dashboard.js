@@ -41,6 +41,7 @@ export default class Dashboard extends React.Component {
     componentWillUnmount() {
         this.folderRef.off();
         this.fileRef.off();
+      //  this.singleFileRef.off();
         this.unregisterFunction();
     }
 
@@ -64,7 +65,7 @@ export default class Dashboard extends React.Component {
             let fileValue = snapshot.val();
             console.log(fileValue);
             let fileArray = Object.keys(fileValue).map((key) => {
-                fileValue[key].key = key;
+                fileValue[key] = key;
                 console.log(key);
                 return fileValue[key];
             })
@@ -75,8 +76,9 @@ export default class Dashboard extends React.Component {
     changeStatus(event) {
         let file = event.target.value;
         console.log('changeStatus clicked! file:' + file);
-        /*this.fileRef = firebase.database().ref(query + '/Files' + file);
-        this.fileRef.on('value', (snapshot) => {
+        /*
+        let singleFileRef = firebase.database().ref(this.state.query + '/Files' + file);
+        singleFileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             console.log(fileValue);
             let fileArray = Object.keys(fileValue).map((key) => {
@@ -86,7 +88,7 @@ export default class Dashboard extends React.Component {
             })
             console.log(file)
             this.setState({files: fileArray});
-        }); */
+        });*/
     }
 
     folderOnClick(folder) {
