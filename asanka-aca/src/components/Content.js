@@ -51,7 +51,6 @@ export default class Content extends React.Component {
     }
 
     submitFile(evt) {
-        evt.preventDefault();
         console.log(this.state.query);
         console.log(this.state.title);
         console.log(this.state.description);

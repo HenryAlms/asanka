@@ -56,7 +56,10 @@ export default class Dashboard extends React.Component {
 
     loadFiles() {
         this.fileRef = firebase.database().ref(this.state.query + '/Files');
+        console.log(this.state.query + '/Files');
         this.fileRef.on('value', (snapshot) => {
+            console.log(snapshot)
+            console.log(snapshot.val());
             let fileValue = snapshot.val();
             console.log(fileValue)
             let fileArray = Object.keys(fileValue).map((key) => {
