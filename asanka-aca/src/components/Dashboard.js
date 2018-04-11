@@ -62,16 +62,32 @@ export default class Dashboard extends React.Component {
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.on('value', (snapshot) => {
             let fileValue = snapshot.val();
-            console.log(query);
             console.log(fileValue);
-            console.log(snapshot);
-            console.log(this.fileRef);
+
             let fileArray = Object.keys(fileValue).map((key) => {
-                fileValue.key = key;
+                fileValue[key].key = key;
+                console.log(key);
                 return fileValue[key];
             })
             this.setState({files: fileArray});
         }); 
+    }
+    
+    changeStatus(event) {
+        let file = event.target.value;
+        console.log('changeStatus clicked! file:' + file);
+        /*this.fileRef = firebase.database().ref(query + '/Files' + file);
+        this.fileRef.on('value', (snapshot) => {
+            let fileValue = snapshot.val();
+            console.log(fileValue);
+            let fileArray = Object.keys(fileValue).map((key) => {
+                fileValue[key].key = key;
+                console.log(key);
+                return fileValue[key];
+            })
+            console.log(file)
+            this.setState({files: fileArray});
+        }); */
     }
 
     folderOnClick(folder) {
@@ -132,7 +148,7 @@ export default class Dashboard extends React.Component {
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
                         <Button color="secondary" className="m-2"><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
                     </div>    
-                    <FileTable files={this.state.files} />   
+                    <FileTable files={this.state.files} changeCallback={(e) => this.changeStatus(e)}/>   
                 </div>     
             </div>
         )
