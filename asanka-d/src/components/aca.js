@@ -88,6 +88,10 @@ export default class ACA extends React.Component {
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.on('value', (snapshot) => {
             let fileValue = snapshot.val();
+            console.log(query);
+            console.log(fileValue);
+            console.log(snapshot);
+            console.log(this.fileRef);
             let fileArray = Object.keys(fileValue).map((key) => {
                 fileValue.key = key;
                 return fileValue[key];
