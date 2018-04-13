@@ -11,13 +11,14 @@ export default class DeviceHome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            user: this.props.user
         }
     }
 
     render() {
         return(
             <div>
+                {!this.props.user && <Redirect to={constants.routes.welcome} />}
                 <div class="row" id="welcome">
                     <div className="message">
                         <strong>Hello Henry Alms, </strong> What would you like to learn today?

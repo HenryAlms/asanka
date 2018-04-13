@@ -7,6 +7,8 @@ import 'firebase/database';
 import "../css/aca.css";
 import FileTable from "./FileTable.js"
 import Folder from "./Folder.js";
+import constants from "./constants";
+
 
 export default class ACA extends React.Component {
     constructor(props) {
@@ -111,8 +113,9 @@ export default class ACA extends React.Component {
         console.log('prev path: ' + this.state.prevPath);
         return(
             <Container fluid>
+               {!this.props.user && <Redirect exact to={constants.routes.welcome} />}
                 <Container className="main align-center p-4">
-                    <h1><i className="back-button fas fa-arrow-circle-left"></i>        ASANKA Cloud</h1>
+                    <h1><Link to={constants.routes.device}><i className="back-button fas fa-arrow-circle-left"></i></Link>        ASANKA Cloud</h1>
                     <hr />
                     <div className="mb-5">
                         <h2 className="pb-2 pt-1">Folders</h2>
