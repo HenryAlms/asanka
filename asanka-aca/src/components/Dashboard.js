@@ -59,6 +59,7 @@ export default class Dashboard extends React.Component {
     }
 
     loadFiles(query) {
+        console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
@@ -91,6 +92,7 @@ export default class Dashboard extends React.Component {
     }
 
     folderOnClick(folder) {
+        console.log("folder clicked")
         let newPrev = this.state.current;
         let newQuery = this.state.query + "/Folders/" + folder.name;
         this.loadFolders(newQuery);

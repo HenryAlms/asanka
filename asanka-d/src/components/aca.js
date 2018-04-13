@@ -44,8 +44,10 @@ export default class ACA extends React.Component {
     }
 
     loadFolders(query) {
+
         this.folderRef = firebase.database().ref(query + "/Folders");
         this.folderRef.on('value', (snapshot) => {
+            console.log(snapshot.val());
             let foldersValue = snapshot.val();
             let foldersArray = [];
             if (foldersValue !== null) {
@@ -87,6 +89,7 @@ export default class ACA extends React.Component {
     }
 
     loadFiles(query) {
+        console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
