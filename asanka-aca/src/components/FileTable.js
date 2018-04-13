@@ -61,7 +61,7 @@ export default class FileTable extends React.Component {
     render() {
 
         let fileItems = [];
-        if (this.state.files != null && this.state.files != undefined && this.state.files.length != 0) {
+        if (this.state.files.length !== 0 && this.state.files != undefined && this.state.files != null) {
             fileItems = this.state.files.map((file, i) => {
                 return (
                     <File file={file} key={i} i={i} active={file.active} changeCallback={(e) => this.props.changeCallback(e)} />     

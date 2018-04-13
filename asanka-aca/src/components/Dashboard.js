@@ -63,9 +63,8 @@ export default class Dashboard extends React.Component {
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             console.log(fileValue);
-
             let fileArray = Object.keys(fileValue).map((key) => {
-                fileValue[key] = key;
+                fileValue[key].key = key;
                 console.log(key);
                 return fileValue[key];
             })
