@@ -1,4 +1,4 @@
-import {Table, Input} from 'reactstrap';
+import {Table, Input, FormGroup, Label} from 'reactstrap';
 import React from "react";
 import '../css/Dashboard.css';
 import firebase from 'firebase/app';
@@ -28,35 +28,6 @@ export default class FileTable extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.setState({files: nextProps.files})
     }
-
-    /*editTeam(event) {
-        let team = event.target.value;
-        let checked = event.target.checked;
-        let updatedLikes = {};
-        let teamsRef = firebase.database().ref('userPrefs/' + this.state.user.uid + '/teams/');
-        teamsRef.once('value', (r) => {
-            let data = r.val();
-            if (data === undefined || data === null) {
-                if (checked) {
-                    updatedLikes[team] = checked;
-                }
-            } else { // if there is data currently
-                updatedLikes = data;
-                if (checked) {
-                    updatedLikes[team] = true;
-                } else {
-                    updatedLikes[team] = null;
-                }
-            }
-            teamsRef.set(updatedLikes)
-                .catch(e => console.log(e));
-        })
-            .then(() => {
-                this.setState({ likes: updatedLikes });
-            });
-    }*/
-
-
 
     render() {
 
@@ -116,7 +87,12 @@ class File extends React.Component {
             <tr key={key}>
                 <td key={file.title + key}>{file.title}</td>
                 <td key={file.type + key}>{file.type}</td>
-                <td key={active + key}>{active}<Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} /></td>
+                <td key={active + key}>
+                    <FormGroup className="ml-3">
+                        <Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} />
+                        <Label for={file.title + (key * 2)}>{active}</Label>
+                    </FormGroup>    
+                </td>
             </tr>  
         )
     }
