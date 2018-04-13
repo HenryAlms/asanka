@@ -41,7 +41,6 @@ export default class Dashboard extends React.Component {
     componentWillUnmount() {
         this.folderRef.off();
         this.fileRef.off();
-      //  this.singleFileRef.off();
         this.unregisterFunction();
     }
 
@@ -98,7 +97,6 @@ export default class Dashboard extends React.Component {
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
         this.setState({prevPath: this.state.query, current: folder.name, prev: newPrev, query: newQuery});
-        
     }
 
     backOnClick() {
