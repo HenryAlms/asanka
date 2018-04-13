@@ -21,14 +21,17 @@ export default class FileTable extends React.Component {
 
     render() {
         let fileItems = [];
-        if (this.state.files != null && this.state.files != undefined && this.state.files.length != 0) {
+        console.log(this.state.files);
+        if (this.state.files != null && this.state.files != undefined && this.state.files.length !== 0) {
             fileItems = this.state.files.map((file, i) => {
                 let active;
-                if (file.active) {
+                console.log(file);
+                if (file.active !== undefined || file.active !== null || file.active === true) {
                     active = "Active";
                 } else {
                     active = "Inactive";
                 }
+                i = String(i);
                 return (
                     <tr key={i}>
                         <td key={file.title + i}>{file.title}</td>

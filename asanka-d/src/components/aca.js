@@ -7,16 +7,18 @@ import 'firebase/database';
 import "../css/aca.css";
 import FileTable from "./FileTable.js"
 import Folder from "./Folder.js";
+import constants from "./constants";
+
 
 export default class ACA extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: this.props.user,
-            query: 'Device3/Folders/English',
-            prevPath: 'Device3',
-            prev: 'Device3',
-            current: 'Device3/Folders/English',
+            query: 'Device3',
+            prevPath: '',
+            prev: '',
+            current: 'Device3',
             folders: [],
             files: []
         }
@@ -89,16 +91,18 @@ export default class ACA extends React.Component {
     loadFiles(query) {
         console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
-        this.fileRef.on('value', (snapshot) => {
+        this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
-            console.log(query);
             console.log(fileValue);
-            console.log(snapshot);
-            console.log(this.fileRef);
             let fileArray = Object.keys(fileValue).map((key) => {
-                fileValue.key = key;
-                return fileValue[key];
-            });
+                if (fileValue[key].active) {
+                    fileValue[key].key = key;
+                    return fileValue[key];
+                }    
+            })
+            fileArray = fileArray.filter(file => {
+                return file !== undefined;
+            })
             this.setState({files: fileArray});
         }); 
     }
@@ -112,14 +116,19 @@ export default class ACA extends React.Component {
         console.log('prev path: ' + this.state.prevPath);
         return(
             <Container fluid>
+               {!this.props.user && <Redirect exact to={constants.routes.welcome} />}
                 <Container className="main align-center p-4">
-                    <h1><i class="back-button fas fa-arrow-circle-left"></i>        ASANKA Cloud</h1>
+                    <h1><Link to={constants.routes.device}><i className="back-button fas fa-arrow-circle-left"></i></Link>        ASANKA Cloud</h1>
                     <hr />
-                    <h2 className="pb-2 pt-1">Folders</h2>
-                    {this.state.prevPath !== 'Device3' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
-                    <Container className="folders-section p-3 mb-5">
-                        {folderItems}
-                    </Container>
+                    <div className="mb-5">
+                        <h2 className="pb-2 pt-1">Folders</h2>
+                        {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
+                        {this.state.folders.length > 0 &&
+                            <Container className="folders-section p-3">
+                                {folderItems}
+                            </Container>
+                        }    
+                    </div>
                     <h2 className="pb-2">Files in: English</h2>
                     <FileTable files={this.state.files} />   
                 </Container>
