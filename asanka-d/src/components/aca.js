@@ -114,11 +114,15 @@ export default class ACA extends React.Component {
                 <Container className="main align-center p-4">
                     <h1><i className="back-button fas fa-arrow-circle-left"></i>        ASANKA Cloud</h1>
                     <hr />
-                    <h2 className="pb-2 pt-1">Folders</h2>
-                    {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
-                    <Container className="folders-section p-3 mb-5">
-                        {folderItems}
-                    </Container>
+                    <div className="mb-5">
+                        <h2 className="pb-2 pt-1">Folders</h2>
+                        {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
+                        {this.state.folders.length > 0 &&
+                            <Container className="folders-section p-3">
+                                {folderItems}
+                            </Container>
+                        }    
+                    </div>
                     <h2 className="pb-2">Files in: English</h2>
                     <FileTable files={this.state.files} />   
                 </Container>
