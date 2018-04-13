@@ -108,7 +108,7 @@ export default class ACA extends React.Component {
         return(
             <Container fluid>
                 <Container className="main align-center p-4">
-                    <h1><i class="back-button fas fa-arrow-circle-left"></i>        ASANKA Cloud</h1>
+                    <h1><i className="back-button fas fa-arrow-circle-left"></i>        ASANKA Cloud</h1>
                     <hr />
                     <h2 className="pb-2 pt-1">Folders</h2>
                     {this.state.prevPath !== 'Device3' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
