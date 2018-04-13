@@ -90,9 +90,13 @@ export default class ACA extends React.Component {
             let fileValue = snapshot.val();
             console.log(fileValue);
             let fileArray = Object.keys(fileValue).map((key) => {
-                fileValue[key] = key;
-                console.log(key);
-                return fileValue[key];
+                if (fileValue[key].active) {
+                    fileValue[key].key = key;
+                    return fileValue[key];
+                }    
+            })
+            fileArray = fileArray.filter(file => {
+                return file !== undefined;
             })
             this.setState({files: fileArray});
         }); 
