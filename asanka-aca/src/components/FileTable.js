@@ -67,7 +67,8 @@ export default class FileTable extends React.Component {
                     <File file={file} key={i} i={i} active={file.active} changeCallback={(e) => this.props.changeCallback(e)} />     
                 )
             })
-        }    
+        }
+            
         return (
             <Table className="myTable">
                 <thead>
@@ -105,7 +106,6 @@ class File extends React.Component {
     render() {
         let key = String(this.props.i);
         let file = this.state.file; 
-        console.log(file.i);
         let active;
         if (this.state.active) {
             active = "Active";

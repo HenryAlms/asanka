@@ -13,10 +13,10 @@ export default class ACA extends React.Component {
         super(props);
         this.state = {
             user: this.props.user,
-            query: 'Device3/Folders/English',
-            prevPath: 'Device3',
-            prev: 'Device3',
-            current: 'Device3/Folders/English',
+            query: 'Device3',
+            prevPath: '',
+            prev: '',
+            current: 'Device3',
             folders: [],
             files: []
         }
@@ -113,7 +113,7 @@ export default class ACA extends React.Component {
                     <h1><i class="back-button fas fa-arrow-circle-left"></i>        ASANKA Cloud</h1>
                     <hr />
                     <h2 className="pb-2 pt-1">Folders</h2>
-                    {this.state.prevPath !== 'Device3' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
+                    {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                     <Container className="folders-section p-3 mb-5">
                         {folderItems}
                     </Container>
