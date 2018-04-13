@@ -96,7 +96,7 @@ class File extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({active: this.props.file.active});
+        this.setState({file: this.props.file, active: this.props.file.active});
     }
 
     componentWillReceiveProps(nextProps) {

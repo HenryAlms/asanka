@@ -63,8 +63,9 @@ export default class Dashboard extends React.Component {
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             console.log(fileValue);
+
             let fileArray = Object.keys(fileValue).map((key) => {
-                fileValue[key].key = key;
+                fileValue[key] = key;
                 console.log(key);
                 return fileValue[key];
             })
@@ -96,7 +97,6 @@ export default class Dashboard extends React.Component {
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
         this.setState({prevPath: this.state.query, current: folder.name, prev: newPrev, query: newQuery});
-        
     }
 
     backOnClick() {
