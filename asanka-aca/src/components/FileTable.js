@@ -64,10 +64,11 @@ export default class FileTable extends React.Component {
         if (this.state.files != null && this.state.files != undefined && this.state.files.length != 0) {
             fileItems = this.state.files.map((file, i) => {
                 return (
-                    <File file={file} key={i} active={file.active} changeCallback={(e) => this.props.changeCallback(e)} />     
+                    <File file={file} key={i} i={i} active={file.active} changeCallback={(e) => this.props.changeCallback(e)} />     
                 )
             })
-        }    
+        }
+            
         return (
             <Table className="myTable">
                 <thead>
@@ -103,9 +104,8 @@ class File extends React.Component {
     }
 
     render() {
-        let key = this.props.key;
+        let key = String(this.props.i);
         let file = this.state.file; 
-        console.log(file.key);
         let active;
         if (this.state.active) {
             active = "Active";
@@ -116,7 +116,7 @@ class File extends React.Component {
             <tr key={key}>
                 <td key={file.title + key}>{file.title}</td>
                 <td key={file.type + key}>{file.type}</td>
-                <td key={active + key}>{active}<Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={active} /></td>
+                <td key={active + key}>{active}<Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} /></td>
             </tr>  
         )
     }
