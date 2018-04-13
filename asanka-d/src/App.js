@@ -58,38 +58,18 @@ class App extends Component {
     }
     let renderDevice = (routerProps) => {
       return <DeviceHome {...routerProps} user={this.state.user} />
-    }
-    // let renderProfile = (routerProps) => {
-    //   return <Profile {...routerProps} user={this.state.user} />
-    // }
-    // let renderUsers = (routerProps) => {
-    //   return <Users {...routerProps} user={this.state.user} />
-    // }
-    // let renderDevices = (routerProps) => {
-    //   return <Devices {...routerProps} user={this.state.user} />
-    // }  
-    // let renderContent = (routerProps) => {
-    //   return <Content {...routerProps} user={this.state.user}/>
-    // }
-    // console.log(this.state.user);      
+    }   
     
     return (
       <BrowserRouter>
         <Row>
-          <Header handleSignOut={this.handleSignOut()}/>
+          {this.state.user && <Header handleSignOut={() => this.handleSignOut()}/>}
           <Col>
             <div className="switch">  
               <Switch>
-                {/*<Route path={constants.routes.welcome} render={renderWelcome} />*/}
-                <Route path={constants.routes.welcome} render={renderWelcome} />
-                <Route exact path={constants.routes.device} render={renderDevice} />
+                <Route exact path={constants.routes.welcome} render={renderWelcome} />
+                <Route path={constants.routes.device} render={renderDevice} />
                 <Route path={constants.routes.aca} render={renderACA} />
-                {/* <Route exact path={constants.routes.dashboard} render={renderDashboard} />
-                <Route path={constants.routes.welcome} render={renderWelcome} />
-                <Route path={constants.routes.profile} render={renderProfile} />
-                <Route path={constants.routes.users} render={renderUsers} />
-                <Route path={constants.routes.devices} render={renderDevices} />
-                <Route path={constants.routes.content} render={renderContent} /> */}
               </Switch>
             </div>  
           </Col>

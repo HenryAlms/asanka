@@ -1,7 +1,7 @@
 export default {
     routes: {
-        welcome: "/Welcome",
-        device: "/devicehome",
+        welcome: "/",
+        device: "/Home",
         aca: "/ACA"
     }
 }
