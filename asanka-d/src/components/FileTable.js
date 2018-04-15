@@ -65,7 +65,7 @@ export default class FileTable extends React.Component {
                     <tr key={i}>
                         <td key={file.title + i}>{file.title}</td>
                         <td key={file.type + i}>{file.type}</td>
-                        <td><a id={file.title} onClick={() => this.downloadFile(file.title)}>Download</a></td>
+                        <td><button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button></td>
                     </tr>    
                 )
             })
