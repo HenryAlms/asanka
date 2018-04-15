@@ -10,6 +10,7 @@ import Folder from "./Folder.js";
 import constants from "./constants";
 
 
+
 export default class ACA extends React.Component {
     constructor(props) {
         super(props);
@@ -114,6 +115,8 @@ export default class ACA extends React.Component {
         this.fileRef = firebase.database().ref('Device3');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
+            console.log(snapshot);
+            console.log(snapshot.child("title"));
             console.log(fileValue);
             console.log(typeof(fileValue));
             for (var folder in fileValue) {
@@ -122,7 +125,6 @@ export default class ACA extends React.Component {
                 //     console.log(item);
                 // }
             }
-
             // this.setState({files: fileArray});
         }); 
     }
@@ -139,13 +141,13 @@ export default class ACA extends React.Component {
                {!this.props.user && <Redirect exact to={constants.routes.welcome} />}
                 <Container className="main align-center p-4">
                     <h1><Link to={constants.routes.device}><i className="back-button fas fa-arrow-circle-left"></i></Link>        ASANKA Cloud</h1>
-                    <hr />
+                    <hr/>
 
                     <div className="mb-5">
                         <h2 className="pb-2 pt-1">Folders</h2> 
                         <form>
                             <input id="myInput" type="text" placeholder="Search.." name="search"></input>
-                            <button onClick={(evt) => this.searchFiles(evt)} type="submit"><i class="fa fa-search"></i></button>
+                            <button onClick={(evt) => this.searchFiles(evt)} type="submit"><i className="fa fa-search"></i></button>
                         </form>
                         {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                         {this.state.folders.length > 0 &&
