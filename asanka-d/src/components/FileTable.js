@@ -48,6 +48,10 @@ export default class FileTable extends React.Component {
           });
     }
 
+    viewFile(fileTitle) {
+
+    }
+
     render() {
         let fileItems = [];
         console.log(this.state.files);
@@ -65,7 +69,7 @@ export default class FileTable extends React.Component {
                     <tr key={i}>
                         <td key={file.title + i}>{file.title}</td>
                         <td key={file.type + i}>{file.type}</td>
-                        <td><button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button></td>
+                        <td><button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button><button id={file.title} onClick={() => this.viewFile(file.title)}>View</button></td>
                     </tr>    
                 )
             })
