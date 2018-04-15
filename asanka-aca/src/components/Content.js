@@ -6,6 +6,7 @@ import {Label, Input, FormGroup} from 'reactstrap';
 
 import constants from './constants';
 import '../css/Content.css';
+import Categories from './Categories';
 
 
 export default class Content extends React.Component {
@@ -121,7 +122,6 @@ export default class Content extends React.Component {
         return (
             <div>
                 <div className='container'>
-                    <form className="">
                     <div className='form-group'>
                         <label className="form-title" htmlFor='FileTitle'>Title:</label>
                         <input id='FileTitle' type='text'
@@ -165,7 +165,7 @@ export default class Content extends React.Component {
                     </div>
                     <div className="dropGroup">
                         <div>
-                            <div className="dropdown">
+                            {/* <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.devRef}<span className="caret"></span></button>
                                 <CategoryList refPath={null} handleChange={(e) => this.handleRefChange(e)}/>
@@ -184,6 +184,15 @@ export default class Content extends React.Component {
                                 <button id="teacher" disabled className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.teachRef}<span className="caret"></span></button>
                                 <CategoryList refPath={this.state.teachSel} handleChange={(e) => this.handleTeachChange(e)}/>
+                            </div> */}
+                            <div>
+                                <div>
+                                    <Categories refPath={null}/>
+                                    <Categories refPath="Device3/Folders/"/>
+                                    <Categories refPath="Device3/Folders/English/"/>
+                                    <Categories refPath="Device3/Folders/Math/"/>
+                                
+                                </div>
                             </div>
                         </div>
                         <div className='dropdown form-group'>
@@ -193,7 +202,6 @@ export default class Content extends React.Component {
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
             </div>
         );
@@ -242,6 +250,7 @@ class CategoryList extends React.Component {
             ref = firebase.database().ref();
         }
         ref.on('value', (snapshot) => {
+            console.log(snapshot)
             let catValue = snapshot.val();
             let catArray = Object.keys(catValue).map((key) => {
                 return {name: key};
@@ -269,9 +278,11 @@ class CategoryList extends React.Component {
         }
 
         return (
-            <ul className="dropdown-menu">
-                {this.state.selections}
-            </ul>
+            <div>
+                <form>
+                    {this.state.selections}
+                </form>
+            </div>
         )
     }
 }
