@@ -6,6 +6,7 @@ import {Label, Input, FormGroup} from 'reactstrap';
 
 import constants from './constants';
 import '../css/Content.css';
+import { checkServerIdentity } from "tls";
 
 export default class Checkbox extends React.Component {
     constructor(props) {
@@ -47,6 +48,7 @@ export default class Checkbox extends React.Component {
                 isChecked: !isChecked
             }
         ));
+        this.props.handleClick(evt.value);
     }
 
     render() {

@@ -28,7 +28,8 @@ export default class Content extends React.Component {
             locSel:"",
             teachRef: "Choose A Teacher",
             teachSel:"",
-            selectedButton: "true"
+            selectedButton: "true",
+            selected: []
         },
         this.handleRefChange = this.handleRefChange.bind(this),
         this.handleSubChange = this.handleSubChange.bind(this),
@@ -116,6 +117,11 @@ export default class Content extends React.Component {
         this.setState({selectedButton: evt.target.value});
     }
 
+    checkSelect(selected) {
+        this.state.selected.push(selected);
+        console.log(selected);
+    }
+
 
     render() {
         
@@ -187,10 +193,10 @@ export default class Content extends React.Component {
                             </div> */}
                             <div>
                                 <div>
-                                    <Categories refPath={null}/>
-                                    <Categories refPath="Device3/Folders/"/>
-                                    <Categories refPath="Device3/Folders/English/"/>
-                                    <Categories refPath="Device3/Folders/Math/"/>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath={null}/>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath="Device3/Folders/"/>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath="Device3/Folders/English/"/>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath="Device3/Folders/Math/"/>
                                 
                                 </div>
                             </div>
