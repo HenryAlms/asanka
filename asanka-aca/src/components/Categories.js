@@ -56,15 +56,15 @@ export default class Categories extends React.Component {
         });
     }
 
-    // handleClick(name) {
-    //     this.props.handleChange(name);
-    // }
+    handleClick(name) {
+        this.state.selections.push(name);
+    }
 
     render() {
         if(this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<Checkbox name={category.name} key={category.name}/>);
+                this.state.selections.push(<Checkbox name={category.name} handleClick={(e) => this.handleClick(e)} key={category.name}/>);
             }); 
         } else {
             return (
@@ -78,6 +78,7 @@ export default class Categories extends React.Component {
             <div>
                 <form>
                     {this.state.selections}
+                    <button type="submit">Submit</button>
                 </form>
             </div>
             
