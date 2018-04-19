@@ -33,6 +33,7 @@ export default class FileTable extends React.Component {
             xhr.open('GET', url);
             xhr.responseType = 'blob';
             xhr.onload = function(event) {
+                console.log(url);
                 var blob = xhr.response;
                 var a = document.createElement("a");
                 document.body.appendChild(a);
