@@ -42,20 +42,20 @@ export default class Checkbox extends React.Component {
     //     // this.loadData();
     // }
 
-    toggleCheckboxChange(evt) {
-        this.setState(({isChecked}) => ( 
+    toggleCheckboxChange() {
+        this.setState(({isChecked}) => (
             {
                 isChecked: !isChecked
             }
         ));
-        this.props.handleClick(evt.value);
+        this.props.handleClick(this.state.label, !this.state.isChecked);
     }
 
     render() {
         return(
             <div className="checkbox">
                 <label>
-                    <input type="checkbox" value={this.state.label} checked={this.state.isChecked} onChange={(evt) => this.toggleCheckboxChange(evt)}/>
+                    <input type="checkbox" value={this.state.label} checked={this.state.isChecked} onClick={() => this.toggleCheckboxChange()}/>
                     {" " + this.state.label}
                 </label>
              </div>
