@@ -47,7 +47,7 @@ export default class Categories extends React.Component {
             ref = firebase.database().ref();
         }
         ref.on('value', (snapshot) => {
-            console.log(snapshot)
+            // console.log(snapshot)
             let value = snapshot.val();
             let list = Object.keys(value).map((key) => {
                 return {name: key};
@@ -73,7 +73,7 @@ export default class Categories extends React.Component {
                 </div>
             )
         }
-        console.log(this.state.selections);
+        // console.log(this.state.selections);
         return (
             <div>
                 <form>

@@ -2,6 +2,9 @@ import {Table, Input, FormGroup, Label} from 'reactstrap';
 import React from "react";
 import '../css/Dashboard.css';
 import firebase from 'firebase/app';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import constants from './constants';
+
 
 
 
@@ -74,6 +77,10 @@ class File extends React.Component {
         this.setState({file: nextProps.file, active: nextProps.active})
     }
 
+    editFile() {
+
+    }
+
     render() {
         let key = String(this.props.i);
         let file = this.state.file; 
@@ -91,7 +98,7 @@ class File extends React.Component {
                     <FormGroup className="ml-3">
                         <Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} />
                         <Label for={file.title + (key * 2)}>{active}</Label>
-                    </FormGroup>    
+                    </FormGroup>
                 </td>
             </tr>  
         )
