@@ -59,11 +59,11 @@ export default class Dashboard extends React.Component {
     }
 
     loadFiles(query) {
+        console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
-        this.fileRef.on('value', (snapshot) => {
+        this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             console.log(fileValue);
-
             let fileArray = Object.keys(fileValue).map((key) => {
                 fileValue[key].key = key;
                 console.log(key);
@@ -76,27 +76,28 @@ export default class Dashboard extends React.Component {
     changeStatus(event) {
         let file = event.target.value;
         console.log('changeStatus clicked! file:' + file);
-        /*this.fileRef = firebase.database().ref(query + '/Files' + file);
-        this.fileRef.on('value', (snapshot) => {
-            let fileValue = snapshot.val();
-            console.log(fileValue);
-            let fileArray = Object.keys(fileValue).map((key) => {
-                fileValue[key].key = key;
-                console.log(key);
-                return fileValue[key];
-            })
-            console.log(file)
-            this.setState({files: fileArray});
-        }); */
+        let singleFileRef = firebase.database().ref(this.state.query + '/Files/' + file);
+        singleFileRef.once('value', (snapshot) => {
+            let data = snapshot.val();
+            let isActive = data.active;
+            let update = data;
+            if (isActive) {
+                update['active'] = false;
+            } else {
+                update['active'] = true;
+            }
+            singleFileRef.set(update);
+        });
+        this.loadFiles(this.state.query);
     }
 
     folderOnClick(folder) {
+        console.log("folder clicked")
         let newPrev = this.state.current;
         let newQuery = this.state.query + "/Folders/" + folder.name;
         this.loadFolders(newQuery);
         this.loadFiles(newQuery);
         this.setState({prevPath: this.state.query, current: folder.name, prev: newPrev, query: newQuery});
-        
     }
 
     backOnClick() {

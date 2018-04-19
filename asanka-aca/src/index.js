@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/storage';
 
 var config = {
     apiKey: "AIzaSyBpnwl8afPChZ8Pha_hU1KfaeYbenQrrVA",

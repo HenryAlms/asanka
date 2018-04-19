@@ -12,7 +12,7 @@ export default class Welcome extends React.Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
         }
     }
 

@@ -6,6 +6,7 @@ import {Label, Input, FormGroup} from 'reactstrap';
 
 import constants from './constants';
 import '../css/Content.css';
+import Categories from './Categories';
 
 
 export default class Content extends React.Component {
@@ -20,9 +21,15 @@ export default class Content extends React.Component {
             file: "",
             query: null,
             devRef: "Choose A Device",
+            devSel:"",
             subRef: "Choose A Subject",
+            subSel:"",
             locRef: "Choose A Location",
-            selectedButton: "true"
+            locSel:"",
+            teachRef: "Choose A Teacher",
+            teachSel:"",
+            selectedButton: "true",
+            selected: []
         },
         this.handleRefChange = this.handleRefChange.bind(this),
         this.handleSubChange = this.handleSubChange.bind(this),
@@ -50,14 +57,12 @@ export default class Content extends React.Component {
             .catch(err => window.alert(err));
     }
 
+    storeFile(evt) {
+        this.setState({file: evt.target.files[0]});
+    }
+
     submitFile(evt) {
-        evt.preventDefault();
-        console.log(this.state.query);
-        console.log(this.state.title);
-        console.log(this.state.description);
-        console.log(this.state.date);
         console.log(this.state.file);
-        console.log(this.state.active);
         firebase.database().ref(this.state.query + "/" + this.state.title).set({
             title: this.state.title,
             description: this.state.description,
@@ -65,26 +70,56 @@ export default class Content extends React.Component {
             active: this.state.selectedButton,
             file: this.state.file
         });
+        let storage = firebase.storage().ref(this.state.query + "/" + this.state.title);
+        let file = this.state.file;
+        storage.put(file);
     }
 
     handleRefChange(device) {
+        console.log(this.state.query);
         let devQ = device + "/Folders";
-        this.setState({query: devQ, devRef: device});
+        this.setState({query: devQ, devRef: device, subSel: devQ});
+        document.getElementById("subject").disabled = false;
     }
 
     handleSubChange(subject) {
-        let subjectQ = this.state.query + "/" + subject;
-        this.setState({query: subjectQ, subRef: subject});
-        
+        console.log(this.state.query);
+        if(this.state.subSel === "") {
+            document.getElementById("subject").disabled = true;
+        }
+        let subjectQ = this.state.subSel + "/" + subject;
+        this.setState({query: subjectQ, subRef: subject, locSel: subjectQ});
+        document.getElementById("location").disabled = false;
     }
 
     handleLocChange(location) {
-        let locationQ = this.state.query + "/" + location;
-        this.setState({query: locationQ, locRef: location});
+        console.log(location);
+        console.log(this.state.query);
+        if(this.state.locSel === "") {
+            document.getElementById("location").disabled = true;
+        }
+        let locationQ = this.state.locSel+ "/" + location;
+        this.setState({query: locationQ, locRef: location, teachSel: locationQ});
+        if(location === "Folders") {
+            document.getElementById("teacher").disabled = false;
+        }
+    }
+
+    handleTeachChange(teacher) {
+        if(this.state.teachSel === "") {
+            document.getElementById("teacher").disabled = true;
+        }
+        let teachQ = this.state.teachSel + '/' + teacher;
+        this.setState({query: teachQ, teachRef: teacher});
     }
 
     handleRB(evt) {
         this.setState({selectedButton: evt.target.value});
+    }
+
+    checkSelect(selected) {
+        this.state.selected.push(selected);
+        console.log(selected);
     }
 
 
@@ -93,7 +128,6 @@ export default class Content extends React.Component {
         return (
             <div>
                 <div className='container'>
-                    <form className="">
                     <div className='form-group'>
                         <label className="form-title" htmlFor='FileTitle'>Title:</label>
                         <input id='FileTitle' type='text'
@@ -137,30 +171,43 @@ export default class Content extends React.Component {
                     </div>
                     <div className="dropGroup">
                         <div>
-                            <div className="dropdown">
+                            {/* <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.devRef}<span className="caret"></span></button>
                                 <CategoryList refPath={null} handleChange={(e) => this.handleRefChange(e)}/>
                             </div>
                             <div className="dropdown">
-                                <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                <button id="subject" disabled className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.subRef}<span className="caret"></span></button>
-                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleSubChange(e)}/>
+                                <CategoryList refPath={this.state.subSel} handleChange={(e) => this.handleSubChange(e)}/>
                             </div>
                             <div className="dropdown">
-                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                <button id="location" disabled className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.locRef}<span className="caret"></span></button>
-                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleLocChange(e)}/>
+                                <CategoryList refPath={this.state.locSel} handleChange={(e) => this.handleLocChange(e)}/>
+                            </div>
+                            <div className="dropdown">
+                                <button id="teacher" disabled className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                {this.state.teachRef}<span className="caret"></span></button>
+                                <CategoryList refPath={this.state.teachSel} handleChange={(e) => this.handleTeachChange(e)}/>
+                            </div> */}
+                            <div>
+                                <div>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath={null}/>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath="Device3/Folders/"/>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath="Device3/Folders/English/"/>
+                                    <Categories checkSelect={(e) => this.checkSelect(e)} refPath="Device3/Folders/Math/"/>
+                                
+                                </div>
                             </div>
                         </div>
                         <div className='dropdown form-group'>
                             <div>
                                 <button id="input-b" className="btn btn-danger" onClick={(evt) => this.submitFile(evt)}>Submit File</button>
-                                <input id="input" className="mr-auto" type="file" onChange={evt => this.setState({file: evt.target.value})}/>
+                                <input id="input" className="mr-auto" type="file" onChange={(evt) => {this.storeFile(evt)}}/>
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
             </div>
         );
@@ -209,6 +256,7 @@ class CategoryList extends React.Component {
             ref = firebase.database().ref();
         }
         ref.on('value', (snapshot) => {
+            console.log(snapshot)
             let catValue = snapshot.val();
             let catArray = Object.keys(catValue).map((key) => {
                 return {name: key};
@@ -236,9 +284,11 @@ class CategoryList extends React.Component {
         }
 
         return (
-            <ul className="dropdown-menu">
-                {this.state.selections}
-            </ul>
+            <div>
+                <form>
+                    {this.state.selections}
+                </form>
+            </div>
         )
     }
 }
