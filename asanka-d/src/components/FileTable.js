@@ -2,6 +2,8 @@ import {Table} from 'reactstrap';
 import React from "react";
 import '../css/aca.css';
 import firebase from 'firebase/app';
+import FileViewer from 'react-file-viewer';
+
 
 
 export default class FileTable extends React.Component {
@@ -9,7 +11,8 @@ export default class FileTable extends React.Component {
         super(props);
         this.state = {
             files: this.props.files,
-            query: this.props.query
+            query: this.props.query,
+            filePath: ''
         }
     }
 
@@ -21,36 +24,48 @@ export default class FileTable extends React.Component {
         this.setState({files: nextProps.files, query: nextProps.query})
     }
 
-    downloadFile(fileTitle) {
-        console.log(fileTitle);
+    // downloadFile(fileTitle) {
+    //     console.log(fileTitle);
+    //     let storageRef = firebase.storage().ref(this.state.query + "/Files/");
+    //     console.log(this.state.query);
+    //     // Create a reference to the file we want to download
+    //     var fileRef = storageRef.child(fileTitle + '.pdf');
+    //     fileRef.getDownloadURL().then(function(url) {
+    //         // This can be downloaded directly:
+    //         var xhr = new XMLHttpRequest();
+    //         xhr.open('GET', url);
+    //         xhr.responseType = 'blob';
+    //         xhr.onload = function(event) {
+    //             // console.log(url);
+    //             // var blob = xhr.response;
+    //             // var a = document.createElement("a");
+    //             // document.body.appendChild(a);
+    //             // a.style = "display: none";
+    //             // a.href = url;
+    //             // a.download = fileTitle;
+    //             // a.click();
+    //             window.location.href = url;
+
+    //         };
+    //         xhr.send();
+    //       }).catch(function(error) {
+    //         // Handle any errors
+    //         console.log(error);
+    //       });
+    // }
+
+    viewFile(fileTitle) {
+        console.log('Viewing file!');
         let storageRef = firebase.storage().ref(this.state.query + "/Files/");
-        console.log(this.state.query);
         // Create a reference to the file we want to download
-        var fileRef = storageRef.child(fileTitle);
+        var fileRef = storageRef.child(fileTitle + '.pdf');
         fileRef.getDownloadURL().then(function(url) {
-            // This can be downloaded directly:
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url);
-            xhr.responseType = 'blob';
-            xhr.onload = function(event) {
-                console.log(url);
-                var blob = xhr.response;
-                var a = document.createElement("a");
-                document.body.appendChild(a);
-                a.style = "display: none";
-                a.href = url;
-                a.download = fileTitle;
-                a.click();
-            };
-            xhr.send();
+            window.open(url);
           }).catch(function(error) {
             // Handle any errors
             console.log(error);
           });
-    }
-
-    viewFile(fileTitle) {
-
+        
     }
 
     render() {
@@ -70,8 +85,11 @@ export default class FileTable extends React.Component {
                     <tr key={i}>
                         <td key={file.title + i}>{file.title}</td>
                         <td key={file.type + i}>{file.type}</td>
-                        <td><button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button><button id={file.title} onClick={() => this.viewFile(file.title)}>View</button></td>
-                    </tr>    
+                        <td>
+                            {/* <button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button> */}
+                            
+                            <button id={file.title} onClick={() => this.viewFile(file.title)}>View</button></td>
+                    </tr>
                 )
             })
         }    
