@@ -25,7 +25,8 @@ export default class Dashboard extends React.Component {
             files: [],
             devSelect: this.props.device,
             editMode: false,
-            checked: []
+            checked: [],
+            dropdownOpen: false
         }
     }
 
@@ -124,12 +125,12 @@ export default class Dashboard extends React.Component {
         this.setState({current: newCurrent, prev: newPrev, prevPath: newPrevPath, query: newQuery});
     }
 
-    // devDropdown(d) {
-    //     //help
-    //     this.setState({devSelect: d});
-        
-        
-    // }
+    toggle() {
+        this.setState({
+          dropdownOpen: !this.state.dropdownOpen
+        });
+      }
+    
 
     handleDevChange(d) {
         console.log(d);
