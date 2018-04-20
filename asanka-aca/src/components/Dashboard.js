@@ -16,10 +16,10 @@ export default class Dashboard extends React.Component {
         super(props);
         this.state = {
             user: this.props.user,
-            query: 'Device3',
+            query: 'Device 3',
             prevPath: '',
             prev: '',
-            current: 'Device3',
+            current: 'Device 3',
             folders: [],
             files: []
         }
@@ -147,6 +147,7 @@ export default class Dashboard extends React.Component {
                 <div>
                     <div className="fileBtns">
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
+                        <Button color="secondary" className="m-2"><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
                     </div>    
                     <FileTable files={this.state.files} changeCallback={(e) => this.changeStatus(e)}/>   
                 </div>     

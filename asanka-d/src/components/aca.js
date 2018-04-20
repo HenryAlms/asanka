@@ -16,10 +16,10 @@ export default class ACA extends React.Component {
         super(props);
         this.state = {
             user: this.props.user,
-            query: 'Device3',
+            query: 'Device 3',
             prevPath: '',
             prev: '',
-            current: 'Device3',
+            current: 'Device 3',
             folders: [],
             files: []
         }
