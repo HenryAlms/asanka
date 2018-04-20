@@ -12,11 +12,12 @@ export default class Checkbox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userID:undefined,
+            user:undefined,
             categories: [],
             selections: [],
             label: this.props.name,
-            isChecked: false
+            isChecked: false,
+            curDevice: this.props.deivce
         }
         // this.handleClick = this.handleClick.bind(this);
     }
@@ -42,20 +43,30 @@ export default class Checkbox extends React.Component {
     //     // this.loadData();
     // }
 
-    toggleCheckboxChange(evt) {
-        this.setState(({isChecked}) => ( 
+    toggleCheckboxChange() {
+        this.setState(({isChecked}) => (
             {
                 isChecked: !isChecked
             }
         ));
-        this.props.handleClick(evt.value);
+        this.props.handleClick(this.state.label, !this.state.isChecked);
     }
 
+    check() {
+        console.log(this.state.device);
+        if(this.state.label === this.state.deivce) {
+            console.log(this.state.deivce)
+            this.setState({isChecked:true});
+            return true;
+        } else {
+            return this.state.isChecked;
+        }
+    }
     render() {
         return(
             <div className="checkbox">
                 <label>
-                    <input type="checkbox" value={this.state.label} checked={this.state.isChecked} onChange={(evt) => this.toggleCheckboxChange(evt)}/>
+                    <input type="checkbox" value={this.state.label} checked={this.check()} onClick={() => this.toggleCheckboxChange()}/>
                     {" " + this.state.label}
                 </label>
              </div>
