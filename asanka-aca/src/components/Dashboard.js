@@ -48,6 +48,14 @@ export default class Dashboard extends React.Component {
         this.unregisterFunction();
     }
 
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps.device);
+    //     this.setState({current: nextProps.device});
+    //     this.loadFolders(nextProps.device);
+    //     this.loadFiles(nextProps.device);
+    //     console.log(this.state.current);
+    // }
+
     loadFolders(query) {
         this.folderRef = firebase.database().ref(query + "/Folders");
         this.folderRef.on('value', (snapshot) => {
@@ -63,7 +71,6 @@ export default class Dashboard extends React.Component {
     }
 
     loadFiles(query) {
-        console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
@@ -96,7 +103,6 @@ export default class Dashboard extends React.Component {
     }
 
     folderOnClick(folder) {
-        console.log("folder clicked")
         let newPrev = this.state.current;
         let newQuery = this.state.query + "/Folders/" + folder.name;
         this.loadFolders(newQuery);
@@ -124,16 +130,10 @@ export default class Dashboard extends React.Component {
         this.setState({current: newCurrent, prev: newPrev, prevPath: newPrevPath, query: newQuery});
     }
 
-    // devDropdown(d) {
-    //     //help
-    //     this.setState({devSelect: d});
-        
-        
-    // }
-
     handleDevChange(d) {
-        console.log(d);
-        this.setState({devSelect: d});
+        this.loadFolders(d);
+        this.loadFiles(d);
+        this.setState({current: d, query: d});
         this.props.device(d);
     }
 
@@ -156,9 +156,7 @@ export default class Dashboard extends React.Component {
             return (
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
             )
-        })
-
-        //console.log(this.state.devSelect);
+        });
         return (
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    

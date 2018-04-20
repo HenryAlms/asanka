@@ -7,6 +7,7 @@ import {Label, Input, FormGroup} from 'reactstrap';
 import constants from './constants';
 import '../css/Content.css';
 import Categories from './Categories';
+import CategoryList from './CategoryList';
 
 
 export default class Content extends React.Component {
@@ -66,66 +67,61 @@ export default class Content extends React.Component {
 
     submitFile(evt) {
         evt.preventDefault();
-        let query = "";
+        let devQuery = "";
         let queryList = [];
 
         let list = [];
 
-        this.state.devSel.forEach((device) => {
-            //hi
-        });
+        if(this.state.subSel.length === 0 && this.state.teachSel.length === 0) {
+            console.log("Device Only")
+            this.state.devSel.forEach((device) => {
+                queryList.push(device + "/Files/" + this.state.title)
+            });
+        }
+
+        if(this.state.subSel.length !== 0) {
+            console.log("Subject Only")
+            this.state.devSel.forEach((device) => {
+                this.state.subSel.forEach((subject) => {
+                    console.log("for each subject");
+                    queryList.push(device + "/Folders/" + subject + "/Files/" + this.state.title);
+                });
+            });
+        } else if(this.state.teachSel.length !== 0) {
+            console.log("Teacher Only")
+            this.state.devSel.forEach((device) => {
+                this.state.teachSel.forEach((teacher) => {
+                    queryList.push(device + "/Folders/" + teacher + "/Files/" + this.state.title);
+                });
+            });
+        }
+
 
         let teachers = this.state.teachSel.length;
         let locations = this.state.locSel.length;
         let subjects = this.state.subSel.length;
         let devices = this.state.devSel.length;
 
-        list.push(teachers);
-        list.push(locations);
-        list.push(subjects);
-        list.push(devices);
+        console.log(teachers);
+        console.log(locations);
+        console.log(subjects);
+        console.log(devices);
 
-        console.log(Math.max(...list));
-
-
-        let queries = teachers + locations + subjects + devices;
-        
-
-        for(let i = 0; i < queries; i++) {
-            queryList.push("query");
-        }
-
-        // if(this.state.devSel.length != 0) {
-        //     this.state.devSel.forEach((device) => {
-        //         queryList[]
-        //     }
-        
-        // this.state.devSel.forEach();
-        // if(this.state.teachSel.length !== 0) {
-
-        // }
-        // if(this.state.devSel.length != 0) {
-        //     this.state.devSel.forEach((device) => {
-        //         if(this.state.subSel !== 0) {
-        //                 this.state.subSel.forEach( (subject) => (
-                            
-        //                 )
-
-        //                 )
-        // }
-        //     })
-        // }
         console.log(queryList);
-        firebase.database().ref(this.state.query + "/" + this.state.title).set({
-            title: this.state.title,
-            description: this.state.description,
-            date: this.state.date,
-            active: this.state.selectedButton,
-            file: this.state.file
-        });
-        let storage = firebase.storage().ref(this.state.query + "/" + this.state.title);
-        let file = this.state.file;
-        storage.put(file);
+        queryList.forEach((storeLocation) => {
+            console.log(storeLocation);
+            firebase.database().ref(storeLocation).set({
+                title: this.state.title,
+                description: this.state.description,
+                date: this.state.date,
+                active: this.state.selectedButton,
+                file: this.state.file
+            });
+            let storage = firebase.storage().ref(storeLocation);
+            let file = this.state.file;
+            storage.put(file);
+        })
+        
     }
 
     handleRB(evt) {
@@ -258,3 +254,4 @@ export default class Content extends React.Component {
         );
     }
 }
+
