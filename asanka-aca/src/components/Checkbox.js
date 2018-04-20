@@ -53,7 +53,6 @@ export default class Checkbox extends React.Component {
     }
 
     check() {
-        console.log(this.state.device);
         if(this.state.label === this.state.deivce) {
             console.log(this.state.deivce)
             this.setState({isChecked:true});

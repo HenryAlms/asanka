@@ -31,7 +31,7 @@ export class MyNav extends React.Component {
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/">
+                    <NavLink to="/Categories">
                         Categories
                     </NavLink>
                 </NavItem>
