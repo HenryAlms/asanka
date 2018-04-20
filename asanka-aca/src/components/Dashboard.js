@@ -25,7 +25,7 @@ export default class Dashboard extends React.Component {
             files: [],
             devSelect: this.props.device,
             editMode: false,
-            checked: []
+            checked: new Set()
         }
     }
 
@@ -148,7 +148,29 @@ export default class Dashboard extends React.Component {
 
     handleEditCheck(e) {
         let fileTitle = e.target.value;
-        this.state.checked.push(fileTitle)
+        if (this.state.checked.has(fileTitle)) {
+          this.state.checked.delete(fileTitle);
+        } else {
+          this.state.checked.add(fileTitle);
+        }
+        console.log(this.state.checked);
+    }
+
+    deleteFiles() {
+        this.fileRef = firebase.database().ref(this.state.query + '/Files');
+        console.log(this.fileRef);
+        var updates = {};
+        this.fileRef.once('value', (snapshot) => {
+            let fileValue = snapshot.val();
+            Object.keys(fileValue).forEach((key) => {
+                if (this.state.checked.has(key)) {
+                    console.log(key);
+                    updates[key] = null;
+                }
+            })
+        });
+        console.log(updates);
+        this.fileRef.update(updates); 
     }
 
     render() {
@@ -187,6 +209,9 @@ export default class Dashboard extends React.Component {
                 }    
 
                 <div>
+                    <div className="delete-button">
+                        <Button color="danger" className="m-2" onClick={() => this.deleteFiles()} >Delete Selected</Button>
+                    </div>    
                     <div className="fileBtns">
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
                         <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>

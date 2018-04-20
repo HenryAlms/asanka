@@ -94,7 +94,7 @@ class File extends React.Component {
         }
         return (
             <tr>
-                <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}checked={true} />} {file.title}</td>
+                <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
                 <td key={file.type + key}>{file.type}</td>
                 <td key={active + key}>
                     <FormGroup className="ml-3">
