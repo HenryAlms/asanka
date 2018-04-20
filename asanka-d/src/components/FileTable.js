@@ -57,6 +57,7 @@ export default class FileTable extends React.Component {
     viewFile(fileTitle) {
         console.log('Viewing file!');
         let storageRef = firebase.storage().ref(this.state.query + "/Files/");
+        console.log(this.state.query + "/Files/" + fileTitle + '.pdf');
         // Create a reference to the file we want to download
         var fileRef = storageRef.child(fileTitle + '.pdf');
         fileRef.getDownloadURL().then(function(url) {

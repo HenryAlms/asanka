@@ -108,37 +108,6 @@ export default class ACA extends React.Component {
         }); 
     }
 
-    searchFiles(evt) {
-        evt.preventDefault();
-        var phrase = document.getElementById("myInput").value;
-        console.log(phrase);
-        this.fileRef = firebase.database().ref('Device3');
-        this.fileRef.once('value', (snapshot) => {
-            let fileValue = snapshot.val();
-            console.log(snapshot);
-            console.log(snapshot.child("title"));
-            console.log(fileValue);
-            console.log(typeof(fileValue));
-            for (var folder in fileValue) {
-                console.log(fileValue[folder]);
-                // for (var item of fileValue[key]) {
-                //     console.log(item);
-                // }
-            }
-            var returnArr = [];
-
-            snapshot.forEach(function(childSnapshot) {
-                var item = childSnapshot.val();
-                item.key = childSnapshot.key;
-                returnArr.push(item);
-            });
-        
-            console.log(returnArr);
-
-            // this.setState({files: fileArray});
-        }); 
-    }
-
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
@@ -155,10 +124,6 @@ export default class ACA extends React.Component {
 
                     <div className="mb-5">
                         <h2 className="pb-2 pt-1">Folders</h2> 
-                        <form>
-                            <input id="myInput" type="text" placeholder="Search.." name="search"></input>
-                            <button onClick={(evt) => this.searchFiles(evt)} type="submit"><i className="fa fa-search"></i></button>
-                        </form>
                         {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                         {this.state.folders.length > 0 &&
                             <Container className="folders-section p-3">

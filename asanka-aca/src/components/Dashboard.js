@@ -23,7 +23,9 @@ export default class Dashboard extends React.Component {
             current: 'Device 3',
             folders: [],
             files: [],
-            devSelect: this.props.device
+            devSelect: this.props.device,
+            editMode: false,
+            checked: []
         }
     }
 
@@ -135,6 +137,20 @@ export default class Dashboard extends React.Component {
         this.props.device(d);
     }
 
+    editOnClick() {
+        if (this.state.editMode === false || this.state.editMode === null || this.state.editMode === undefined)
+            this.setState({editMode: true});
+        else {   
+            this.setState({editMode: false, checked: []}) 
+        }      
+
+    }
+
+    handleEditCheck(e) {
+        let fileTitle = e.target.value;
+        this.state.checked.push(fileTitle)
+    }
+
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
@@ -173,9 +189,9 @@ export default class Dashboard extends React.Component {
                 <div>
                     <div className="fileBtns">
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
-                        <Button color="secondary" className="m-2"><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
+                        <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
                     </div>    
-                    <FileTable files={this.state.files} changeCallback={(e) => this.changeStatus(e)}/>   
+                    <FileTable files={this.state.files} editMode={this.state.editMode} handleEditCheckCallback={(e)=>this.handleEditCheck(e)}changeCallback={(e) => this.changeStatus(e)}/>   
                 </div>     
             </div>
         )

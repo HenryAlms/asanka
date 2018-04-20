@@ -12,7 +12,8 @@ export default class FileTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: this.props.files
+            files: this.props.files,
+            editMode: this.props.editMode,
         }
     }
 
@@ -25,11 +26,11 @@ export default class FileTable extends React.Component {
               this.setState({ user: null, duplicateGames: [] });
             }
         });
-        this.setState({files: this.props.files});
+        this.setState({files: this.props.files, editMode: this.props.editMode});
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({files: nextProps.files})
+        this.setState({files: nextProps.files, editMode: nextProps.editMode});
     }
 
     render() {
@@ -38,7 +39,7 @@ export default class FileTable extends React.Component {
         if (this.state.files.length !== 0 && this.state.files != undefined && this.state.files != null) {
             fileItems = this.state.files.map((file, i) => {
                 return (
-                    <File file={file} key={i} i={i} active={file.active} changeCallback={(e) => this.props.changeCallback(e)} />     
+                    <File handleEditCheckCallback={(e) => this.props.handleEditCheckCallback(e)} editMode={this.state.editMode} file={file} key={i} i={i} active={file.active} changeCallback={(e) => this.props.changeCallback(e)} />     
                 )
             })
         }
@@ -66,15 +67,16 @@ class File extends React.Component {
         this.state = {
             file: this.props.file,
             active: this.props.active,
+            editMode: this.props.editMode
         }
     }
 
     componentDidMount() {
-        this.setState({file: this.props.file, active: this.props.file.active});
+        this.setState({file: this.props.file, active: this.props.file.active, editMode: this.props.editMode});
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({file: nextProps.file, active: nextProps.active})
+        this.setState({file: nextProps.file, active: nextProps.active, editMode: nextProps.editMode})
     }
 
     editFile() {
@@ -91,8 +93,8 @@ class File extends React.Component {
             active = "Inactive";
         }
         return (
-            <tr key={key}>
-                <td key={file.title + key}>{file.title}</td>
+            <tr>
+                <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}checked={true} />} {file.title}</td>
                 <td key={file.type + key}>{file.type}</td>
                 <td key={active + key}>
                     <FormGroup className="ml-3">
