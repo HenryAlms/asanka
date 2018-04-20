@@ -32,7 +32,6 @@ export default class Categories extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({refPathQ: nextProps.refPath});
-        // this.loadData();
     }
 
     componentWillUnmount() {
