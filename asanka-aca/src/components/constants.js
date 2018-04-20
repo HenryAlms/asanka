@@ -5,6 +5,7 @@ export default {
         content: "/NewContent",
         profile: "/Profile",
         users: "/Users",
-        devices: "/Devices"
+        devices: "/Devices",
+        categories: "/Categories"
     }
 }
