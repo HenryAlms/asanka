@@ -1,4 +1,4 @@
-import {Table, Input, FormGroup, Label} from 'reactstrap';
+import {Table, Input, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 import React from "react";
 import '../css/Dashboard.css';
 import firebase from 'firebase/app';
@@ -13,7 +13,7 @@ export default class FileTable extends React.Component {
         super(props);
         this.state = {
             files: this.props.files,
-            editMode: this.props.editMode,
+            editMode: this.props.editMode
         }
     }
 
@@ -67,7 +67,8 @@ class File extends React.Component {
         this.state = {
             file: this.props.file,
             active: this.props.active,
-            editMode: this.props.editMode
+            editMode: this.props.editMode,
+            dropdownOpen: false
         }
     }
 
@@ -79,9 +80,19 @@ class File extends React.Component {
         this.setState({file: nextProps.file, active: nextProps.active, editMode: nextProps.editMode})
     }
 
-    editFile() {
-
+    toggle() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
     }
+    
+    select(event) {
+        this.setState({
+          dropdownOpen: !this.state.dropdownOpen,
+          value: event.target.innerText
+        });
+    }
+
 
     render() {
         let key = String(this.props.i);
@@ -97,10 +108,20 @@ class File extends React.Component {
                 <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}checked={true} />} {file.title}</td>
                 <td key={file.type + key}>{file.type}</td>
                 <td key={active + key}>
-                    <FormGroup className="ml-3">
+                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                    <DropdownToggle caret>
+                        {active}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                    <DropdownItem value={true}>Active</DropdownItem>
+                    <DropdownItem value={false}>Inactive</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>    
+                    
+                    {/*<FormGroup className="ml-3">
                         <Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} />
                         <Label for={file.title + (key * 2)}>{active}</Label>
-                    </FormGroup>
+        </FormGroup>*/}
                 </td>
             </tr>  
         )
