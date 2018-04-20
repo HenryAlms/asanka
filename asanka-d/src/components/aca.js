@@ -125,6 +125,16 @@ export default class ACA extends React.Component {
                 //     console.log(item);
                 // }
             }
+            var returnArr = [];
+
+            snapshot.forEach(function(childSnapshot) {
+                var item = childSnapshot.val();
+                item.key = childSnapshot.key;
+                returnArr.push(item);
+            });
+        
+            console.log(returnArr);
+
             // this.setState({files: fileArray});
         }); 
     }

@@ -41,6 +41,14 @@ export default class Content extends React.Component {
           });
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.title);
+        console.log(nextProps);
+        this.setState({title: nextProps.title});
+        console.log(this.state.title);
+
+    }
+
     componentWillUnmount() {
         this.unregisterFunction();
     }
