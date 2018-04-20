@@ -32,7 +32,6 @@ export default class Categories extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({refPathQ: nextProps.refPath});
-        // this.loadData();
     }
 
     componentWillUnmount() {
@@ -56,15 +55,22 @@ export default class Categories extends React.Component {
         });
     }
 
-    handleClick(name) {
-        this.state.selections.push(name);
+    handleClick(name, state) {
+        console.log(name);
+        console.log(state);
+        if(state === true) {
+            this.props.checkSelect(name);
+        } else {
+            this.props.uncheck(name);
+        }
+        
     }
 
     render() {
         if(this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<Checkbox name={category.name} handleClick={(e) => this.handleClick(e)} key={category.name}/>);
+                this.state.selections.push(<Checkbox name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name}/>);
             }); 
         } else {
             return (
@@ -73,13 +79,9 @@ export default class Categories extends React.Component {
                 </div>
             )
         }
-        // console.log(this.state.selections);
         return (
             <div>
-                <form>
                     {this.state.selections}
-                    <button type="submit">Submit</button>
-                </form>
             </div>
             
         )

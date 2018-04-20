@@ -10,6 +10,7 @@ import Folder from './Folder.js';
 import FileTable from './FileTable.js';
 import './Navbar.css';
 import '../css/Dashboard.css';
+import CategoryList from './CategoryList';
 
 export default class Dashboard extends React.Component {
     constructor(props) {
@@ -21,7 +22,8 @@ export default class Dashboard extends React.Component {
             prev: '',
             current: 'Device 3',
             folders: [],
-            files: []
+            files: [],
+            devSelect: this.props.device
         }
     }
 
@@ -120,17 +122,41 @@ export default class Dashboard extends React.Component {
         this.setState({current: newCurrent, prev: newPrev, prevPath: newPrevPath, query: newQuery});
     }
 
+    // devDropdown(d) {
+    //     //help
+    //     this.setState({devSelect: d});
+        
+        
+    // }
+
+    handleDevChange(d) {
+        console.log(d);
+        this.setState({devSelect: d});
+        this.props.device(d);
+    }
+
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
             )
         })
+
+        //console.log(this.state.devSelect);
         return (
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
                     <h1 className="my-5">Dashboard</h1>
+                    <div className="dropGroup">
+                        <div>
+                            <div className="dropdown">
+                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Select A Device<span className="caret"></span></button>
+                                <CategoryList refPath="Categories/Devices/" handleChange={(e) => this.handleDevChange(e)}/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="content-management">
                     <h2 className="mb-4">Content Management</h2>
