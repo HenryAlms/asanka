@@ -6,6 +6,7 @@ import {Label, Input, FormGroup} from 'reactstrap';
 
 import constants from './constants';
 import '../css/Content.css';
+import Categories from './Categories';
 
 
 export default class Content extends React.Component {
@@ -18,15 +19,15 @@ export default class Content extends React.Component {
             description:"",
             active:"true",
             file: "",
+            currentDev: this.props.device,
             query: null,
-            devRef: "Choose A Device",
-            subRef: "Choose A Subject",
-            locRef: "Choose A Location",
-            selectedButton: "true"
-        },
-        this.handleRefChange = this.handleRefChange.bind(this),
-        this.handleSubChange = this.handleSubChange.bind(this),
-        this.handleLocChange = this.handleLocChange.bind(this)
+            devSel: [],
+            subSel: [],
+            locSel: [],
+            teachSel: [],
+            selectedButton: "true",
+            selected: []
+        }
     }
 
     componentDidMount() {
@@ -40,6 +41,14 @@ export default class Content extends React.Component {
           });
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.title);
+        console.log(nextProps);
+        this.setState({title: nextProps.title});
+        console.log(this.state.title);
+
+    }
+
     componentWillUnmount() {
         this.unregisterFunction();
     }
@@ -50,14 +59,63 @@ export default class Content extends React.Component {
             .catch(err => window.alert(err));
     }
 
+    storeFile(evt) {
+        evt.preventDefault();
+        this.setState({file: evt.target.files[0]});
+    }
+
     submitFile(evt) {
         evt.preventDefault();
-        console.log(this.state.query);
-        console.log(this.state.title);
-        console.log(this.state.description);
-        console.log(this.state.date);
-        console.log(this.state.file);
-        console.log(this.state.active);
+        let query = "";
+        let queryList = [];
+
+        let list = [];
+
+        this.state.devSel.forEach((device) => {
+            //hi
+        });
+
+        let teachers = this.state.teachSel.length;
+        let locations = this.state.locSel.length;
+        let subjects = this.state.subSel.length;
+        let devices = this.state.devSel.length;
+
+        list.push(teachers);
+        list.push(locations);
+        list.push(subjects);
+        list.push(devices);
+
+        console.log(Math.max(...list));
+
+
+        let queries = teachers + locations + subjects + devices;
+        
+
+        for(let i = 0; i < queries; i++) {
+            queryList.push("query");
+        }
+
+        // if(this.state.devSel.length != 0) {
+        //     this.state.devSel.forEach((device) => {
+        //         queryList[]
+        //     }
+        
+        // this.state.devSel.forEach();
+        // if(this.state.teachSel.length !== 0) {
+
+        // }
+        // if(this.state.devSel.length != 0) {
+        //     this.state.devSel.forEach((device) => {
+        //         if(this.state.subSel !== 0) {
+        //                 this.state.subSel.forEach( (subject) => (
+                            
+        //                 )
+
+        //                 )
+        // }
+        //     })
+        // }
+        console.log(queryList);
         firebase.database().ref(this.state.query + "/" + this.state.title).set({
             title: this.state.title,
             description: this.state.description,
@@ -65,26 +123,61 @@ export default class Content extends React.Component {
             active: this.state.selectedButton,
             file: this.state.file
         });
-    }
-
-    handleRefChange(device) {
-        let devQ = device + "/Folders";
-        this.setState({query: devQ, devRef: device});
-    }
-
-    handleSubChange(subject) {
-        let subjectQ = this.state.query + "/" + subject;
-        this.setState({query: subjectQ, subRef: subject});
-        
-    }
-
-    handleLocChange(location) {
-        let locationQ = this.state.query + "/" + location;
-        this.setState({query: locationQ, locRef: location});
+        let storage = firebase.storage().ref(this.state.query + "/" + this.state.title);
+        let file = this.state.file;
+        storage.put(file);
     }
 
     handleRB(evt) {
         this.setState({selectedButton: evt.target.value});
+    }
+
+    devSelect(selection) {
+        //add selected devices
+        console.log(selection);
+        this.state.devSel.push(selection);
+        console.log(this.state.devSel);
+    }
+
+    subSelect(selection) {
+        //add selected subjects
+        console.log(selection);
+        this.state.subSel.push(selection);
+        console.log(this.state.subSel)
+    }
+
+    locSelect(selection) {
+        //add specific location
+        console.log(selection);
+        this.state.locSel.push(selection);
+        console.log(this.state.locSel)
+    }
+
+    teachSelect(selection) {
+        //add specific location
+        console.log(selection);
+        this.state.teachSel.push(selection);
+        console.log(this.state.teachSel)
+    }
+
+    uncheck(selected, value) {
+        console.log(value);
+        console.log(selected);
+        let index = "";
+        if(value == "Device") {
+            index = this.state.devSel.indexOf(selected);
+            this.state.devSel.splice(index, 1);
+        } else if (value === "Subject") {
+            index = this.state.subSel.indexOf(selected);
+            this.state.devSel.splice(index, 1);
+        } else if (value === "Location") {
+            index = this.state.locSel.indexOf(selected);
+            this.state.devSel.splice(index, 1);
+        } else if (value === "Teacher") {
+            index = this.state.teachSel.indexOf(selected);
+            this.state.devSel.splice(index, 1);
+        }
+        console.log(this.state.devSel);
     }
 
 
@@ -93,7 +186,6 @@ export default class Content extends React.Component {
         return (
             <div>
                 <div className='container'>
-                    <form className="">
                     <div className='form-group'>
                         <label className="form-title" htmlFor='FileTitle'>Title:</label>
                         <input id='FileTitle' type='text'
@@ -137,108 +229,32 @@ export default class Content extends React.Component {
                     </div>
                     <div className="dropGroup">
                         <div>
-                            <div className="dropdown">
-                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                {this.state.devRef}<span className="caret"></span></button>
-                                <CategoryList refPath={null} handleChange={(e) => this.handleRefChange(e)}/>
-                            </div>
-                            <div className="dropdown">
-                                <button id="subject" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                {this.state.subRef}<span className="caret"></span></button>
-                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleSubChange(e)}/>
-                            </div>
-                            <div className="dropdown">
-                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                {this.state.locRef}<span className="caret"></span></button>
-                                <CategoryList refPath={this.state.query} handleChange={(e) => this.handleLocChange(e)}/>
-                            </div>
-                        </div>
-                        <div className='dropdown form-group'>
                             <div>
-                                <button id="input-b" className="btn btn-danger" onClick={(evt) => this.submitFile(evt)}>Submit File</button>
-                                <input id="input" className="mr-auto" type="file" onChange={evt => this.setState({file: evt.target.value})}/>
+                                <form onSubmit={(e) => this.submitFile(e)}>
+                                    <div>
+                                        Devices:
+                                        <Categories uncheck={(e) => this.uncheck(e, "Device")} checkSelect={(e) => this.devSelect(e)} refPath="Categories/Devices/"/>
+                                    </div>
+                                    <div>
+                                        Subjects:
+                                        <Categories uncheck={(e) => this.uncheck(e, "Subject")} checkSelect={(e) => this.subSelect(e)} refPath="Categories/Subjects/"/>
+                                    </div>
+                                    <div>
+                                        Teachers:
+                                        <Categories uncheck={(e) => this.uncheck(e, "Teacher")} checkSelect={(e) => this.teachSelect(e)} refPath="Categories/Teachers/"/>
+                                    </div>
+                                    
+                                    <div>
+                                        <button type="submit">Submit</button>
+                                        <input id="input" className="mr-auto" type="file" onChange={(evt) => {this.storeFile(evt)}}/>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                        
                     </div>
-                    </form>
                 </div>
             </div>
         );
-    }
-}
-
-class CategoryList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userID:undefined,
-            categories: [],
-            selections: [],
-            refPathQ: this.props.refPath
-        }
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    componentDidMount() {
-        this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
-            if (firebaseUser) {
-              this.setState({ user: firebaseUser, loading: false });
-              this.loadData(this.props.refPath);
-
-            }
-            else {
-              this.setState({ user: null, loading: false });
-            }
-          });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({refPathQ: nextProps.refPath});
-        this.loadData();
-    }
-
-    componentWillUnmount() {
-        this.unregisterFunction();
-    }
-
-    loadData() {
-        let ref;
-        if(this.state.refPathQ) {
-            ref = firebase.database().ref(this.props.refPath);
-        } else {
-            ref = firebase.database().ref();
-        }
-        ref.on('value', (snapshot) => {
-            let catValue = snapshot.val();
-            let catArray = Object.keys(catValue).map((key) => {
-                return {name: key};
-            })
-            this.setState({categories: catArray});
-        });
-    }
-
-    handleClick(name) {
-        this.props.handleChange(name);
-    }
-
-    render() {
-        if(this.state.categories) {
-            this.state.selections = [];
-            this.state.categories.forEach(category => {
-                this.state.selections.push(<li key={category.name}><a href="#" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
-            });
-        } else {
-            return (
-                <div>
-                    loading...
-                </div>
-            )
-        }
-
-        return (
-            <ul className="dropdown-menu">
-                {this.state.selections}
-            </ul>
-        )
     }
 }

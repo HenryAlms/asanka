@@ -10,15 +10,16 @@ import Folder from "./Folder.js";
 import constants from "./constants";
 
 
+
 export default class ACA extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: this.props.user,
-            query: 'Device3',
+            query: 'Device 3',
             prevPath: '',
             prev: '',
-            current: 'Device3',
+            current: 'Device 3',
             folders: [],
             files: []
         }
@@ -44,8 +45,10 @@ export default class ACA extends React.Component {
     }
 
     loadFolders(query) {
+
         this.folderRef = firebase.database().ref(query + "/Folders");
         this.folderRef.on('value', (snapshot) => {
+            console.log(snapshot.val());
             let foldersValue = snapshot.val();
             let foldersArray = [];
             if (foldersValue !== null) {
@@ -87,6 +90,7 @@ export default class ACA extends React.Component {
     }
 
     loadFiles(query) {
+        console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
@@ -116,9 +120,10 @@ export default class ACA extends React.Component {
                {!this.props.user && <Redirect exact to={constants.routes.welcome} />}
                 <Container className="main align-center p-4">
                     <h1><Link to={constants.routes.device}><i className="back-button fas fa-arrow-circle-left"></i></Link>        ASANKA Cloud</h1>
-                    <hr />
+                    <hr/>
+
                     <div className="mb-5">
-                        <h2 className="pb-2 pt-1">Folders</h2>
+                        <h2 className="pb-2 pt-1">Folders</h2> 
                         {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                         {this.state.folders.length > 0 &&
                             <Container className="folders-section p-3">
@@ -127,7 +132,7 @@ export default class ACA extends React.Component {
                         }    
                     </div>
                     <h2 className="pb-2">Files in: English</h2>
-                    <FileTable files={this.state.files} />   
+                    <FileTable files={this.state.files} query={this.state.query} />   
                 </Container>
             </Container>
         )

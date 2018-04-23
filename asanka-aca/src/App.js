@@ -20,7 +20,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      device: "Choose A Device"
     }
   }
 
@@ -51,26 +52,31 @@ class App extends Component {
       .catch((err) => this.setState({ errorMessage: err.message }))
   }
 
+  currentDevice(d) {
+    this.setState({device: d})
+    console.log(d);
+  }
+
   render() {
     // this is how you pass props to the components you render through the switch. pass props here, 
     //and use "render={renderComponentName}" in the switch
     let renderWelcome = (routerProps) => {
-      return <Welcome {...routerProps} user={this.state.user} signInCallback={(email, password) => this.handleSignIn(email, password)}  />
+      return <Welcome {...routerProps} user={this.state.user} device={(d) => this.currentDevice(d)} signInCallback={(email, password) => this.handleSignIn(email, password)}  />
     }
     let renderDashboard = (routerProps) => {
-      return <Dashboard {...routerProps} user={this.state.user} />
+      return <Dashboard {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
     let renderProfile = (routerProps) => {
-      return <Profile {...routerProps} user={this.state.user} />
+      return <Profile {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
     let renderUsers = (routerProps) => {
-      return <Users {...routerProps} user={this.state.user} />
+      return <Users {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
     let renderDevices = (routerProps) => {
-      return <Devices {...routerProps} user={this.state.user} />
+      return <Devices {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }  
     let renderContent = (routerProps) => {
-      return <Content {...routerProps} user={this.state.user}/>
+      return <Content {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user}/>
     }
     console.log(this.state.user);      
     

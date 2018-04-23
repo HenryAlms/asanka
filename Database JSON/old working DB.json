@@ -1,0 +1,265 @@
+{
+  "Admins" : {
+    "Ba53giZQikSDdU2dN0OcDeL43XE2" : {
+      "fName" : "John",
+      "lName" : "SMith",
+      "school" : "Alpha Beta"
+    }
+  },
+  "Categories" : {
+    "Devices" : {
+      "All Devices" : "AD",
+      "Device 1" : "device1",
+      "Device 2" : "device2",
+      "Device 3" : "device3"
+    },
+    "Files" : "All Files",
+    "Subjects" : {
+      "All Subjects" : "AS",
+      "English" : "E",
+      "Math" : "M",
+      "Science" : "S"
+    },
+    "Teachers" : {
+      "All Teachers" : "AT",
+      "Teacher 1" : "T1",
+      "Teacher 2" : "T2"
+    }
+  },
+  "Device 1" : {
+    "Subjects" : {
+      "English" : {
+        "Grade 6" : {
+          "Essay Rubric" : "How to write and essay"
+        },
+        "Teachers" : {
+          "123456" : true
+        },
+        "test" : "test"
+      },
+      "Math" : {
+        "test" : "test"
+      },
+      "Science" : {
+        "test" : "test"
+      }
+    }
+  },
+  "Device 2" : {
+    "Subjects" : {
+      "English" : {
+        "test" : "test"
+      },
+      "Math" : {
+        "test" : "test"
+      },
+      "Science" : {
+        "test" : "test"
+      },
+      "test" : "test",
+      "test2" : "test2",
+      "test3" : "test3"
+    }
+  },
+  "Device3" : {
+    "Files" : {
+      "file1" : {
+        "active" : false,
+        "tags" : {
+          "junior" : true,
+          "math" : true
+        },
+        "title" : "Please work",
+        "type" : ".pdf"
+      }
+    },
+    "Folders" : {
+      "English" : {
+        "Files" : {
+          "Goodbye World" : {
+            "active" : false,
+            "date" : "6969-06-09",
+            "description" : "Uh oh",
+            "file" : "C:\\fakepath\\test2.docx",
+            "title" : "Goodbye World"
+          },
+          "Test7" : {
+            "active" : false,
+            "date" : "2018-04-20",
+            "description" : "Test Test",
+            "file" : "C:\\fakepath\\test.docx",
+            "title" : "Test7"
+          },
+          "file1" : {
+            "active" : true,
+            "title" : "Cirriculum",
+            "type" : ".pdf"
+          },
+          "test4" : {
+            "active" : false,
+            "date" : "2018-04-10",
+            "description" : "DESC",
+            "file" : "",
+            "title" : "test4"
+          },
+          "title3" : {
+            "active" : true,
+            "date" : "2018-04-11",
+            "description" : "blahblah",
+            "file" : "C:\\fakepath\\Screen Shot 2018-04-08 at 10.28.13 PM.png",
+            "title" : "title3"
+          }
+        },
+        "Folders" : {
+          "Teacher1" : {
+            "Files" : {
+              "file1" : {
+                "active" : true,
+                "title" : "Tasks",
+                "type" : ".doc"
+              }
+            },
+            "Test File" : {
+              "active" : "false",
+              "date" : "2018-04-18",
+              "description" : "Test File",
+              "title" : "Test File"
+            }
+          },
+          "Teacher2" : {
+            "Files" : {
+              "file1" : {
+                "active" : false,
+                "title" : "Activity 1",
+                "type" : ".doc"
+              },
+              "file2" : {
+                "active" : true,
+                "title" : "Activity 2",
+                "type" : ".doc"
+              }
+            }
+          }
+        }
+      },
+      "Math" : {
+        "Files" : {
+          "Hello World" : {
+            "active" : "false",
+            "date" : "0001-01-01",
+            "description" : "Hello World Test",
+            "file" : "C:\\fakepath\\test.docx",
+            "title" : "Hello World"
+          },
+          "Storage Test" : {
+            "active" : "false",
+            "date" : "0001-01-01",
+            "description" : "Storage Test",
+            "file" : "",
+            "title" : "Storage Test"
+          },
+          "Store test" : {
+            "active" : "false",
+            "date" : "0001-01-01",
+            "description" : "store test",
+            "file" : "",
+            "title" : "Store test"
+          },
+          "Test" : {
+            "active" : true,
+            "date" : "2020-04-20",
+            "description" : "Test",
+            "title" : "Test"
+          },
+          "Test 89" : {
+            "active" : "false",
+            "date" : "0010-10-10",
+            "description" : "asdf",
+            "file" : "C:\\fakepath\\test2.docx",
+            "title" : "Test 89"
+          },
+          "Test File" : {
+            "active" : true,
+            "date" : "0004-04-04",
+            "description" : "Test File",
+            "file" : "",
+            "title" : "Test File"
+          },
+          "Test File 2" : {
+            "active" : true,
+            "date" : "0004-04-04",
+            "description" : "Test File 2",
+            "file" : "C:\\fakepath\\test.docx",
+            "title" : "Test File 2"
+          },
+          "Test Test" : {
+            "active" : "false",
+            "date" : "0040-04-04",
+            "description" : "asdfasdf",
+            "file" : "C:\\fakepath\\test.docx",
+            "title" : "Test Test"
+          },
+          "file1" : {
+            "active" : true,
+            "title" : "Curriculum",
+            "type" : ".pdf"
+          },
+          "mst" : {
+            "active" : "false",
+            "date" : "0001-01-01",
+            "description" : "mst",
+            "title" : "mst"
+          },
+          "test" : {
+            "active" : "true",
+            "date" : "0033-03-31",
+            "description" : "check",
+            "file" : "C:\\fakepath\\test2.docx",
+            "title" : "test"
+          }
+        },
+        "Folders" : {
+          "Teacher1" : {
+            "Files" : {
+              "file1" : {
+                "active" : true,
+                "title" : "Activity 1",
+                "type" : ".doc"
+              }
+            }
+          }
+        }
+      },
+      "Teachers" : {
+        "Files" : {
+          "test" : "test"
+        },
+        "Folders" : {
+          "Jane Doe" : {
+            "Files" : {
+              "test" : "test"
+            }
+          },
+          "Mary Smith" : {
+            "Files" : {
+              "test" : "test"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Files" : {
+    "file1" : {
+      "path" : "/////",
+      "title" : "Goodbye World"
+    }
+  },
+  "Teachers" : {
+    "123456" : {
+      "fName" : "Jane",
+      "lName" : "Doe",
+      "school" : "Alpha Beta"
+    }
+  }
+}

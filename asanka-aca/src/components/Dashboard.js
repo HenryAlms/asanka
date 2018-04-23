@@ -10,18 +10,22 @@ import Folder from './Folder.js';
 import FileTable from './FileTable.js';
 import './Navbar.css';
 import '../css/Dashboard.css';
+import CategoryList from './CategoryList';
 
 export default class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: this.props.user,
-            query: 'Device3',
+            query: 'Device 3',
             prevPath: '',
             prev: '',
-            current: 'Device3',
+            current: 'Device 3',
             folders: [],
-            files: []
+            files: [],
+            devSelect: this.props.device,
+            editMode: false,
+            checked: []
         }
     }
 
@@ -59,6 +63,7 @@ export default class Dashboard extends React.Component {
     }
 
     loadFiles(query) {
+        console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
@@ -91,6 +96,7 @@ export default class Dashboard extends React.Component {
     }
 
     folderOnClick(folder) {
+        console.log("folder clicked")
         let newPrev = this.state.current;
         let newQuery = this.state.query + "/Folders/" + folder.name;
         this.loadFolders(newQuery);
@@ -118,17 +124,55 @@ export default class Dashboard extends React.Component {
         this.setState({current: newCurrent, prev: newPrev, prevPath: newPrevPath, query: newQuery});
     }
 
+    // devDropdown(d) {
+    //     //help
+    //     this.setState({devSelect: d});
+        
+        
+    // }
+
+    handleDevChange(d) {
+        console.log(d);
+        this.setState({devSelect: d});
+        this.props.device(d);
+    }
+
+    editOnClick() {
+        if (this.state.editMode === false || this.state.editMode === null || this.state.editMode === undefined)
+            this.setState({editMode: true});
+        else {   
+            this.setState({editMode: false, checked: []}) 
+        }      
+
+    }
+
+    handleEditCheck(e) {
+        let fileTitle = e.target.value;
+        this.state.checked.push(fileTitle)
+    }
+
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
             )
         })
+
+        //console.log(this.state.devSelect);
         return (
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
                     <h1 className="my-5">Dashboard</h1>
+                    <div className="dropGroup">
+                        <div>
+                            <div className="dropdown">
+                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                Select A Device<span className="caret"></span></button>
+                                <CategoryList refPath="Categories/Devices/" handleChange={(e) => this.handleDevChange(e)}/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="content-management">
                     <h2 className="mb-4">Content Management</h2>
@@ -145,9 +189,9 @@ export default class Dashboard extends React.Component {
                 <div>
                     <div className="fileBtns">
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
-                        <Button color="secondary" className="m-2"><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
+                        <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
                     </div>    
-                    <FileTable files={this.state.files} changeCallback={(e) => this.changeStatus(e)}/>   
+                    <FileTable files={this.state.files} editMode={this.state.editMode} handleEditCheckCallback={(e)=>this.handleEditCheck(e)}changeCallback={(e) => this.changeStatus(e)}/>   
                 </div>     
             </div>
         )
