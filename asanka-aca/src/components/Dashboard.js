@@ -25,7 +25,7 @@ export default class Dashboard extends React.Component {
             files: [],
             devSelect: this.props.device,
             editMode: false,
-            checked: []
+            checked: new Set()
         }
     }
 
@@ -48,6 +48,14 @@ export default class Dashboard extends React.Component {
         this.unregisterFunction();
     }
 
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps.device);
+    //     this.setState({current: nextProps.device});
+    //     this.loadFolders(nextProps.device);
+    //     this.loadFiles(nextProps.device);
+    //     console.log(this.state.current);
+    // }
+
     loadFolders(query) {
         this.folderRef = firebase.database().ref(query + "/Folders");
         this.folderRef.on('value', (snapshot) => {
@@ -63,7 +71,6 @@ export default class Dashboard extends React.Component {
     }
 
     loadFiles(query) {
-        console.log(query);
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
@@ -96,7 +103,6 @@ export default class Dashboard extends React.Component {
     }
 
     folderOnClick(folder) {
-        console.log("folder clicked")
         let newPrev = this.state.current;
         let newQuery = this.state.query + "/Folders/" + folder.name;
         this.loadFolders(newQuery);
@@ -124,16 +130,10 @@ export default class Dashboard extends React.Component {
         this.setState({current: newCurrent, prev: newPrev, prevPath: newPrevPath, query: newQuery});
     }
 
-    // devDropdown(d) {
-    //     //help
-    //     this.setState({devSelect: d});
-        
-        
-    // }
-
     handleDevChange(d) {
-        console.log(d);
-        this.setState({devSelect: d});
+        this.loadFolders(d);
+        this.loadFiles(d);
+        this.setState({current: d, query: d});
         this.props.device(d);
     }
 
@@ -148,7 +148,29 @@ export default class Dashboard extends React.Component {
 
     handleEditCheck(e) {
         let fileTitle = e.target.value;
-        this.state.checked.push(fileTitle)
+        if (this.state.checked.has(fileTitle)) {
+          this.state.checked.delete(fileTitle);
+        } else {
+          this.state.checked.add(fileTitle);
+        }
+        console.log(this.state.checked);
+    }
+
+    deleteFiles() {
+        this.fileRef = firebase.database().ref(this.state.query + '/Files');
+        console.log(this.fileRef);
+        var updates = {};
+        this.fileRef.once('value', (snapshot) => {
+            let fileValue = snapshot.val();
+            Object.keys(fileValue).forEach((key) => {
+                if (this.state.checked.has(key)) {
+                    console.log(key);
+                    updates[key] = null;
+                }
+            })
+        });
+        console.log(updates);
+        this.fileRef.update(updates); 
     }
 
     render() {
@@ -156,9 +178,7 @@ export default class Dashboard extends React.Component {
             return (
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
             )
-        })
-
-        //console.log(this.state.devSelect);
+        });
         return (
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
@@ -187,6 +207,9 @@ export default class Dashboard extends React.Component {
                 }    
 
                 <div>
+                    <div className="delete-button">
+                        <Button color="danger" className="m-2" onClick={() => this.deleteFiles()} >Delete Selected</Button>
+                    </div>    
                     <div className="fileBtns">
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
                         <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>

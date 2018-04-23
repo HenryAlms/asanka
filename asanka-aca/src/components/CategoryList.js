@@ -75,7 +75,7 @@ export default class CategoryList extends React.Component {
     
             return (
                 <form>
-                    <ul className="dropdowm-menu">
+                    <ul className="dropdown-menu">
                         {this.state.selections}
                     </ul>
                 </form>

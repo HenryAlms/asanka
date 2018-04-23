@@ -8,7 +8,7 @@ import constants from './constants';
 import '../css/Content.css';
 import Checkbox from './Checkbox';
 
-export default class Categories extends React.Component {
+export default class DeviceCat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +39,7 @@ export default class Categories extends React.Component {
     }
 
     loadData() {
-        let ref; //firebase.database().ref("Categories/");
+        let ref = firebase.database().ref("Categories/");
         if(this.props.refPath) {
             ref = firebase.database().ref(this.props.refPath);
         } else {
