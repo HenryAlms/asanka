@@ -74,10 +74,10 @@ export default class Dashboard extends React.Component {
         this.fileRef = firebase.database().ref(query + '/Files');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
-            console.log(fileValue);
+            // console.log(fileValue);
             let fileArray = Object.keys(fileValue).map((key) => {
                 fileValue[key].key = key;
-                console.log(key);
+                // console.log(key);
                 return fileValue[key];
             })
             this.setState({files: fileArray});
@@ -170,7 +170,10 @@ export default class Dashboard extends React.Component {
             })
         });
         console.log(updates);
-        this.fileRef.update(updates); 
+        this.fileRef.update(updates);
+        this.setState({checked: this.state.checked.clear(), editMode : false}); 
+        this.loadFiles(this.state.query);
+        console.log(this.state.checked);
     }
 
     render() {
@@ -207,9 +210,9 @@ export default class Dashboard extends React.Component {
                 }    
 
                 <div>
-                    <div className="delete-button">
+                    {this.state.editMode == true && <div className="delete-button">
                         <Button color="danger" className="m-2" onClick={() => this.deleteFiles()} >Delete Selected</Button>
-                    </div>    
+                </div>}
                     <div className="fileBtns">
                         <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
                         <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
