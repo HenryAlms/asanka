@@ -68,28 +68,54 @@ class File extends React.Component {
             file: this.props.file,
             active: this.props.active,
             editMode: this.props.editMode,
-            dropdownOpen: false
+            dropdownOpen: false,
+            value: ''
         }
     }
 
     componentDidMount() {
-        this.setState({file: this.props.file, active: this.props.file.active, editMode: this.props.editMode});
+        let active;
+        if (this.props.active) {
+            active = "Active";
+        } else {
+            active = "Inactive";
+        }
+        this.setState({file: this.props.file, active: this.props.file.active, editMode: this.props.editMode, value: active});
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({file: nextProps.file, active: nextProps.active, editMode: nextProps.editMode})
+        let active;
+        if (this.props.active) {
+            active = "Active";
+        } else {
+            active = "Inactive";
+        }
+        this.setState({file: nextProps.file, active: nextProps.active, editMode: nextProps.editMode, value: active})
     }
 
     toggle() {
+        let open;
+        if (this.state.dropdownOpen === true)
+            open = false;
+       
+        else    
+            open = true;    
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });
     }
     
     select(event) {
+        let current = ""
+        let active;
+        if (this.state.active) {
+            active = "Active";
+        } else {
+            active = "Inactive";
+        }
         this.setState({
           dropdownOpen: !this.state.dropdownOpen,
-          value: event.target.innerText
+          value: active
         });
     }
 
@@ -105,16 +131,16 @@ class File extends React.Component {
         }
         return (
             <tr>
-                <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}checked={true} />} {file.title}</td>
+                <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
                 <td key={file.type + key}>{file.type}</td>
                 <td key={active + key}>
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                <Dropdown onChange={(e) => this.props.changeCallback(e)} isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
                     <DropdownToggle caret>
                         {active}
                     </DropdownToggle>
                     <DropdownMenu>
-                    <DropdownItem value={true}>Active</DropdownItem>
-                    <DropdownItem value={false}>Inactive</DropdownItem>
+                    <DropdownItem onClick={(e) => this.select(e)} value={true}>Active</DropdownItem>
+                    <DropdownItem onClick={(e) => this.select(e)} value={false}>Inactive</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>    
                     

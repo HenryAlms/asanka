@@ -42,6 +42,10 @@ body {
     float: right;
 }
 
+.delete-button {
+    float: left;
+}
+
 .fileBtns .btn {
     box-shadow: rgba(180, 135, 135, 0.2) 0px 0px 10px;          
 }
