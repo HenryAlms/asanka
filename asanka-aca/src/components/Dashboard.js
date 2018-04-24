@@ -157,6 +157,7 @@ export default class Dashboard extends React.Component {
     }
 
     deleteFiles() {
+        this.deleteStorage();
         this.fileRef = firebase.database().ref(this.state.query + '/Files');
         console.log(this.fileRef);
         var updates = {};
@@ -169,11 +170,27 @@ export default class Dashboard extends React.Component {
                 }
             })
         });
-        console.log(updates);
         this.fileRef.update(updates);
         this.setState({checked: this.state.checked.clear(), editMode : false}); 
         this.loadFiles(this.state.query);
-        console.log(this.state.checked);
+    }
+
+    deleteStorage() {
+        let storageRef = firebase.storage().ref(this.state.query + "/Files/"); 
+        this.state.checked.forEach(function(file) {
+            var deleteRef = storageRef.child(file);
+            // Delete the file
+            deleteRef.delete().then(function() {
+            // File deleted successfully
+            }).catch(function(error) {
+                var deleteRef = storageRef.child(file + ".pdf");
+                deleteRef.delete().then(function() {
+                    // File deleted successfully
+                }).catch(function(error) {
+                    console.log(error);
+                })
+            });
+        })
     }
 
     render() {

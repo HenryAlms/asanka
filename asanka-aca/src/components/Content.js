@@ -119,6 +119,7 @@ export default class Content extends React.Component {
             });
             let storage = firebase.storage().ref(storeLocation);
             let file = this.state.file;
+            console.log(file);
             storage.put(file);
         })
         
