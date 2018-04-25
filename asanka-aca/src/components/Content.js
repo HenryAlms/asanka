@@ -7,7 +7,6 @@ import {Label, Input, FormGroup} from 'reactstrap';
 import constants from './constants';
 import '../css/Content.css';
 import Categories from './Categories';
-import CategoryList from './CategoryList';
 
 
 export default class Content extends React.Component {
@@ -95,7 +94,6 @@ export default class Content extends React.Component {
                 });
             });
         }
-
 
         let teachers = this.state.teachSel.length;
         let locations = this.state.locSel.length;
