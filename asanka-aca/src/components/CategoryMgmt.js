@@ -7,6 +7,7 @@ import {Label, Input, FormGroup} from 'reactstrap';
 import constants from './constants';
 import '../css/Content.css';
 import CatOption from './AllCat';
+import '../css/CatergoryMgmt.css';
 
 
 export default class CategoryMgmt extends React.Component {
@@ -51,18 +52,18 @@ export default class CategoryMgmt extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="ctgr">
                 <div>
-                    <h2>Device: {this.state.currDevice}</h2>
+                    <h1>Manage Asanka Categories</h1>
                 </div>
                 <div>
-                    <h1>Subjects</h1>
+                    <h2>Subjects</h2>
                     <CatOption refPath="Categories/Subjects"/>
                     <input id="sub-input"></input>
                     <button id="sub-btn" onClick={() => {this.addOption("Subjects", document.getElementById("sub-input").value)}}>Add Subject</button>
                 </div>
                 <div>
-                    <h1>Teachers</h1>
+                    <h2>Teachers</h2>
                     <CatOption refPath="Categories/Teachers"/>
                     <input id="teach-input"></input>
                     <button id="teach-btn" onClick={() => this.addOption("Teachers", document.getElementById("teach-input").value)}>Add Teacher</button>
