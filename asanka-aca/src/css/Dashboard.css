@@ -58,3 +58,8 @@ body {
     color: white;
     text-decoration: none;
 }
+
+.active-btn {
+    color: #333;
+    background-color: white;
+}
