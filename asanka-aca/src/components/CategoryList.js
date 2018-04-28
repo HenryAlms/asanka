@@ -2,7 +2,7 @@ import React from "react";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-
+import '../css/Dashboard.css';
 import constants from './constants';
 
 export default class CategoryList extends React.Component {
@@ -63,7 +63,7 @@ export default class CategoryList extends React.Component {
             if(this.state.categories) {
                 this.state.selections = [];
                 this.state.categories.forEach(category => {
-                    this.state.selections.push(<li key={category.name}><a href="#" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
+                    this.state.selections.push(<li key={category.name}><a className="device-list-item" href="#" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
                 });
             } else {
                 return (

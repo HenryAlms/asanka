@@ -63,3 +63,8 @@ body {
     color: #333;
     background-color: white;
 }
+
+.device-list-item, .device-list-item:hover, .device-list-item:visited, .device-list-item:active {
+    color: #333;
+    text-decoration: none;
+}
