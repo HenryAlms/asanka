@@ -7,8 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -90,10 +90,61 @@
 
         <img class="mr-3" src="images/Asanka-diagram.png" alt="classroom" width="50%" height="50%">
 
+        <h3>Asanka</h3>
+        <p>Asanka has two main interfaces, the cloud account side and the device side. The cloud account side is used by administrators to upload files and manage content on the device. The device side is what is displayed when teachers and other users are accessing the content stored on the device. The device side of Asanka can be accessed offline through a Wi-Fi signal given off by the RaspberryPi. Our project scope involved modifying both the device side and the cloud account side.</p>
+
+
         <h3>Our Project</h3>
         <p>In the initial version of Asanka, teachers and administrators are able to access files using one large shared space. While the first version of Asanka is functional and serves its purpose, TechAide wanted to improve the user interface to make using the device a better experience for teachers. One of the main issues with the first design of Asanka is that when there are many files stored on the device, it is difficult to find a specific file due to the lack of organization of content. Our solution for this problem is to organize the content on the device into folders by class subject and grade level. In addition, we have chosen to give each teacher their own folder for files specific to their class. The two main goals for our redesign were to make it easier for users to find content on Asanka and to create a more personalized experience for the teachers.</p>
- 
-        <!-- <img class="mr-3" src="images/Content Management.jpeg" alt="Old CMS" width="50%" height="50%"> -->
+       
+        <h4>Problems with Asanka</h4>
+        <div class="card-deck">
+                <div class="card border-danger">
+                  <div class="card-body">
+                    <h5 class="card-title">Difficult to Find Files</h5>
+                    <p class="card-text">Because all of the content on Asanka is located in one location, if there are many files on the device, finding a particular file can be challenging.</p>
+                  </div>
+                </div>
+                <div class="card border-danger">
+                  <div class="card-body">
+                    <h5 class="card-title">No Ownership of Content</h5>
+                    <p class="card-text">Currently, there is no way to determine who is using which files on Asanka. This makes it difficult to determine who to contact about removing or modifying a file.</p>
+                  </div>
+
+                </div>
+                <div class="card border-danger">
+                  <div class="card-body">
+                    <h5 class="card-title">Challenging to Optimize Storage</h5>
+                    <p class="card-text">Due to limited storage, files are frequently added and removed from Asanka. Because there is no ownership of files and no information architecture, it is difficult to fairly distribute storage between teachers and departments.</p>
+                  </div>
+                </div>
+              </div>
+              <br></br>
+              <h4>Our Solutions</h4>
+
+              <div class="card-deck">
+                    <div class="card border-success">
+                      <div class="card-body">
+                        <h5 class="card-title">Information Hierarchy</h5>
+                        <p class="card-text">By creating an information architecture to categorize content based on subject, grade level, and teacher, management of content on Asanka is easier than ever before.</p>
+                      </div>
+                      <div class="card-footer">
+                            <small class="text-muted">1</small>
+                          </div>
+                    </div>
+                    <div class="card border-success">
+                      <div class="card-body">
+                        <h5 class="card-title">Teacher-centric Design</h5>
+                        <p class="card-text">Giving every teacher their own folder for personal files encourages teachers to utilize Asanka more and gives them a sense of ownership over Asanka.</p>
+                      </div>
+                      <div class="card-footer">
+                            <small class="text-muted">2</small>
+                          </div>
+                    </div>
+                  </div>
+        
+                  <br></br>
+
         <img class="mr-3" src="images/placeholder.png" alt="Old CMS" width="50%" height="50%">
  
         <p>In our new version of the Asanka user interface, content is organized into different categories, and each teacher has their own folder on the device for their content. This redesign is meant to empower teachers to use technology more often in the classroom by giving them control and ownership over part of the device. Our working prototype was built using Node.js, React.js, Firebase, and Bootstrap for styling. In addition to this redesign, we have created user profiles for TechAide to aid in future designs and iterations. We have also been helping TechAide with some small security fixes, offering advice about device security and accessibility. </p>
@@ -101,7 +152,7 @@
     </div>
 
     <div>
-            <h3>Improvements</h3>
+            <h4>Improvements</h4>
                 <ul class="list-unstyled">
                         <li class="media">
                           <img class="mr-3" src="images/folder.png" alt="Generic placeholder image" width="64" height="64">
@@ -120,7 +171,7 @@
                         <li class="media">
                           <img class="mr-3" src="images/computer-graphic.png" alt="Generic placeholder image" width="64" height="64">
                           <div class="media-body">
-                            <h5 class="mt-0 mb-1">Organization and User Experience</h5>
+                            <h5 class="mt-0 mb-1">Optimization of Storage</h5>
                             blah blah blah
                        
                           </div>
