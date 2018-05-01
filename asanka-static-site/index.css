@@ -1,4 +1,10 @@
-.carousel-inner img {
-    margin: auto;
-  }
+#collab {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+}
 
+#spTitle {
+    color: red
+}
