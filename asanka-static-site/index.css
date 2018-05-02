@@ -16,3 +16,14 @@
     padding: 2em;
     background-color: lightgray
 }
+
+.header {
+    width: 100%;
+    height: 480px;
+}
+
+#asanka-carousel {
+    width: 720px;
+    height: 480px;
+    margin: auto;
+}
