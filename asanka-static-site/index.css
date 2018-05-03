@@ -19,12 +19,11 @@
 
 .sponsor {
     padding: 2em;
-    background-color: rgba(211, 211, 211, 0.623)
+    background-color: rgba(211, 211, 211, 0.315)
 }
 
 .header {
     width: 100%;
-    background-color: lightgray;
 }
 
 #asanka-carousel {
@@ -45,6 +44,16 @@
     height: 100%;
 }
 
+.center-block img{
+    height: 640px;
+}
+
 h3 {
     color: red; 
+}
+
+#project-section {
+    padding-top: 2em;
+    padding-bottom: 2em;  
+    background-color: rgba(211, 211, 211, 0.315);
 }
