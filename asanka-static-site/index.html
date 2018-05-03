@@ -15,7 +15,7 @@
   <div>
     <img id="collab" src="./images/AsankaxiSchool.png" alt="Asanka iSchool Collab">
 </div>
-    <div class="header">
+    <div class="header container-fluid">
         <div id="asanka-carousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#asanka-carousel" data-slide-to="0" class="active"></li>
@@ -64,9 +64,8 @@
     </div>
 
     <div>
-      <div class="intro">
-        <h1>Meet Our Sponsor</h1>
-      </div>
+      <div class="intro container-fluid">
+        <h1>Meet Our Sponsor: TechAide</h1>
         <div class="row sponsor">
           <div class="col-4">
             <h3 id="spTitle"> Accra, Ghana</h3>
@@ -110,12 +109,13 @@
             </ul>
           </div>
         </div>
+      </div>
         <br></br>
 
         <hr class="featurette-divider">
 
         <br></br>
-        <div id="project-section">
+        <div id="project-section" class="container-fluid">
           <h1>Our Project</h1>
           <br></br>
           <div class="row">
@@ -141,8 +141,9 @@
         </div>
         <br></br>
         <!-- <p>In the initial version of Asanka, teachers and administrators are able to access files using one large shared space. While the first version of Asanka is functional and serves its purpose, TechAide wanted to improve the user interface to make using the device a better experience for teachers. One of the main issues with the first design of Asanka is that when there are many files stored on the device, it is difficult to find a specific file due to the lack of organization of content. Our solution for this problem is to organize the content on the device into folders by class subject and grade level. In addition, we have chosen to give each teacher their own folder for files specific to their class. The two main goals for our redesign were to make it easier for users to find content on Asanka and to create a more personalized experience for the teachers.</p> -->
+         <div class="container-fluid" id="original-arch">
          <h3>Original Design</h3>
-         <div id="problem" class="row">
+         <div id="problem" class="row container-fluid">
             <div class="col-6">
                 <img class="mr-3" src="images/placeholder.png" alt="Old CMS" width="100%" height="100%">
     
@@ -165,10 +166,11 @@
               </div>
             </div>
           </div>
+         </div>
           <br></br>
-          <h3>Architecture Redesign</h3>
           <br></br>
-          <div id="arch-redesign">
+          <div id="arch-redesign" class="container-fluid">
+            <h3>Architecture Redesign</h3>
             <div class="row">
               <div class="col-6">
                   <h4>Original</h4>
@@ -183,29 +185,29 @@
             <br></br>
             <p>In our new version of the Asanka user interface, content is organized into different categories, and each teacher has their own folder on the device for their content. This redesign is meant to empower teachers to use technology more often in the classroom by giving them control and ownership over part of the device. Our working prototype was built using Node.js, React.js, Firebase, and Bootstrap for styling. In addition to this redesign, we have created user profiles for TechAide to aid in future designs and iterations. We have also been helping TechAide with some small security fixes, offering advice about device security and accessibility. </p>
 
-           </div>
            <br></br>
-          <h3>New Design</h3>
-          <div id="solution" class="row">
+           <h3>New Design</h3>
+          <div id="solution" class="row container-fluid">
               <div class="col-6 d-flex flex-column justify-content-around">
                 <div class="row">
-                  <h5 class="card-title">Information Architecture</h5>
-                    <p class="card-text">By creating an information architecture to categorize content based on subject, grade level, and teacher, management of content on 
+                  <h5>Information Architecture</h5>
+                    <p>By creating an information architecture to categorize content based on subject, grade level, and teacher, management of content on 
                       Asanka is easier than ever before. Because storage space on Asanka is limited, administrators are often uploading new content and removing old files.
                       Administrators will now be able to better understand what content is associated to which teacher so they can effectively distribute resources.
                     </p>
                 </div>
                 <div class="row">
-                  <h5 class="card-title">Teacher-Specific Design</h5>
-                    <p class="card-text">Giving every teacher their own folder for personal files encourages teachers to utilize Asanka more and gives 
+                  <h5>Teacher-Specific Design</h5>
+                    <p>Giving every teacher their own folder for personal files encourages teachers to utilize Asanka more and gives 
                       them a sense of ownership over Asanka. With this design, we hope to encourage teachers to use technology more often in their classrooms.
                     </p>
                 </div>
               </div>
               <div class="col-6">
-                  <img class="mr-3" src="images/placeholder.png" alt="Old CMS" width="100%" height="100%">
+                  <img src="images/placeholder.png" alt="Old CMS" width="100%" height="100%">
     
               </div>
+            </div>
           </div>
 <!-- 
         <h4>Original Design</h4>
