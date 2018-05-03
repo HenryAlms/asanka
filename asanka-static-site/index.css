@@ -27,3 +27,7 @@
     height: 480px;
     margin: auto;
 }
+
+#project-section {
+    background-color: rgb(241, 107, 128);
+}
