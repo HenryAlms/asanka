@@ -3,6 +3,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 1em;
+    width: 25%;
 }
 
 #spTitle {
@@ -19,11 +20,21 @@
 
 .header {
     width: 100%;
-    height: 480px;
+    background-color: lightgray;
 }
 
 #asanka-carousel {
-    width: 720px;
-    height: 480px;
-    margin: auto;
+    display: block;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.center-block {
+    position: relative;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 100%;
 }
