@@ -55,3 +55,7 @@ h3 {
     padding-bottom: 2em;  
     background-color: rgba(211, 211, 211, 0.315);
 }
+
+#spIntro {
+    text-align: center;
+}
