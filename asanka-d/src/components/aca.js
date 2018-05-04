@@ -16,10 +16,10 @@ export default class ACA extends React.Component {
         super(props);
         this.state = {
             user: this.props.user,
-            query: 'Device3',
+            query: 'Device 3',
             prevPath: '',
             prev: '',
-            current: 'Device3',
+            current: 'Device 3',
             folders: [],
             files: []
         }
@@ -112,7 +112,7 @@ export default class ACA extends React.Component {
         evt.preventDefault();
         var phrase = document.getElementById("myInput").value;
         console.log(phrase);
-        this.fileRef = firebase.database().ref('Device3');
+        this.fileRef = firebase.database().ref('Device 3');
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             console.log(snapshot);
