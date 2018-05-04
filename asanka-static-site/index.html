@@ -90,7 +90,7 @@
         <div id="diagram" class="row">
           <div class="col-3">
             <ul>
-              <h4>Asanka Cloud Account</h4>
+              <h4 id="asanka-how">Asanka Cloud Account</h4>
               <li>Asanka's Cloud Account is managed by select administrators at each school</li>
               <li>Teachers are able to share content with admins to store on the device for classroom use</li>
             </ul>
@@ -98,7 +98,7 @@
           <img class="col-6" src="images/Asanka-diagram.png" alt="classroom" width="50%" height="50%">
           <div class="col-3">
             <ul>
-                <h4>Asanka Device</h4>
+                <h4 id="asanka-how">Asanka Device</h4>
               <li>The Asanka Device is set up in classrooms with computer</li>
               <li>The device side of Asanka can be accessed offline through a Wi-Fi signal given off by the RaspberryPi.</li>
             </ul>
@@ -116,18 +116,18 @@
           <div id="project-section" class="row">
             <div class="col-4 text-center">
                 <img src="images/ui.png" alt="Generic placeholder image" width="64" height="64">
-                <h5>User Interface Redesign</h5>
+                <h5 id="design">User Interface Redesign</h5>
                 <p>Current UI is difficult to navigate and unintuitive, not designed for Teachers</p>
             </div>
             <div class="col-4 text-center">
                 <img src="images/folder.png" alt="Generic placeholder image" width="64" height="64">
-                <h5>Information Architecture</h5>
+                <h5 id="design">Information Architecture</h5>
                 <p>All content is in one location, no separation of resources or organization</p>
 
             </div>
             <div class="col-4 text-center">
                 <img src="images/security.png" alt="Generic placeholder image" width="64" height="64">
-                <h5>Security Recommendations</h5>
+                <h5 id="design">Security Recommendations</h5>
                 <p>User accounts and permissions are not present</p>
 
             </div>
@@ -144,18 +144,18 @@
             </div>
             <div class="col-6 d-flex flex-column justify-content-around">
               <div class="row">
-                  <h5 class="card-title">Difficult to Find Files</h5>
-                  <p class="card-text">Because all of the content on Asanka is located in one location, if there are many files on the device, finding a particular file can be challenging.</p>
+                  <h5 id="design" class="card-title">Difficult to Find Files</h5>
+                  <p class="card-text">Previosly, the Asanka device had all the information stored in one location. The only way to find files was through three filters alphabetical, date uploaded, or file type. Finding a particular file became increasingly challenging as more content was uploaded to the device </p>
     
               </div>
               <div class="row">
-                  <h5 class="card-title">No Ownership of Content</h5>
-                  <p class="card-text">Currently, there is no way to determine who is using which files on Asanka. This makes it difficult to determine who to contact about removing or modifying a file.</p>
+                  <h5 id="design" class="card-title">No Ownership of Content</h5>
+                  <p class="card-text">Currently, there is no way to determine who is using which files on Asanka. Although teachers are eager to upload files they want to use to help them teach, there is no way for them to organize the personal files they upload vs all other files.</p>
     
               </div>
               <div class="row">
-                  <h5 class="card-title">Challenging to Optimize Storage</h5>
-                  <p class="card-text">Due to limited storage, files are frequently added and removed from Asanka. Because there is no ownership of files and no information architecture, it is difficult to fairly distribute storage between teachers and departments.</p>
+                  <h5 id="design" class="card-title">Devices are Restricted by Storage Capacity</h5>
+                  <p class="card-text">Due to limited storage, files are frequently added and removed from Asanka. This is mainly because each device copies all files from the cloud acocunt. Without the ability to manage content at the device level, each device has a direct copy of the content on the other</p>
     
               </div>
             </div>
@@ -184,14 +184,14 @@
           <div id="solution" class="row container-fluid">
               <div class="col-6 d-flex flex-column justify-content-around">
                 <div class="row">
-                  <h5>Information Architecture</h5>
+                  <h5 id="design">Information Architecture</h5>
                     <p>By creating an information architecture to categorize content based on subject, grade level, and teacher, management of content on 
                       Asanka is easier than ever before. Because storage space on Asanka is limited, administrators are often uploading new content and removing old files.
                       Administrators will now be able to better understand what content is associated to which teacher so they can effectively distribute resources.
                     </p>
                 </div>
                 <div class="row">
-                  <h5>Teacher-Specific Design</h5>
+                  <h5 id="design">Teacher-Specific Design</h5>
                     <p>Giving every teacher their own folder for personal files encourages teachers to utilize Asanka more and gives 
                       them a sense of ownership over Asanka. With this design, we hope to encourage teachers to use technology more often in their classrooms.
                     </p>
