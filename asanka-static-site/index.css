@@ -59,3 +59,11 @@ h3 {
 #spIntro {
     text-align: center;
 }
+
+p {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body h1, body h2, body h3, body h4, body h5 {
+    font-family: 'Montserrat', sans-serif;
+}
