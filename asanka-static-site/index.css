@@ -49,6 +49,10 @@ h3 {
     color: red; 
 }
 
+#changes {
+    color: red;
+}
+
 #project-section {
     padding-top: 2em;
     padding-bottom: 2em;  
@@ -59,11 +63,10 @@ h3 {
     text-align: center;
 }
 
-#asanka-how {
-    color: red;
-    text-align: center;
+p {
+    font-family: 'Open Sans', sans-serif;
 }
 
-#design {
-    color: red;
+body h1, body h2, body h3, body h4, body h5 {
+    font-family: 'Montserrat', sans-serif;
 }
