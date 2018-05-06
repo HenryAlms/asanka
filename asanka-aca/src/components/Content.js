@@ -27,8 +27,12 @@ export default class Content extends React.Component {
             locSel: [],
             teachSel: [],
             selectedButton: "true",
-            selected: []
+            selected: [],
+            size: "",
+            timeCreated: ""
         }
+        // this.submitFile = this.submitFile.bind(this);
+
     }
 
     componentDidMount() {
@@ -84,7 +88,7 @@ export default class Content extends React.Component {
             this.state.devSel.forEach((device) => {
                 this.state.subSel.forEach((subject) => {
                     console.log("for each subject");
-                    queryList.push(device + "/Folders/" + subject + "/Files/" + this.state.title);
+                    queryList.push(device + "/Folders/" + subject + "/Files/");
                 });
             });
         } else if(this.state.teachSel.length !== 0) {
@@ -110,17 +114,65 @@ export default class Content extends React.Component {
         console.log(queryList);
         queryList.forEach((storeLocation) => {
             console.log(storeLocation);
-            firebase.database().ref(storeLocation).set({
-                title: this.state.title,
-                description: this.state.description,
-                date: this.state.date,
-                active: this.state.selectedButton,
-                file: this.state.file
-            });
             let storage = firebase.storage().ref(storeLocation);
             let file = this.state.file;
             console.log(file);
             storage.put(file);
+            let timeCreated;
+            let size;
+            //remove the .pdf from the file.name
+            let fileStorRef = storage.child(file.name);
+
+            fileStorRef.getMetadata().then(function(metadata) {
+                console.log(metadata);
+                // this.setState({size: metadata.size});
+                // this.setState({timeCreated: metadata.timeCreated});
+                // timeCreated = metadata.timeCreated;
+                // size = metadata.size;
+                // console.log(time);
+                // console.log(size);
+                // this.state.timeCreated = metadata.timeCreated;
+                // this.state.size = metadata.size;
+                timeCreated = metadata.timeCreated;
+                size = metadata.size;
+                console.log(timeCreated);
+                console.log(size);
+
+                //file.time = metadata.updated;
+                //file.size= metadata.size;
+            // Metadata now contains the metadata for 'images/forest.jpg'
+            }).catch(function(error) {
+                console.log(error);
+                fileStorRef = storage.child(file.name + ".pdf");
+                fileStorRef.getMetadata().then(function(metadata) {
+                    console.log(metadata);
+                    // this.setState({size: metadata.size});
+                    // this.setState({timeCreated: metadata.timeCreated});
+                    // this.state.timeCreated = metadata.timeCreated;
+                    // this.state.size = metadata.size;
+                    // console.log(this.state.timeCreated);
+                    // console.log(this.state.size);
+                    timeCreated = metadata.created;
+                    size = metadata.size;
+                    console.log(timeCreated);
+                    console.log(size);
+                    // file.time = metadata.updated;
+                    // file.size= metadata.size;
+                }).catch(function(error) {
+                    console.log(error);
+                })
+            }); 
+            firebase.database().ref(storeLocation + this.state.title).set({
+                title: this.state.title,
+                description: this.state.description,
+                date: this.state.date,
+                active: this.state.selectedButton,
+                file: this.state.file,
+                size: size,
+                timeCreated: timeCreated
+            });
+
+            console.log(file);
         })
         
     }
