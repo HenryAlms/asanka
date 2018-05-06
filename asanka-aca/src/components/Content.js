@@ -31,7 +31,6 @@ export default class Content extends React.Component {
             disabledG: true,
             disabledT: false,
             disabledS: false,
-            
         }
     }
 
