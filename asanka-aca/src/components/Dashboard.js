@@ -23,9 +23,13 @@ export default class Dashboard extends React.Component {
             current: 'Device 3',
             folders: [],
             files: [],
+<<<<<<< HEAD
             devSelect: this.props.device,
             editMode: false,
             checked: new Set()
+=======
+            devSelect: "Choose A Device"
+>>>>>>> henry-dev
         }
     }
 
@@ -34,7 +38,8 @@ export default class Dashboard extends React.Component {
         this.loadFiles(this.state.query);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
-              this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
+                console.log(this.props.currDevice);
+              this.setState({ user: firebaseUser, loading: false, duplicateGames: [], devSelect: this.props.currDevice });
             }
             else { //someone logged out
               this.setState({ user: null, duplicateGames: [] });
@@ -48,13 +53,13 @@ export default class Dashboard extends React.Component {
         this.unregisterFunction();
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     console.log(nextProps.device);
-    //     this.setState({current: nextProps.device});
-    //     this.loadFolders(nextProps.device);
-    //     this.loadFiles(nextProps.device);
-    //     console.log(this.state.current);
-    // }
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.currDevice);
+        this.setState({current: nextProps.currDevice});
+        this.loadFolders(nextProps.currDevice);
+        this.loadFiles(nextProps.currDevice);
+        console.log(this.state.current);
+    }
 
     loadFolders(query) {
         this.folderRef = firebase.database().ref(query + "/Folders");
@@ -190,8 +195,7 @@ export default class Dashboard extends React.Component {
     }
 
     handleDevChange(d) {
-        this.loadFolders(d);
-        this.loadFiles(d);
+        console.log("devChange");
         this.setState({current: d, query: d});
         this.props.device(d);
     }
@@ -267,7 +271,7 @@ export default class Dashboard extends React.Component {
                         <div>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                Select A Device<span className="caret"></span></button>
+                                {this.state.current}<span className="caret"></span></button>
                                 <CategoryList refPath="Categories/Devices/" handleChange={(e) => this.handleDevChange(e)}/>
                             </div>
                         </div>

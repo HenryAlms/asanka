@@ -14,7 +14,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import Content from "./components/Content";
-import Categories from './components/DeviceCat';
+import Categories from './components/CategoryMgmt';
 
 
 class App extends Component {
@@ -54,33 +54,39 @@ class App extends Component {
   }
 
   currentDevice(d) {
+<<<<<<< HEAD
     this.setState({device: d})
     // console.log(d);
+=======
+    console.log(d);
+    this.setState({device: d});
+    return d;
+>>>>>>> henry-dev
   }
 
   render() {
     // this is how you pass props to the components you render through the switch. pass props here, 
     //and use "render={renderComponentName}" in the switch
     let renderWelcome = (routerProps) => {
-      return <Welcome {...routerProps} user={this.state.user} device={(d) => this.currentDevice(d)} signInCallback={(email, password) => this.handleSignIn(email, password)}  />
+      return <Welcome {...routerProps} user={this.state.user} currDevice={this.state.device} device={(d) => this.currentDevice(d)} signInCallback={(email, password) => this.handleSignIn(email, password)}  />
     }
     let renderDashboard = (routerProps) => {
-      return <Dashboard {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
+      return <Dashboard {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
     let renderProfile = (routerProps) => {
-      return <Profile {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
+      return <Profile {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
     let renderUsers = (routerProps) => {
-      return <Users {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
+      return <Users {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
     let renderCategories = (routerProps) => {
-      return <Categories {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
+      return <Categories {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
     let renderDevices = (routerProps) => {
-      return <Devices {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user} />
+      return <Devices {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }  
     let renderContent = (routerProps) => {
-      return <Content {...routerProps} device={(d) => this.currentDevice(d)} user={this.state.user}/>
+      return <Content {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user}/>
     }
     // console.log(this.state.user);      
     
