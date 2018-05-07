@@ -72,17 +72,76 @@ export default class Dashboard extends React.Component {
 
     loadFiles(query) {
         this.fileRef = firebase.database().ref(query + '/Files');
+        let fileArray = [];
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             // console.log(fileValue);
-            let fileArray = Object.keys(fileValue).map((key) => {
+            fileArray = Object.keys(fileValue).map((key) => {
                 fileValue[key].key = key;
                 // console.log(key);
                 return fileValue[key];
             })
+            console.log(fileArray);
+            //this.loadFromStorage(fileArray, query);
             this.setState({files: fileArray});
-        }); 
+        });
+
     }
+
+    /*loadFromStorage(fileArray, query) {
+                // console.log(fileArray);
+                console.log(query);
+                let storageRef = firebase.storage().ref(query + "/Files/"); 
+                fileArray.forEach((file) => {
+                    console.log(file);
+                    let fileStorRef = storageRef.child(file.title);
+                    let size;
+                    let time;
+                    fileStorRef.getMetadata().then(function(metadata) {
+                        time = metadata.updated;
+                        size = metadata.size;
+                        console.log(time);
+                        console.log(size);
+
+                        //file.time = metadata.updated;
+                        //file.size= metadata.size;
+                    // Metadata now contains the metadata for 'images/forest.jpg'
+                    }).catch(function(error) {
+                        let fileStorRef = storageRef.child(file.title + ".pdf");
+                        fileStorRef.getMetadata().then(function(metadata) {
+                            time = metadata.updated;
+                            size = metadata.size;
+                            console.log(time);
+                            console.log(size);
+                            //file.time = metadata.updated;
+                            //file.size= metadata.size;
+                        }).catch(function(error) {
+                            console.log(error);
+                        })
+                    }); 
+        
+                    let fileDBRef = firebase.database().ref(query + '/Files/' + file.key);
+                    console.log('key: ' + file.key);
+                    console.log('size: ' + size);
+                    console.log('time: ' + time);
+                    // fileDBRef.set(
+                    //     {
+                    //         time: time,
+                    //         size: size
+                    //     }
+                    // )
+                    // fileDBRef.once('value', (snapshot) => {
+                    //     let data = snapshot.val();
+                    //     let update = data;
+                    //     update['time'] = time;
+                    //     update['size'] = size;
+                    //     fileDBRef.set(update);
+                    // })
+                    console.log(file);
+                  });
+                  console.log(fileArray);
+                  this.setState({files: fileArray});
+    }*/
     
     changeStatus(event) {
         let file = event.target.value;
