@@ -93,7 +93,9 @@ export default class Content extends React.Component {
         if(this.state.subSel.length === 0 && this.state.teachSel.length === 0) {
             console.log("Device Only")
             this.state.devSel.forEach((device) => {
-                queryList.push(device + "/Files/" + this.state.title)
+                // queryList.push(device + "/Files/" + this.state.title)
+                queryList.push(device + "/Files/" + this.state.file.name)
+
             });
         }
 
@@ -102,21 +104,21 @@ export default class Content extends React.Component {
             this.state.devSel.forEach((device) => {
                 this.state.teachSel.forEach((teacher) => {
                     console.log("for each teacher");
-                    queryList.push(device + "/Folders/" + teacher + "/Files/" + this.state.title);
+                    queryList.push(device + "/Folders/" + teacher + "/Files/" + this.state.file.name);
                 });
             });
         } else if(this.state.gradeSel.length === 0 && this.state.subSel.length !== 0) {
             console.log("Subject Only")
             this.state.devSel.forEach((device) => {
                 this.state.subSel.forEach((subject) => {
-                    queryList.push(device + "/Folders/" + subject + "/Files/" + this.state.title);
+                    queryList.push(device + "/Folders/" + subject + "/Files/" + this.state.file.name);
                 });
             });
         } else if (this.state.gradeSel.length !== 0) {
             this.state.devSel.forEach((device) => {
                 this.state.subSel.forEach((subject) => {
                     this.state.gradeSel.forEach((grade) => {
-                        queryList.push(device + "/Folders/" + subject + "/Folders/" + grade + "/Files/" + this.state.title);                        
+                        queryList.push(device + "/Folders/" + subject + "/Folders/" + grade + "/Files/" + this.state.file.name);                        
                     });
                 });
             });
@@ -138,7 +140,9 @@ export default class Content extends React.Component {
         console.log(queryList);
         queryList.forEach((storeLocation) => {
             console.log(storeLocation);
-            let storage = firebase.storage().ref(storeLocation);
+            var storeLocationClean = storeLocation.slice(0, -4);
+            // let storage = firebase.storage().ref(storeLocation);
+            let storage = firebase.storage().ref(storeLocationClean);
             let file = this.state.file;
             console.log(file);
             storage.put(file);
@@ -189,7 +193,7 @@ export default class Content extends React.Component {
                     console.log(error);
                 })
             }).then(() => {
-                this.upload(storeLocation, setTime, setSize);
+                this.upload(storeLocationClean, setTime, setSize);
             });
         })
         
