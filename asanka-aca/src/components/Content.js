@@ -34,7 +34,6 @@ export default class Content extends React.Component {
             disabledT: false,
             disabledS: false,
         }
-        // this.submitFile = this.submitFile.bind(this);
 
     }
 
@@ -191,19 +190,7 @@ export default class Content extends React.Component {
                 })
             }).then(() => {
                 this.upload(storeLocation, setTime, setSize);
-            }); 
-            console.log(setSize + "  " + setTime)
-            // firebase.database().ref(storeLocation).set({
-            //     title: this.state.title,
-            //     description: this.state.description,
-            //     date: this.state.date,
-            //     active: this.state.selectedButton,
-            //     file: this.state.file,
-            //     size: setSize,
-            //     timeCreated: setTime
-            // });
-
-            console.log(file);
+            });
         })
         
     }

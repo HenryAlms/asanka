@@ -23,13 +23,10 @@ export default class Dashboard extends React.Component {
             current: 'Device 3',
             folders: [],
             files: [],
-<<<<<<< HEAD
             devSelect: this.props.device,
             editMode: false,
-            checked: new Set()
-=======
+            checked: new Set(),
             devSelect: "Choose A Device"
->>>>>>> henry-dev
         }
     }
 
@@ -38,7 +35,6 @@ export default class Dashboard extends React.Component {
         this.loadFiles(this.state.query);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
-                console.log(this.props.currDevice);
               this.setState({ user: firebaseUser, loading: false, duplicateGames: [], devSelect: this.props.currDevice });
             }
             else { //someone logged out
@@ -54,11 +50,9 @@ export default class Dashboard extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.currDevice);
         this.setState({current: nextProps.currDevice});
         this.loadFolders(nextProps.currDevice);
         this.loadFiles(nextProps.currDevice);
-        console.log(this.state.current);
     }
 
     loadFolders(query) {
@@ -80,77 +74,17 @@ export default class Dashboard extends React.Component {
         let fileArray = [];
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
-            // console.log(fileValue);
             fileArray = Object.keys(fileValue).map((key) => {
                 fileValue[key].key = key;
-                // console.log(key);
                 return fileValue[key];
             })
-            console.log(fileArray);
-            //this.loadFromStorage(fileArray, query);
             this.setState({files: fileArray});
         });
 
     }
-
-    /*loadFromStorage(fileArray, query) {
-                // console.log(fileArray);
-                console.log(query);
-                let storageRef = firebase.storage().ref(query + "/Files/"); 
-                fileArray.forEach((file) => {
-                    console.log(file);
-                    let fileStorRef = storageRef.child(file.title);
-                    let size;
-                    let time;
-                    fileStorRef.getMetadata().then(function(metadata) {
-                        time = metadata.updated;
-                        size = metadata.size;
-                        console.log(time);
-                        console.log(size);
-
-                        //file.time = metadata.updated;
-                        //file.size= metadata.size;
-                    // Metadata now contains the metadata for 'images/forest.jpg'
-                    }).catch(function(error) {
-                        let fileStorRef = storageRef.child(file.title + ".pdf");
-                        fileStorRef.getMetadata().then(function(metadata) {
-                            time = metadata.updated;
-                            size = metadata.size;
-                            console.log(time);
-                            console.log(size);
-                            //file.time = metadata.updated;
-                            //file.size= metadata.size;
-                        }).catch(function(error) {
-                            console.log(error);
-                        })
-                    }); 
-        
-                    let fileDBRef = firebase.database().ref(query + '/Files/' + file.key);
-                    console.log('key: ' + file.key);
-                    console.log('size: ' + size);
-                    console.log('time: ' + time);
-                    // fileDBRef.set(
-                    //     {
-                    //         time: time,
-                    //         size: size
-                    //     }
-                    // )
-                    // fileDBRef.once('value', (snapshot) => {
-                    //     let data = snapshot.val();
-                    //     let update = data;
-                    //     update['time'] = time;
-                    //     update['size'] = size;
-                    //     fileDBRef.set(update);
-                    // })
-                    console.log(file);
-                  });
-                  console.log(fileArray);
-                  this.setState({files: fileArray});
-    }*/
     
     changeStatus(event) {
         let file = event.target.value;
-        console.log('changeStatus clicked! file:' + file);
         let singleFileRef = firebase.database().ref(this.state.query + '/Files/' + file);
         singleFileRef.once('value', (snapshot) => {
             let data = snapshot.val();
@@ -195,7 +129,6 @@ export default class Dashboard extends React.Component {
     }
 
     handleDevChange(d) {
-        console.log("devChange");
         this.setState({current: d, query: d});
         this.props.device(d);
     }
@@ -216,19 +149,16 @@ export default class Dashboard extends React.Component {
         } else {
           this.state.checked.add(fileTitle);
         }
-        console.log(this.state.checked);
     }
 
     deleteFiles() {
         this.deleteStorage();
         this.fileRef = firebase.database().ref(this.state.query + '/Files');
-        console.log(this.fileRef);
         var updates = {};
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             Object.keys(fileValue).forEach((key) => {
                 if (this.state.checked.has(key)) {
-                    console.log(key);
                     updates[key] = null;
                 }
             })

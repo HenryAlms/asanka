@@ -54,14 +54,9 @@ class App extends Component {
   }
 
   currentDevice(d) {
-<<<<<<< HEAD
-    this.setState({device: d})
-    // console.log(d);
-=======
     console.log(d);
     this.setState({device: d});
     return d;
->>>>>>> henry-dev
   }
 
   render() {
