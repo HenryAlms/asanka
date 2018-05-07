@@ -69,6 +69,18 @@ export default class Content extends React.Component {
         this.setState({file: evt.target.files[0]});
     }
 
+    upload(storeLocation, setTime, setSize) {
+        firebase.database().ref(storeLocation).set({
+            title: this.state.title,
+            description: this.state.description,
+            date: this.state.date,
+            active: this.state.selectedButton,
+            file: this.state.file,
+            size: setSize,
+            timeCreated: setTime
+        });
+    }
+
     submitFile(evt) {
         evt.preventDefault();
         let devQuery = "";
@@ -88,7 +100,7 @@ export default class Content extends React.Component {
             this.state.devSel.forEach((device) => {
                 this.state.subSel.forEach((subject) => {
                     console.log("for each subject");
-                    queryList.push(device + "/Folders/" + subject + "/Files/");
+                    queryList.push(device + "/Folders/" + subject + "/Files/" + this.state.title);
                 });
             });
         } else if(this.state.teachSel.length !== 0) {
@@ -111,6 +123,9 @@ export default class Content extends React.Component {
         console.log(subjects);
         console.log(devices);
 
+        let setTime;
+        let setSize;
+
         console.log(queryList);
         queryList.forEach((storeLocation) => {
             console.log(storeLocation);
@@ -118,12 +133,14 @@ export default class Content extends React.Component {
             let file = this.state.file;
             console.log(file);
             storage.put(file);
-            let timeCreated;
-            let size;
+            
             //remove the .pdf from the file.name
-            let fileStorRef = storage.child(file.name);
-
-            fileStorRef.getMetadata().then(function(metadata) {
+            console.log(file.name)
+            let fileStorRef = storage;
+            console.log(fileStorRef);
+            let mData = fileStorRef.getMetadata()
+            console.log(mData);
+            mData.then(function(metadata) {
                 console.log(metadata);
                 // this.setState({size: metadata.size});
                 // this.setState({timeCreated: metadata.timeCreated});
@@ -133,11 +150,12 @@ export default class Content extends React.Component {
                 // console.log(size);
                 // this.state.timeCreated = metadata.timeCreated;
                 // this.state.size = metadata.size;
-                timeCreated = metadata.timeCreated;
-                size = metadata.size;
-                console.log(timeCreated);
-                console.log(size);
-
+                setTime = metadata.timeCreated;
+                setSize = metadata.size;
+                // this.setState({size: size, timeCreated: timeCreated});
+                console.log(setTime);
+                console.log(setSize);
+                
                 //file.time = metadata.updated;
                 //file.size= metadata.size;
             // Metadata now contains the metadata for 'images/forest.jpg'
@@ -152,25 +170,28 @@ export default class Content extends React.Component {
                     // this.state.size = metadata.size;
                     // console.log(this.state.timeCreated);
                     // console.log(this.state.size);
-                    timeCreated = metadata.created;
-                    size = metadata.size;
-                    console.log(timeCreated);
-                    console.log(size);
+                    setTime = metadata.created;
+                    setSize = metadata.size;
+                    console.log(setTime);
+                    console.log(setSize);
                     // file.time = metadata.updated;
                     // file.size= metadata.size;
                 }).catch(function(error) {
                     console.log(error);
                 })
+            }).then(() => {
+                this.upload(storeLocation, setTime, setSize);
             }); 
-            firebase.database().ref(storeLocation + this.state.title).set({
-                title: this.state.title,
-                description: this.state.description,
-                date: this.state.date,
-                active: this.state.selectedButton,
-                file: this.state.file,
-                size: size,
-                timeCreated: timeCreated
-            });
+            console.log(setSize + "  " + setTime)
+            // firebase.database().ref(storeLocation).set({
+            //     title: this.state.title,
+            //     description: this.state.description,
+            //     date: this.state.date,
+            //     active: this.state.selectedButton,
+            //     file: this.state.file,
+            //     size: setSize,
+            //     timeCreated: setTime
+            // });
 
             console.log(file);
         })
