@@ -102,7 +102,7 @@ export default class Content extends React.Component {
             this.state.devSel.forEach((device) => {
                 this.state.teachSel.forEach((teacher) => {
                     console.log("for each teacher");
-                    queryList.push(device + "/Folders/" + teacher + "/Files/" + this.state.title);
+                    queryList.push(device + "/Folders/Teachers/Folders/" + teacher + "/Files/" + this.state.title);
                 });
             });
         } else if(this.state.gradeSel.length === 0 && this.state.subSel.length !== 0) {
