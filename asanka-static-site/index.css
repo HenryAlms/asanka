@@ -1,0 +1,72 @@
+#collab {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    width: 55%;
+}
+
+#spTitle {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: red
+}
+
+.intro h1 {
+    justify-content: center
+}
+
+.sponsor {
+    padding: 2em;
+    background-color: rgba(211, 211, 211, 0.315)
+}
+
+.header {
+    width: 100%;
+}
+
+#asanka-carousel {
+    display: block;
+    position: relative;
+}
+
+.carousel-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-inner img {
+    position: center;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    max-height: 400px;
+}
+
+h3 {
+    color: red; 
+}
+
+#changes {
+    color: red;
+}
+
+#project-section {
+    padding-top: 2em;
+    padding-bottom: 2em;  
+    background-color: rgba(211, 211, 211, 0.315);
+}
+
+#spIntro {
+    text-align: center;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body h1, body h2, body h3, body h4, body h5 {
+    font-family: 'Montserrat', sans-serif;
+}
