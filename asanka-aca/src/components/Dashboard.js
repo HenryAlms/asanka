@@ -23,7 +23,6 @@ export default class Dashboard extends React.Component {
             current: 'Device 3',
             folders: [],
             files: [],
-            devSelect: this.props.device,
             editMode: false,
             checked: new Set(),
             devSelect: "Choose A Device"
