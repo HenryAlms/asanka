@@ -15,14 +15,15 @@ export default class Categories extends React.Component {
             userID:undefined,
             categories: [],
             selections: [],
-            options: []
+            options: [],
+            disabled: "false"
         }
     }
 
     componentDidMount() {
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
-              this.setState({ user: firebaseUser});
+              this.setState({ user: firebaseUser, disabled: this.props.disabled});
               this.loadData();
             } else {
               this.setState({ user: null});
@@ -31,7 +32,7 @@ export default class Categories extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({refPathQ: nextProps.refPath});
+        this.setState({refPathQ: nextProps.refPath, disabled: nextProps.disabled});
     }
 
     componentWillUnmount() {
@@ -70,7 +71,7 @@ export default class Categories extends React.Component {
         if(this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<Checkbox name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name}/>);
+                this.state.selections.push(<Checkbox disabled={this.state.disabled} name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name}/>);
             }); 
         } else {
             return (

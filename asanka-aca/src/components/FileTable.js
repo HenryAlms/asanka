@@ -49,7 +49,8 @@ export default class FileTable extends React.Component {
                 <thead>
                 <tr className="topRow">
                     <th>Title</th>
-                    <th>File Type</th>
+                    <th>Size (KB)</th>
+                    <th>Time Uploaded</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -85,7 +86,10 @@ class File extends React.Component {
 
     render() {
         let key = String(this.props.i);
-        let file = this.state.file; 
+        let file = this.state.file;
+        console.log(file);
+        console.log("title: " + file.title); 
+        console.log("time: " + file.time); 
         let active;
         if (this.state.active) {
             active = "Active";
@@ -95,7 +99,8 @@ class File extends React.Component {
         return (
             <tr>
                 <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
-                <td key={file.type + key}>{file.type}</td>
+                <td key={file.type + key}>{Math.round( file.size/1000 * 10 ) / 10}</td>
+                <td key={file.size + key}>{file.timeCreated}</td>
                 <td key={active + key}>
                     <FormGroup className="ml-3">
                         <Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} />
