@@ -8,7 +8,7 @@ import constants from './constants';
 import '../css/Content.css';
 import Checkbox from './Checkbox';
 
-export default class DeviceCat extends React.Component {
+export default class AllCat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,7 +46,6 @@ export default class DeviceCat extends React.Component {
             ref = firebase.database().ref();
         }
         ref.on('value', (snapshot) => {
-            // console.log(snapshot)
             let value = snapshot.val();
             let list = Object.keys(value).map((key) => {
                 return {name: key};
@@ -55,22 +54,11 @@ export default class DeviceCat extends React.Component {
         });
     }
 
-    handleClick(name, state) {
-        console.log(name);
-        console.log(state);
-        if(state === true) {
-            this.props.checkSelect(name);
-        } else {
-            this.props.uncheck(name);
-        }
-        
-    }
-
     render() {
         if(this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<Checkbox name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name}/>);
+                this.state.selections.push(<li key={category.name}>{category.name}</li>);
             }); 
         } else {
             return (
@@ -83,7 +71,6 @@ export default class DeviceCat extends React.Component {
             <div>
                 {this.state.selections}
             </div>
-            
         )
     }
 }
