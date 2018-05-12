@@ -70,3 +70,12 @@ p {
 body h1, body h2, body h3, body h4, body h5 {
     font-family: 'Montserrat', sans-serif;
 }
+
+.headshot {
+    border-radius: 50%;
+}
+
+.caption {
+    background-color: black;
+    /* text-shadow: 2px 2px black; */
+}

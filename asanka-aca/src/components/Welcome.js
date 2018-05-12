@@ -34,7 +34,7 @@ export default class Welcome extends React.Component {
                     {this.props.user && <Redirect to={constants.routes.dashboard} />}    
 
                     <div className='formContainer rounded'>
-                    <div className='Asanka-Logo'>
+                    <div className='Asanka-Logo text-center'>
                         <img src="./imgs/Asanka-logo.png" alt="Logo"/>
                     </div>
                         <form className="form" onSubmit={evt => this.signIn(evt)}>
@@ -62,7 +62,7 @@ export default class Welcome extends React.Component {
                                 value={this.state.password}
                                 onInput={evt => this.setState({password: evt.target.value})}/>
                             </div>
-                            <div className='form-group'>
+                            <div className='form-group text-center'>
                                 <button disabled={this.state.working}
                                 type='submit'
                                 className='btn-danger' onClick={(event) => this.handleSignIn(event)}>
