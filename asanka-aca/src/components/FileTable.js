@@ -96,11 +96,13 @@ class File extends React.Component {
         } else {
             active = "Inactive";
         }
+        var date = new Date(file.timeCreated);
+        var options = {hour: "numeric", minute:'numeric', year: 'numeric', month: 'short', day: 'numeric'};
         return (
             <tr>
                 <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
                 <td key={file.type + key}>{Math.round( file.size/1000 * 10 ) / 10}</td>
-                <td key={file.size + key}>{file.timeCreated}</td>
+                <td key={file.size + key}>{date.toLocaleDateString("en-US",options)}</td>
                 <td key={active + key}>
                     <FormGroup className="ml-3">
                         <Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} />
