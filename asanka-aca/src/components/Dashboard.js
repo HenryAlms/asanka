@@ -198,6 +198,7 @@ export default class Dashboard extends React.Component {
                     <h1 className="my-5">Dashboard</h1>
                     <div className="dropGroup">
                         <div>
+                            <h4>Choose A Device</h4>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.current}<span className="caret"></span></button>
@@ -205,9 +206,6 @@ export default class Dashboard extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="content-management">
-                    <h2 className="mb-4">Content Management</h2>
                 </div>
                 
                 {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
@@ -222,9 +220,15 @@ export default class Dashboard extends React.Component {
                     {this.state.editMode == true && <div className="delete-button">
                         <Button color="danger" className="m-2" onClick={() => this.deleteFiles()} >Delete Selected</Button>
                 </div>}
-                    <div className="fileBtns">
-                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
-                        <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
+                    <div className="row justify-content-between">
+                        <div className="col-auto mr-auto">
+                            <h4>Files:</h4>
+                        </div>
+                        <div className="col-auto fileBtns">
+                            <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
+                            <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
+                        </div>
+                        
                     </div>    
                     <FileTable files={this.state.files} editMode={this.state.editMode} handleEditCheckCallback={(e)=>this.handleEditCheck(e)}changeCallback={(e) => this.changeStatus(e)}/>   
                 </div>     
