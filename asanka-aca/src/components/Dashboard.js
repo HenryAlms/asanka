@@ -195,10 +195,10 @@ export default class Dashboard extends React.Component {
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
-                    <h1 className="my-5">Dashboard</h1>
+                    <h1 className="my-5 text-center">Asanka Dashboard</h1>
                     <div className="dropGroup">
                         <div>
-                            <h4>Choose A Device</h4>
+                            <h4>Choose A Device:</h4>
                             <div className="dropdown">
                                 <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.current}<span className="caret"></span></button>
@@ -211,9 +211,14 @@ export default class Dashboard extends React.Component {
                 {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                 
                 {this.state.folders.length > 0 &&
-                    <Container className="folders-section p-3 mb-5">
-                        {folderItems}
-                    </Container>
+                    <div className="container w-50 folders-section p-3">
+                        <div className="p-1">
+                            <h4>Folders:</h4>
+                        </div>
+                        <div className="text-center mt-3">
+                            {folderItems}
+                        </div>
+                    </div>
                 }    
 
                 <div>
@@ -221,7 +226,7 @@ export default class Dashboard extends React.Component {
                         <Button color="danger" className="m-2" onClick={() => this.deleteFiles()} >Delete Selected</Button>
                 </div>}
                     <div className="row justify-content-between">
-                        <div className="col-auto mr-auto">
+                        <div className="col-auto mr-auto mt-2">
                             <h4>Files:</h4>
                         </div>
                         <div className="col-auto fileBtns">
