@@ -93,7 +93,6 @@ export default class Content extends React.Component {
         if(this.state.subSel.length === 0 && this.state.teachSel.length === 0) {
             console.log("Device Only")
             this.state.devSel.forEach((device) => {
-                // queryList.push(device + "/Files/" + this.state.title)
                 queryList.push(device + "/Files/" + this.state.file.name)
 
             });
@@ -104,7 +103,7 @@ export default class Content extends React.Component {
             this.state.devSel.forEach((device) => {
                 this.state.teachSel.forEach((teacher) => {
                     console.log("for each teacher");
-                    queryList.push(device + "/Folders/Teachers/Folders/" + teacher + "/Files/" + this.state.title);
+                    queryList.push(device + "/Folders/Teachers/Folders/" + teacher + "/Files/" + this.state.file.name);
                 });
             });
         } else if(this.state.gradeSel.length === 0 && this.state.subSel.length !== 0) {

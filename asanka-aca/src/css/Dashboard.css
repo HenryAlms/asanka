@@ -7,6 +7,13 @@ body {
     border-radius: 10px;
 }
 
+#folder{
+    color: rgb(73, 68, 68);
+}
+
+#device {
+    display: inline-block;
+}
 .folderBtn {
     background-color: white;
     color: #333;

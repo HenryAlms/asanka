@@ -195,12 +195,12 @@ export default class Dashboard extends React.Component {
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
-                    <h1 className="my-5 text-center">Asanka Dashboard</h1>
+                    <h1 className="my-4 text-center">Asanka Dashboard</h1>
                     <div className="dropGroup">
-                        <div>
-                            <h4>Choose A Device:</h4>
-                            <div className="dropdown">
-                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                        <div className="text-center">
+                            <h5  id="device" className="text-right my-3">Choose A Device:</h5>
+                            <div id="device" className="dropdown text-left p-0 pl-2">
+                                <button className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.current}<span className="caret"></span></button>
                                 <CategoryList refPath="Categories/Devices/" handleChange={(e) => this.handleDevChange(e)}/>
                             </div>
@@ -213,7 +213,7 @@ export default class Dashboard extends React.Component {
                 {this.state.folders.length > 0 &&
                     <div className="container w-50 folders-section p-3">
                         <div className="p-1">
-                            <h4>Folders:</h4>
+                            <h4 id="folder">Folders:</h4>
                         </div>
                         <div className="text-center mt-3">
                             {folderItems}

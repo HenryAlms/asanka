@@ -14,7 +14,7 @@ export default class Header extends React.Component {
     render() {
         return (
             <Navbar className="fixed-top header" color="faded" light>
-                <NavbarBrand href="/" className="justify-content-center pt-3 pl-2"><p className="navBrand">Asanka</p></NavbarBrand>
+                <NavbarBrand href="/" className="justify-content-center pt-3"><img className="w-75" src="imgs/Asanka-logo-3.png"/></NavbarBrand>
             </Navbar>    
         )
     }
