@@ -17,7 +17,8 @@ export default class Checkbox extends React.Component {
             selections: [],
             label: this.props.name,
             isChecked: false,
-            curDevice: this.props.deivce
+            curDevice: this.props.deivce,
+            disabled: false
         }
         // this.handleClick = this.handleClick.bind(this);
     }
@@ -25,7 +26,7 @@ export default class Checkbox extends React.Component {
     componentDidMount() {
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
-              this.setState({user: firebaseUser});
+              this.setState({user: firebaseUser, disabled: this.props.disabled});
             //   this.loadData(this.props.refPath);
             }
             else {
@@ -38,10 +39,10 @@ export default class Checkbox extends React.Component {
         this.unregisterFunction();
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({refPathQ: nextProps.refPath});
-    //     // this.loadData();
-    // }
+    componentWillReceiveProps(nextProps) {
+        this.setState({refPathQ: nextProps.refPath, disabled: nextProps.disabled});
+        // this.loadData();
+    }
 
     toggleCheckboxChange() {
         this.setState(({isChecked}) => (
@@ -61,11 +62,12 @@ export default class Checkbox extends React.Component {
             return this.state.isChecked;
         }
     }
+
     render() {
         return(
             <div className="checkbox">
                 <label>
-                    <input type="checkbox" value={this.state.label} checked={this.check()} onClick={() => this.toggleCheckboxChange()}/>
+                    <input type="checkbox" disabled={this.state.disabled} value={this.state.label} checked={this.check()} onClick={() => this.toggleCheckboxChange()}/>
                     {" " + this.state.label}
                 </label>
              </div>

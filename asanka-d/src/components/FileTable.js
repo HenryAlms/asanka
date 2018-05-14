@@ -1,4 +1,4 @@
-import {Table} from 'reactstrap';
+import {Table, Button} from 'reactstrap';
 import React from "react";
 import '../css/aca.css';
 import firebase from 'firebase/app';
@@ -24,36 +24,6 @@ export default class FileTable extends React.Component {
         this.setState({files: nextProps.files, query: nextProps.query})
     }
 
-    // downloadFile(fileTitle) {
-    //     console.log(fileTitle);
-    //     let storageRef = firebase.storage().ref(this.state.query + "/Files/");
-    //     console.log(this.state.query);
-    //     // Create a reference to the file we want to download
-    //     var fileRef = storageRef.child(fileTitle + '.pdf');
-    //     fileRef.getDownloadURL().then(function(url) {
-    //         // This can be downloaded directly:
-    //         var xhr = new XMLHttpRequest();
-    //         xhr.open('GET', url);
-    //         xhr.responseType = 'blob';
-    //         xhr.onload = function(event) {
-    //             // console.log(url);
-    //             // var blob = xhr.response;
-    //             // var a = document.createElement("a");
-    //             // document.body.appendChild(a);
-    //             // a.style = "display: none";
-    //             // a.href = url;
-    //             // a.download = fileTitle;
-    //             // a.click();
-    //             window.location.href = url;
-
-    //         };
-    //         xhr.send();
-    //       }).catch(function(error) {
-    //         // Handle any errors
-    //         console.log(error);
-    //       });
-    // }
-
     viewFile(fileTitle) {
         console.log('Viewing file!');
         let storageRef = firebase.storage().ref(this.state.query + "/Files/");
@@ -65,6 +35,12 @@ export default class FileTable extends React.Component {
           }).catch(function(error) {
             // Handle any errors
             console.log(error);
+            var fileRef = storageRef.child(fileTitle);
+            fileRef.getDownloadURL().then(function(url) {
+                window.open(url);
+            }).catch(function(error) {
+                console.log(error);
+            })
           });
         
     }
@@ -89,7 +65,7 @@ export default class FileTable extends React.Component {
                         <td>
                             {/* <button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button> */}
                             
-                            <button id={file.title} onClick={() => this.viewFile(file.title)}>View</button></td>
+                            <Button color="success" id={file.title} onClick={() => this.viewFile(file.title)}>Open</Button></td>
                     </tr>
                 )
             })

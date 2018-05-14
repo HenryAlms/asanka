@@ -1,19 +1,16 @@
-import {Table, Input, FormGroup, Label} from 'reactstrap';
+import {Table, Input, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 import React from "react";
 import '../css/Dashboard.css';
 import firebase from 'firebase/app';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import constants from './constants';
 
-
-
-
 export default class FileTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             files: this.props.files,
-            editMode: this.props.editMode,
+            editMode: this.props.editMode
         }
     }
 
@@ -49,7 +46,8 @@ export default class FileTable extends React.Component {
                 <thead>
                 <tr className="topRow">
                     <th>Title</th>
-                    <th>File Type</th>
+                    <th>Size (KB)</th>
+                    <th>Time Uploaded</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -66,41 +64,81 @@ class File extends React.Component {
         super(props);
         this.state = {
             file: this.props.file,
-            active: this.props.active,
-            editMode: this.props.editMode
+            active: this.props.file.active,
+            editMode: this.props.editMode,
+            dropdownOpen: false,
+            value: ''
         }
     }
 
     componentDidMount() {
-        this.setState({file: this.props.file, active: this.props.file.active, editMode: this.props.editMode});
+        let active;
+        if (this.props.active) {
+            active = "Active";
+        } else {
+            active = "Inactive";
+        }
+        this.setState({file: this.props.file, active: this.props.file.active, editMode: this.props.editMode, value: active});
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({file: nextProps.file, active: nextProps.active, editMode: nextProps.editMode})
+        this.setState({file: nextProps.file, active: nextProps.file.active, editMode: nextProps.editMode})
     }
 
-    editFile() {
-
+    toggle() {
+        let open;
+        if (this.state.dropdownOpen === true)
+            open = false;
+       
+        else    
+            open = true;    
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
     }
+    
+    select(event) {
+        if (this.state.value !== event.target.innerText) {
+            this.setState({
+                dropdownOpen: !this.state.dropdownOpen,
+                value: event.target.innerText
+            });
+        }    
+    }
+
 
     render() {
         let key = String(this.props.i);
         let file = this.state.file; 
+        console.log(file.key);
         let active;
         if (this.state.active) {
             active = "Active";
         } else {
             active = "Inactive";
         }
+        var date = new Date(file.timeCreated);
+        var options = {hour: "numeric", minute:'numeric', year: 'numeric', month: 'short', day: 'numeric'};
         return (
             <tr>
                 <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
-                <td key={file.type + key}>{file.type}</td>
+                <td key={file.type + key}>{Math.round( file.size/1000 * 10 ) / 10}</td>
+                <td key={file.size + key}>{date.toLocaleDateString("en-US",options)}</td>
                 <td key={active + key}>
-                    <FormGroup className="ml-3">
+                <Dropdown isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
+                    <DropdownToggle outline color="secondary" className="active-btn" caret>
+                        {this.state.value}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={(e) => {this.select(e); e.target.innerText !== this.state.value && this.props.changeCallback(e)}} value={file.key}>Active</DropdownItem>
+                        <DropdownItem onClick={(e) => {this.select(e); e.target.innerText !== this.state.value && this.props.changeCallback(e)}} value={file.key}>Inactive</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>    
+                    
+                    {/*<FormGroup className="ml-3">
                         <Input className="checkbox" value={file.key} type="checkbox" id={file.title + (key * 2)} onChange={(e) => this.props.changeCallback(e)} checked={this.state.active} />
                         <Label for={file.title + (key * 2)}>{active}</Label>
-                    </FormGroup>
+        </FormGroup>*/}
                 </td>
             </tr>  
         )

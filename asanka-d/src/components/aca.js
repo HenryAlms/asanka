@@ -131,7 +131,7 @@ export default class ACA extends React.Component {
                             </Container>
                         }    
                     </div>
-                    <h2 className="pb-2">Files in: English</h2>
+                    <h2 className="pb-2">Files in: Device 3</h2>
                     <FileTable files={this.state.files} query={this.state.query} />   
                 </Container>
             </Container>

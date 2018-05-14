@@ -23,9 +23,9 @@ export default class Dashboard extends React.Component {
             current: 'Device 3',
             folders: [],
             files: [],
-            devSelect: this.props.device,
             editMode: false,
-            checked: new Set()
+            checked: new Set(),
+            devSelect: "Choose A Device"
         }
     }
 
@@ -34,7 +34,7 @@ export default class Dashboard extends React.Component {
         this.loadFiles(this.state.query);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //someone logged in!
-              this.setState({ user: firebaseUser, loading: false, duplicateGames: [] });
+              this.setState({ user: firebaseUser, loading: false, duplicateGames: [], devSelect: this.props.currDevice });
             }
             else { //someone logged out
               this.setState({ user: null, duplicateGames: [] });
@@ -48,13 +48,11 @@ export default class Dashboard extends React.Component {
         this.unregisterFunction();
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     console.log(nextProps.device);
-    //     this.setState({current: nextProps.device});
-    //     this.loadFolders(nextProps.device);
-    //     this.loadFiles(nextProps.device);
-    //     console.log(this.state.current);
-    // }
+    componentWillReceiveProps(nextProps) {
+        this.setState({current: nextProps.currDevice});
+        this.loadFolders(nextProps.currDevice);
+        this.loadFiles(nextProps.currDevice);
+    }
 
     loadFolders(query) {
         this.folderRef = firebase.database().ref(query + "/Folders");
@@ -72,21 +70,20 @@ export default class Dashboard extends React.Component {
 
     loadFiles(query) {
         this.fileRef = firebase.database().ref(query + '/Files');
+        let fileArray = [];
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
-            console.log(fileValue);
-            let fileArray = Object.keys(fileValue).map((key) => {
+            fileArray = Object.keys(fileValue).map((key) => {
                 fileValue[key].key = key;
-                console.log(key);
                 return fileValue[key];
             })
             this.setState({files: fileArray});
-        }); 
+        });
+
     }
     
     changeStatus(event) {
         let file = event.target.value;
-        console.log('changeStatus clicked! file:' + file);
         let singleFileRef = firebase.database().ref(this.state.query + '/Files/' + file);
         singleFileRef.once('value', (snapshot) => {
             let data = snapshot.val();
@@ -131,8 +128,6 @@ export default class Dashboard extends React.Component {
     }
 
     handleDevChange(d) {
-        this.loadFolders(d);
-        this.loadFiles(d);
         this.setState({current: d, query: d});
         this.props.device(d);
     }
@@ -153,24 +148,41 @@ export default class Dashboard extends React.Component {
         } else {
           this.state.checked.add(fileTitle);
         }
-        console.log(this.state.checked);
     }
 
     deleteFiles() {
+        this.deleteStorage();
         this.fileRef = firebase.database().ref(this.state.query + '/Files');
-        console.log(this.fileRef);
         var updates = {};
         this.fileRef.once('value', (snapshot) => {
             let fileValue = snapshot.val();
             Object.keys(fileValue).forEach((key) => {
                 if (this.state.checked.has(key)) {
-                    console.log(key);
                     updates[key] = null;
                 }
             })
         });
-        console.log(updates);
-        this.fileRef.update(updates); 
+        this.fileRef.update(updates);
+        this.setState({checked: this.state.checked.clear(), editMode : false}); 
+        this.loadFiles(this.state.query);
+    }
+
+    deleteStorage() {
+        let storageRef = firebase.storage().ref(this.state.query + "/Files/"); 
+        this.state.checked.forEach(function(file) {
+            var deleteRef = storageRef.child(file);
+            // Delete the file
+            deleteRef.delete().then(function() {
+            // File deleted successfully
+            }).catch(function(error) {
+                var deleteRef = storageRef.child(file + ".pdf");
+                deleteRef.delete().then(function() {
+                    // File deleted successfully
+                }).catch(function(error) {
+                    console.log(error);
+                })
+            });
+        })
     }
 
     render() {
@@ -183,38 +195,47 @@ export default class Dashboard extends React.Component {
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
-                    <h1 className="my-5">Dashboard</h1>
+                    <h1 className="mt-4 mb-3">Dashboard</h1>
                     <div className="dropGroup">
-                        <div>
-                            <div className="dropdown">
-                                <button id="device" className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                Select A Device<span className="caret"></span></button>
+                        <div className="text-center">
+                            <h6 id="device" className="text-right my-3">Choose A Device:</h6>
+                            <div id="device" className="dropdown text-left p-0 pl-2">
+                                <button className="btn btn-outline-dark active-btn dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                {this.state.current}<span className="caret"></span></button>
                                 <CategoryList refPath="Categories/Devices/" handleChange={(e) => this.handleDevChange(e)}/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="content-management">
-                    <h2 className="mb-4">Content Management</h2>
-                </div>
                 
                 {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                 
                 {this.state.folders.length > 0 &&
-                    <Container className="folders-section p-3 mb-5">
-                        {folderItems}
-                    </Container>
+                    <div className="container-fluid folders-section p-4 mt-3 mb-5">
+                        <div className="p-1">
+                            <h4 id="folder">Folders</h4>
+                        </div>
+                        <div className="mt-3">
+                            {folderItems}
+                        </div>
+                    </div>
                 }    
 
                 <div>
-                    <div className="delete-button">
+                    {this.state.editMode == true && <div className="delete-button">
                         <Button color="danger" className="m-2" onClick={() => this.deleteFiles()} >Delete Selected</Button>
+                </div>}
+                    <div className="row justify-content-between">
+                        <div className="col-auto mr-auto mt-2">
+                            <h4><i className="fas fa-file-alt mr-2"></i>Files</h4>
+                        </div>
+                        <div className="col-auto fileBtns">
+                            <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
+                            <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
+                        </div>
+                        
                     </div>    
-                    <div className="fileBtns">
-                        <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
-                        <Button color="secondary" className="m-2" onClick={() => this.editOnClick()} ><i className="fas fa-pencil-alt mr-2"></i>Edit</Button>
-                    </div>    
-                    <FileTable files={this.state.files} editMode={this.state.editMode} handleEditCheckCallback={(e)=>this.handleEditCheck(e)}changeCallback={(e) => this.changeStatus(e)}/>   
+                    <FileTable files={this.state.files} editMode={this.state.editMode} handleEditCheckCallback={(e)=>this.handleEditCheck(e)} changeCallback={(e) => this.changeStatus(e)}/>   
                 </div>     
             </div>
         )

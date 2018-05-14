@@ -9,8 +9,8 @@ export default class Folder extends React.Component {
 
     render() {
         return(
-            <Button onClick={() => this.props.onClickCallback()} className="mr-3 mb-3 folderBtn">
-                {this.props.folderName}
+            <Button size="lg" onClick={() => this.props.onClickCallback()} className="mr-3 mb-3 folderBtn">
+                <i className="fas fa-folder mr-2"></i>{this.props.folderName}
             </Button>
         )
     }
