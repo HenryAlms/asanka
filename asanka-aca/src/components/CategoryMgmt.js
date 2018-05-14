@@ -2,7 +2,7 @@ import React from "react";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import {Label, Input, FormGroup} from 'reactstrap';
+import {Label, Input, FormGroup, Button} from 'reactstrap';
 
 import constants from './constants';
 import '../css/Content.css';
@@ -54,7 +54,7 @@ export default class CategoryMgmt extends React.Component {
         return (
             <div id="ctgr">
                 <div>
-                    <h1>Manage Asanka Categories</h1>
+                    <h1>Manage Categories</h1>
                 </div>
                 <div>
                     <h2>Subjects</h2>
@@ -65,8 +65,8 @@ export default class CategoryMgmt extends React.Component {
                 <div>
                     <h2>Teachers</h2>
                     <CatOption refPath="Categories/Teachers"/>
-                    <input id="teach-input"></input>
-                    <button id="teach-btn" onClick={() => this.addOption("Teachers", document.getElementById("teach-input").value)}>Add Teacher</button>
+                    <Input id="teach-input"></Input>
+                    <Button id="teach-btn" onClick={() => this.addOption("Teachers", document.getElementById("teach-input").value)}>Add Teacher</Button>
                 </div>
             </div>
         )

@@ -1,3 +1,7 @@
+body {
+    color: #333;
+}
+
 #collab {
     display: block;
     margin-left: auto;
@@ -13,9 +17,15 @@
     color: red
 }
 
+ul h4 {
+    color: red;
+}
+
 .intro h1 {
     justify-content: center
 }
+
+
 
 .sponsor {
     padding: 2em;
@@ -45,19 +55,17 @@
     max-height: 400px;
 }
 
-h3 {
+body h3 {
     color: red; 
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
 
 #changes {
     color: red;
 }
 
-#project-section {
-    padding-top: 2em;
-    padding-bottom: 2em;  
-    background-color: rgba(211, 211, 211, 0.315);
-}
+
 
 #spIntro {
     text-align: center;
@@ -75,7 +83,34 @@ body h1, body h2, body h3, body h4, body h5 {
     border-radius: 50%;
 }
 
+body h2 {
+    font-family: 'Montserrat-Bold', sans-serif;
+    color: red;
+}
+
 .caption {
     background-color: black;
     /* text-shadow: 2px 2px black; */
+}
+
+.screenshot {
+    box-shadow: rgba(46, 46, 46, 0.4) 0px 0px 25px;  
+}
+
+footer {
+    margin-top: 4em;
+    margin-bottom: 4em;
+}
+
+.section {
+    padding-top: 7em;
+    padding-bottom: 7em;
+}
+
+#project-section, .background {
+    background-color: rgba(211, 211, 211, 0.315);
+}
+
+.background h2{
+    color: #333;
 }

@@ -1,4 +1,4 @@
-import {Table} from 'reactstrap';
+import {Table, Button} from 'reactstrap';
 import React from "react";
 import '../css/aca.css';
 import firebase from 'firebase/app';
@@ -65,7 +65,7 @@ export default class FileTable extends React.Component {
                         <td>
                             {/* <button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button> */}
                             
-                            <button id={file.title} onClick={() => this.viewFile(file.title)}>View</button></td>
+                            <Button color="success" id={file.title} onClick={() => this.viewFile(file.title)}>Open</Button></td>
                     </tr>
                 )
             })

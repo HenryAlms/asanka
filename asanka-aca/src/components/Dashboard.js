@@ -195,12 +195,12 @@ export default class Dashboard extends React.Component {
             <div className="container-fluid main">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
-                    <h1 className="my-4 text-center">Asanka Dashboard</h1>
+                    <h1 className="mt-4 mb-3">Dashboard</h1>
                     <div className="dropGroup">
                         <div className="text-center">
-                            <h5  id="device" className="text-right my-3">Choose A Device:</h5>
+                            <h6 id="device" className="text-right my-3">Choose A Device:</h6>
                             <div id="device" className="dropdown text-left p-0 pl-2">
-                                <button className="btn btn-danger dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
+                                <button className="btn btn-outline-dark active-btn dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
                                 {this.state.current}<span className="caret"></span></button>
                                 <CategoryList refPath="Categories/Devices/" handleChange={(e) => this.handleDevChange(e)}/>
                             </div>
@@ -211,11 +211,11 @@ export default class Dashboard extends React.Component {
                 {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                 
                 {this.state.folders.length > 0 &&
-                    <div className="container w-50 folders-section p-3">
+                    <div className="container-fluid folders-section p-4 mt-3 mb-5">
                         <div className="p-1">
-                            <h4 id="folder">Folders:</h4>
+                            <h4 id="folder">Folders</h4>
                         </div>
-                        <div className="text-center mt-3">
+                        <div className="mt-3">
                             {folderItems}
                         </div>
                     </div>
@@ -227,7 +227,7 @@ export default class Dashboard extends React.Component {
                 </div>}
                     <div className="row justify-content-between">
                         <div className="col-auto mr-auto mt-2">
-                            <h4>Files:</h4>
+                            <h4><i className="fas fa-file-alt mr-2"></i>Files</h4>
                         </div>
                         <div className="col-auto fileBtns">
                             <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>
@@ -235,7 +235,7 @@ export default class Dashboard extends React.Component {
                         </div>
                         
                     </div>    
-                    <FileTable files={this.state.files} editMode={this.state.editMode} handleEditCheckCallback={(e)=>this.handleEditCheck(e)}changeCallback={(e) => this.changeStatus(e)}/>   
+                    <FileTable files={this.state.files} editMode={this.state.editMode} handleEditCheckCallback={(e)=>this.handleEditCheck(e)} changeCallback={(e) => this.changeStatus(e)}/>   
                 </div>     
             </div>
         )
