@@ -24,18 +24,19 @@ export default class FileTable extends React.Component {
         this.setState({files: nextProps.files, query: nextProps.query})
     }
 
-    viewFile(fileTitle) {
+    viewFile(key) {
         console.log('Viewing file!');
+        console.log(key);
         let storageRef = firebase.storage().ref(this.state.query + "/Files/");
-        console.log(this.state.query + "/Files/" + fileTitle + '.pdf');
+        console.log(this.state.query + "/Files/" + key + '.pdf');
         // Create a reference to the file we want to download
-        var fileRef = storageRef.child(fileTitle + '.pdf');
+        var fileRef = storageRef.child(key);
         fileRef.getDownloadURL().then(function(url) {
             window.open(url);
           }).catch(function(error) {
             // Handle any errors
             console.log(error);
-            var fileRef = storageRef.child(fileTitle);
+            var fileRef = storageRef.child(key);
             fileRef.getDownloadURL().then(function(url) {
                 window.open(url);
             }).catch(function(error) {
@@ -61,11 +62,11 @@ export default class FileTable extends React.Component {
                 return (
                     <tr key={i}>
                         <td key={file.title + i}>{file.title}</td>
-                        <td key={file.type + i}>{file.type}</td>
+                        <td key={file.size + i}>{Math.round( file.size/1000 * 10 ) / 10}</td>
                         <td>
                             {/* <button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button> */}
                             
-                            <Button color="success" id={file.title} onClick={() => this.viewFile(file.title)}>Open</Button></td>
+                            <Button color="success" id={file.title} onClick={() => this.viewFile(file.key)}>Open</Button></td>
                     </tr>
                 )
             })
@@ -76,7 +77,7 @@ export default class FileTable extends React.Component {
                 <thead>
                 <tr className="topRow">
                     <th>Title</th>
-                    <th>File Type</th>
+                    <th>Size (KB)</th>
                     <th></th>
                 </tr>
                 </thead>
