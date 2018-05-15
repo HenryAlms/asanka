@@ -42,7 +42,7 @@ export default class FileTable extends React.Component {
         }
             
         return (
-            <Table className="myTable">
+            <Table hover responsive className="myTable">
                 <thead>
                 <tr className="topRow">
                     <th>Title</th>

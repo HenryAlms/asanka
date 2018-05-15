@@ -22,7 +22,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
-      device: "Choose A Device"
+      device: "Device 3"
     }
   }
 
@@ -83,7 +83,6 @@ class App extends Component {
     let renderContent = (routerProps) => {
       return <Content {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user}/>
     }
-    // console.log(this.state.user);      
     
     return (
       <BrowserRouter>
