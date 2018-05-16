@@ -91,9 +91,9 @@ export default class Content extends React.Component {
         let list = [];
 
         if(this.state.subSel.length === 0 && this.state.teachSel.length === 0) {
-            console.log("Device Only")
             this.state.devSel.forEach((device) => {
-                queryList.push(device + "/Files/" + this.state.file.name)
+                console.log(device);
+                queryList.push(device + "/Files/" + this.state.file.name);
 
             });
         }
