@@ -2,7 +2,7 @@ import React from "react";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import {Label, Input, FormGroup} from 'reactstrap';
+import {Label, Input, FormGroup, Button} from 'reactstrap';
 
 import constants from './constants';
 import '../css/Content.css';
@@ -54,19 +54,25 @@ export default class CategoryMgmt extends React.Component {
         return (
             <div id="ctgr">
                 <div>
-                    <h1>Manage Asanka Categories</h1>
+                    <h1>Manage Categories</h1>
                 </div>
                 <div>
-                    <h2>Subjects</h2>
+                    <h2 className="mt-2">Subjects</h2>
                     <CatOption refPath="Categories/Subjects"/>
-                    <input id="sub-input"></input>
-                    <button id="sub-btn" onClick={() => {this.addOption("Subjects", document.getElementById("sub-input").value)}}>Add Subject</button>
+                    <Input className="mt-2 w-50" id="sub-input"></Input>
+                    <Button className="mt-2" id="sub-btn" onClick={() => this.addOption("Subjects", document.getElementById("sub-input").value)}>Add Teacher</Button>
                 </div>
                 <div>
-                    <h2>Teachers</h2>
+                    <h2 className="mt-2">Teachers</h2>
                     <CatOption refPath="Categories/Teachers"/>
-                    <input id="teach-input"></input>
-                    <button id="teach-btn" onClick={() => this.addOption("Teachers", document.getElementById("teach-input").value)}>Add Teacher</button>
+                    <Input className="mt-2 w-50" id="teach-input"></Input>
+                    <Button className="mt-2" id="teach-btn" onClick={() => this.addOption("Teachers", document.getElementById("teach-input").value)}>Add Teacher</Button>
+                </div>
+                <div>
+                    <h2 className="mt-2">Grade Levels</h2>
+                    <CatOption refPath="Categories/Grade"/>
+                    <Input className="mt-2 w-50" id="grade-input"></Input>
+                    <Button className="mt-2" id="grade-btn" onClick={() => this.addOption("Grades", document.getElementById("grade-input").value)}>Add Grade Level</Button>
                 </div>
             </div>
         )

@@ -24,7 +24,7 @@ export default class DeviceHome extends React.Component {
                         <strong>Hello Henry Alms, </strong> What would you like to learn today?
                     </div>
                 </div>
-                <div className="background">
+                <div className="background container">
                 <div className="row">
                     <div className="col-sm-3">
                         <div className="card">

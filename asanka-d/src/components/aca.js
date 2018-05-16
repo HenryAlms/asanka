@@ -108,6 +108,7 @@ export default class ACA extends React.Component {
         }); 
     }
 
+<<<<<<< HEAD
     searchFiles(evt) {
         evt.preventDefault();
         var phrase = document.getElementById("myInput").value;
@@ -139,6 +140,8 @@ export default class ACA extends React.Component {
         }); 
     }
 
+=======
+>>>>>>> a159dbb77f58977fc8503f9f2fae4f5b52330d61
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
@@ -155,10 +158,6 @@ export default class ACA extends React.Component {
 
                     <div className="mb-5">
                         <h2 className="pb-2 pt-1">Folders</h2> 
-                        <form>
-                            <input id="myInput" type="text" placeholder="Search.." name="search"></input>
-                            <button onClick={(evt) => this.searchFiles(evt)} type="submit"><i className="fa fa-search"></i></button>
-                        </form>
                         {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                         {this.state.folders.length > 0 &&
                             <Container className="folders-section p-3">
@@ -166,7 +165,7 @@ export default class ACA extends React.Component {
                             </Container>
                         }    
                     </div>
-                    <h2 className="pb-2">Files in: English</h2>
+                    <h2 className="pb-2">Files in: Device 3</h2>
                     <FileTable files={this.state.files} query={this.state.query} />   
                 </Container>
             </Container>
