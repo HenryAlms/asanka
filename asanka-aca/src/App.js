@@ -101,7 +101,7 @@ class App extends Component {
                 <Route path={constants.routes.devices} render={renderDevices} />
                 <Route path={constants.routes.content} render={renderContent} />
               </Switch>
-            </div>  
+            </div>
           </Col>
         </Row>  
       </BrowserRouter>

@@ -43,7 +43,6 @@ export default class FileTable extends React.Component {
                 console.log(error);
             })
           });
-        
     }
 
     render() {

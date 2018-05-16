@@ -20,14 +20,12 @@ export default class Checkbox extends React.Component {
             curDevice: this.props.deivce,
             disabled: false
         }
-        // this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
               this.setState({user: firebaseUser, disabled: this.props.disabled});
-            //   this.loadData(this.props.refPath);
             }
             else {
               this.setState({ user: null});
@@ -41,7 +39,6 @@ export default class Checkbox extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({refPathQ: nextProps.refPath, disabled: nextProps.disabled});
-        // this.loadData();
     }
 
     toggleCheckboxChange() {
@@ -55,7 +52,6 @@ export default class Checkbox extends React.Component {
 
     check() {
         if(this.state.label === this.state.deivce) {
-            console.log(this.state.deivce)
             this.setState({isChecked:true});
             return true;
         } else {
