@@ -83,6 +83,7 @@ export default class Dashboard extends React.Component {
     }
     
     changeStatus(event) {
+        console.log(this.state.folders);
         let file = event.target.value;
         let singleFileRef = firebase.database().ref(this.state.query + '/Files/' + file);
         singleFileRef.once('value', (snapshot) => {
@@ -96,6 +97,8 @@ export default class Dashboard extends React.Component {
             }
             singleFileRef.set(update);
         });
+        console.log(this.state.folders);
+        this.loadFolders(this.state.query);
         this.loadFiles(this.state.query);
     }
 
@@ -186,6 +189,7 @@ export default class Dashboard extends React.Component {
     }
 
     render() {
+        console.log(this.state.folders);
         let folderItems = this.state.folders.map((folder) => {
             return (
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
