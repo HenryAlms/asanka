@@ -43,12 +43,12 @@ export default class FileTable extends React.Component {
                 console.log(error);
             })
           });
-        
     }
 
     render() {
         let fileItems = [];
         console.log(this.state.files);
+
         if (this.state.files != null && this.state.files != undefined && this.state.files.length !== 0) {
             fileItems = this.state.files.map((file, i) => {
                 let active;
@@ -59,10 +59,13 @@ export default class FileTable extends React.Component {
                     active = "Inactive";
                 }
                 i = String(i);
+                var date = new Date(file.timeCreated);
+                var options = {hour: "numeric", minute:'numeric', year: 'numeric', month: 'short', day: 'numeric'};
                 return (
                     <tr key={i}>
                         <td key={file.title + i}>{file.title}</td>
                         <td key={file.size + i}>{Math.round( file.size/1000 * 10 ) / 10}</td>
+                        <td key={file.date + i}>{date.toLocaleDateString("en-US",options)}</td>
                         <td>
                             {/* <button id={file.title} onClick={() => this.downloadFile(file.title)}>Download</button> */}
                             
@@ -78,6 +81,7 @@ export default class FileTable extends React.Component {
                 <tr className="topRow">
                     <th>Title</th>
                     <th>Size (KB)</th>
+                    <th>Date Uploaded</th>
                     <th></th>
                 </tr>
                 </thead>

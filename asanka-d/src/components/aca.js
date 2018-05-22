@@ -108,6 +108,40 @@ export default class ACA extends React.Component {
         }); 
     }
 
+<<<<<<< HEAD
+    searchFiles(evt) {
+        evt.preventDefault();
+        var phrase = document.getElementById("myInput").value;
+        console.log(phrase);
+        this.fileRef = firebase.database().ref('Device 3');
+        this.fileRef.once('value', (snapshot) => {
+            let fileValue = snapshot.val();
+            console.log(snapshot);
+            console.log(snapshot.child("title"));
+            console.log(fileValue);
+            console.log(typeof(fileValue));
+            for (var folder in fileValue) {
+                console.log(fileValue[folder]);
+                // for (var item of fileValue[key]) {
+                //     console.log(item);
+                // }
+            }
+            var returnArr = [];
+
+            snapshot.forEach(function(childSnapshot) {
+                var item = childSnapshot.val();
+                item.key = childSnapshot.key;
+                returnArr.push(item);
+            });
+        
+            console.log(returnArr);
+
+            // this.setState({files: fileArray});
+        }); 
+    }
+
+=======
+>>>>>>> a159dbb77f58977fc8503f9f2fae4f5b52330d61
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (

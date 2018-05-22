@@ -5,7 +5,7 @@ import 'firebase/database';
 import {Label, Input, FormGroup} from 'reactstrap';
 
 import constants from './constants';
-import '../css/Content.css';
+import '../css/Categories.css';
 import Checkbox from './Checkbox';
 
 export default class Categories extends React.Component {

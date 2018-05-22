@@ -47,7 +47,7 @@ export default class FileTable extends React.Component {
                 <tr className="topRow">
                     <th>Title</th>
                     <th>Size (KB)</th>
-                    <th>Time Uploaded</th>
+                    <th>Date Uploaded</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -122,8 +122,8 @@ class File extends React.Component {
         return (
             <tr>
                 <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
-                <td key={file.type + key}>{Math.round( file.size/1000 * 10 ) / 10}</td>
-                <td key={file.size + key}>{date.toLocaleDateString("en-US",options)}</td>
+                <td key={file.size + key}>{Math.round( file.size/1000 * 10 ) / 10}</td>
+                <td key={file.date + key}>{date.toLocaleDateString("en-US",options)}</td>
                 <td key={active + key}>
                 <Dropdown isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
                     <DropdownToggle outline color="secondary" className="active-btn" caret>

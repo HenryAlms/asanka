@@ -8,7 +8,7 @@ import constants from './constants';
 import MyNav from './Navbar.js';
 import Folder from './Folder.js';
 import FileTable from './FileTable.js';
-import './Navbar.css';
+import '../css/Navbar.css';
 import '../css/Dashboard.css';
 import CategoryList from './CategoryList';
 
@@ -71,7 +71,7 @@ export default class Dashboard extends React.Component {
     loadFiles(query) {
         this.fileRef = firebase.database().ref(query + '/Files');
         let fileArray = [];
-        this.fileRef.once('value', (snapshot) => {
+        this.fileRef.on('value', (snapshot) => {
             let fileValue = snapshot.val();
             fileArray = Object.keys(fileValue).map((key) => {
                 fileValue[key].key = key;

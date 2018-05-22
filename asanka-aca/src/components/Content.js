@@ -91,9 +91,9 @@ export default class Content extends React.Component {
         let list = [];
 
         if(this.state.subSel.length === 0 && this.state.teachSel.length === 0) {
-            console.log("Device Only")
             this.state.devSel.forEach((device) => {
-                queryList.push(device + "/Files/" + this.state.file.name)
+                console.log(device);
+                queryList.push(device + "/Files/" + this.state.file.name);
 
             });
         }
@@ -256,32 +256,32 @@ export default class Content extends React.Component {
         console.log(this.state.devSel);
     }
 
-
     render() {
-        
         return (
             <div>
                 <div className='container'>
-                    <div className='form-group'>
-                        <label className="form-title" htmlFor='FileTitle'>Title:</label>
-                        <input id='FileTitle' type='text'
-                        className='form-control' 
-                        placeholder='Enter Document Title'
-                        value={this.state.title}
-                        onInput={evt => this.setState({title: evt.target.value})}/>
-                    </div>
-                    <div className='form-group'>
-                        <label className="form-title" htmlFor='Date'>Date:</label>
-                        <input id="Date" type='date'
-                        className='form-control' 
-                        placeholder='File Description'
-                        value={this.state.date}
-                        onInput={evt => this.setState({date: evt.target.value})}/>
+                    <div>
+                        <div className='form-group'>
+                            <label className="form-title" htmlFor='FileTitle'>Title:</label>
+                            <input id='FileTitle' type='text'
+                            className='form-control w-50' 
+                            placeholder='Enter Document Title'
+                            value={this.state.title}
+                            onInput={evt => this.setState({title: evt.target.value})}/>
+                        </div>
+                        <div className='form-group'>
+                            <label className="form-title" htmlFor='Date'>Date:</label>
+                            <input id="Date" type='date'
+                            className='form-control w-50' 
+                            placeholder='File Description'
+                            value={this.state.date}
+                            onInput={evt => this.setState({date: evt.target.value})}/>
+                        </div>
                     </div>
                     <div className='form-group'>
                         <label className="form-title" htmlFor='Description'>Description:</label>
                         <input id="Description" type='text'
-                        className='form-control' 
+                        className='form-control w-50 h-250'
                         placeholder='File Description'
                         value={this.state.description}
                         onInput={evt => this.setState({description: evt.target.value})}/>
@@ -308,11 +308,11 @@ export default class Content extends React.Component {
                             <div>
                                 <form onSubmit={(e) => this.submitFile(e)}>
                                     <div>
-                                        <h6>Devices:</h6>
+                                        <h2>Choose Storage Devices:</h2>
                                         <Categories uncheck={(e) => this.uncheck(e, "Device")} checkSelect={(e) => this.devSelect(e)} refPath="Categories/Devices/"/>
                                     </div>
                                     <div id="subDiv">
-                                        <h2>Store in Subject Folder:</h2>
+                                        <h2>Select Subject Folder(s):</h2>
                                         <div>
                                             <h6>Subjects:</h6>
                                             <Categories id="subjects" disabled={this.state.disabledS} uncheck={(e) => this.uncheck(e, "Subject")} checkSelect={(e) => this.subSelect(e)} refPath="Categories/Subjects/"/>
@@ -323,7 +323,7 @@ export default class Content extends React.Component {
                                         </div>
                                     </div>
                                     <div>
-                                        <h2>Store in a Teacher Folder:</h2>
+                                        <h2>Select Teacher Folder(s):</h2>
                                         <div>
                                             <h6>Teachers:</h6>
                                             <Categories id="teachers" disabled={this.state.disabledT} uncheck={(e) => this.uncheck(e, "Teacher")} checkSelect={(e) => this.teachSelect(e)} refPath="Categories/Teachers/"/>
@@ -336,7 +336,6 @@ export default class Content extends React.Component {
                                 </form>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
