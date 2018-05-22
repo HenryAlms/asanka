@@ -25,7 +25,7 @@ export default class Dashboard extends React.Component {
             files: [],
             editMode: false,
             checked: new Set(),
-            devSelect: "Choose A Device"
+            devSelect: "Device 3"
         }
     }
 
@@ -83,6 +83,7 @@ export default class Dashboard extends React.Component {
     }
     
     changeStatus(event) {
+        console.log(this.state.folders);
         let file = event.target.value;
         let singleFileRef = firebase.database().ref(this.state.query + '/Files/' + file);
         singleFileRef.once('value', (snapshot) => {
@@ -96,6 +97,8 @@ export default class Dashboard extends React.Component {
             }
             singleFileRef.set(update);
         });
+        console.log(this.state.folders);
+        this.loadFolders(this.state.query);
         this.loadFiles(this.state.query);
     }
 
@@ -128,7 +131,7 @@ export default class Dashboard extends React.Component {
     }
 
     handleDevChange(d) {
-        this.setState({current: d, query: d});
+        this.setState({current: d, query: d, devSelect: d, prev: '', prevPath: ''});
         this.props.device(d);
     }
 
@@ -186,6 +189,7 @@ export default class Dashboard extends React.Component {
     }
 
     render() {
+        console.log(this.state.folders);
         let folderItems = this.state.folders.map((folder) => {
             return (
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />
@@ -201,7 +205,7 @@ export default class Dashboard extends React.Component {
                             <h6 id="device" className="text-right my-3">Choose A Device:</h6>
                             <div id="device" className="dropdown text-left p-0 pl-2">
                                 <button className="btn btn-outline-dark active-btn dropdown-toggle my-3 mx-auto" type="button" data-toggle="dropdown">
-                                {this.state.current}<span className="caret"></span></button>
+                                {this.state.devSelect}<span className="caret"></span></button>
                                 <CategoryList refPath="Categories/Devices/" handleChange={(e) => this.handleDevChange(e)}/>
                             </div>
                         </div>
@@ -210,16 +214,16 @@ export default class Dashboard extends React.Component {
                 
                 {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                 
-                {this.state.folders.length > 0 &&
-                    <div className="container-fluid folders-section p-4 mt-3 mb-5">
-                        <div className="p-1">
-                            <h4 id="folder">Folders</h4>
-                        </div>
-                        <div className="mt-3">
-                            {folderItems}
-                        </div>
+                
+                <div className="container-fluid folders-section p-4 mt-3 mb-5">
+                    <div className="p-1">
+                        <h4 id="folder">Folders</h4>
                     </div>
-                }    
+                    <div className="mt-3">
+                        {folderItems}
+                    </div>
+                </div>
+                   
 
                 <div>
                     {this.state.editMode == true && <div className="delete-button">
