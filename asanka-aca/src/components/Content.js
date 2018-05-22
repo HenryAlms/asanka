@@ -144,54 +144,13 @@ export default class Content extends React.Component {
             let storage = firebase.storage().ref(storeLocationClean);
             let file = this.state.file;
             console.log(file);
-            storage.put(file);
-            
-            //remove the .pdf from the file.name
-            console.log(file.name)
-            let fileStorRef = storage;
-            console.log(fileStorRef);
-            let mData = fileStorRef.getMetadata()
-            console.log(mData);
-            mData.then(function(metadata) {
-                console.log(metadata);
-                // this.setState({size: metadata.size});
-                // this.setState({timeCreated: metadata.timeCreated});
-                // timeCreated = metadata.timeCreated;
-                // size = metadata.size;
-                // console.log(time);
-                // console.log(size);
-                // this.state.timeCreated = metadata.timeCreated;
-                // this.state.size = metadata.size;
-                setTime = metadata.timeCreated;
-                setSize = metadata.size;
-                // this.setState({size: size, timeCreated: timeCreated});
+            storage.put(file).then((snapshot) => {
+                console.log(snapshot);
+                console.log(snapshot.metadata);
+                setSize = snapshot.metadata.size;
+                setTime = snapshot.metadata.timeCreated;
                 console.log(setTime);
                 console.log(setSize);
-                
-                //file.time = metadata.updated;
-                //file.size= metadata.size;
-            // Metadata now contains the metadata for 'images/forest.jpg'
-            }).catch(function(error) {
-                console.log(error);
-                fileStorRef = storage.child(file.name + ".pdf");
-                fileStorRef.getMetadata().then(function(metadata) {
-                    console.log(metadata);
-                    // this.setState({size: metadata.size});
-                    // this.setState({timeCreated: metadata.timeCreated});
-                    // this.state.timeCreated = metadata.timeCreated;
-                    // this.state.size = metadata.size;
-                    // console.log(this.state.timeCreated);
-                    // console.log(this.state.size);
-                    setTime = metadata.created;
-                    setSize = metadata.size;
-                    console.log(setTime);
-                    console.log(setSize);
-                    // file.time = metadata.updated;
-                    // file.size= metadata.size;
-                }).catch(function(error) {
-                    console.log(error);
-                })
-            }).then(() => {
                 this.upload(storeLocationClean, setTime, setSize);
             });
         })

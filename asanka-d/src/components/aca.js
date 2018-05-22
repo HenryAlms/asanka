@@ -108,7 +108,6 @@ export default class ACA extends React.Component {
         }); 
     }
 
-<<<<<<< HEAD
     searchFiles(evt) {
         evt.preventDefault();
         var phrase = document.getElementById("myInput").value;
@@ -140,8 +139,6 @@ export default class ACA extends React.Component {
         }); 
     }
 
-=======
->>>>>>> a159dbb77f58977fc8503f9f2fae4f5b52330d61
     render() {
         let folderItems = this.state.folders.map((folder) => {
             return (
