@@ -71,7 +71,7 @@ export default class Categories extends React.Component {
         if(this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<Checkbox disabled={this.state.disabled} name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name}/>);
+                this.state.selections.push(<Checkbox className="mb-4" disabled={this.state.disabled} name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name}/>);
             }); 
         } else {
             return (
