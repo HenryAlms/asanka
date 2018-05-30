@@ -54,7 +54,6 @@ class App extends Component {
   }
 
   currentDevice(d) {
-    console.log(d);
     this.setState({device: d});
     return d;
   }
