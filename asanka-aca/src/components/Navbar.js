@@ -22,6 +22,15 @@ export class MyNav extends React.Component {
   }}
 
   class NavList extends Component {
+
+    checkCurrent(click, current) {
+        if(click == current) {
+            //do nothing
+        } else {
+            //return click
+        }
+    }
+    
     render() {
         return(
             <Nav navbar className="mr-auto navLinks">
@@ -31,12 +40,12 @@ export class MyNav extends React.Component {
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/Categories">
+                    <NavLink to={constants.routes.categories}>
                         Categories
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <NavLink to="/NewContent">
+                    <NavLink to={constants.routes.content}>
                         New Content
                     </NavLink>
                 </NavItem>
@@ -46,7 +55,9 @@ export class MyNav extends React.Component {
                     </NavLink>
                 </NavItem>
                 <NavItem className="navText">
-                    <Button onClick={() => this.props.signOutCallback()} className="btn">Log Out</Button>
+                    <NavLink to={constants.routes.dashboard}>
+                        <Button onClick={() => this.props.signOutCallback()} className="btn">Log Out</Button>
+                    </NavLink>
                 </NavItem>
             </Nav>
         )

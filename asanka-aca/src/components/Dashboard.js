@@ -30,6 +30,7 @@ export default class Dashboard extends React.Component {
     }
 
     componentDidMount() {
+        console.log("log on");
         this.loadFolders(this.state.query);
         this.loadFiles(this.state.query);
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
@@ -43,13 +44,14 @@ export default class Dashboard extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log("log off");
         this.folderRef.off();
         this.fileRef.off();
         this.unregisterFunction();
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({current: nextProps.currDevice});
+        this.setState({current: nextProps.currDevice, query: nextProps.currDevice, prevPath: "", prev: "", editMode: false, checked: new Set()});
         this.loadFolders(nextProps.currDevice);
         this.loadFiles(nextProps.currDevice);
     }
@@ -190,6 +192,7 @@ export default class Dashboard extends React.Component {
 
     render() {
         console.log(this.state.folders);
+        console.log(this.state.prevPath)
         let folderItems = this.state.folders.map((folder) => {
             return (
                 <Folder folderName={folder.name} key={folder.name} value={folder.name} onClickCallback={() => this.folderOnClick(folder)} />

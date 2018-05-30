@@ -38,6 +38,7 @@ export default class Content extends React.Component {
     }
 
     componentDidMount() {
+        console.log("log on");
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
               this.setState({ user: firebaseUser, loading: false });
@@ -49,21 +50,12 @@ export default class Content extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.title);
-        console.log(nextProps);
         this.setState({title: nextProps.title});
-        console.log(this.state.title);
-
     }
 
     componentWillUnmount() {
+        console.log("log off");
         this.unregisterFunction();
-    }
-
-    logOff() {
-        firebase.auth().signOut()
-            .then(this.props.history.push(constants.routes.welcome))
-            .catch(err => window.alert(err));
     }
 
     storeFile(evt) {
@@ -87,7 +79,6 @@ export default class Content extends React.Component {
         evt.preventDefault();
         let devQuery = "";
         let queryList = [];
-
         let list = [];
 
         if(this.state.subSel.length === 0 && this.state.teachSel.length === 0) {
@@ -140,7 +131,6 @@ export default class Content extends React.Component {
         queryList.forEach((storeLocation) => {
             console.log(storeLocation);
             var storeLocationClean = storeLocation.slice(0, -4);
-            // let storage = firebase.storage().ref(storeLocation);
             let storage = firebase.storage().ref(storeLocationClean);
             let file = this.state.file;
             console.log(file);
