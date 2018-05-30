@@ -121,7 +121,7 @@ class File extends React.Component {
         var options = {hour: "numeric", minute:'numeric', year: 'numeric', month: 'short', day: 'numeric'};
         return (
             <tr className="fade-in-2">
-                <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.title} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
+                <td key={file.title + key}>{this.state.editMode && <Input className="checkbox" value={file.key} type="checkbox" onChange={(e) => this.props.handleEditCheckCallback(e)}/>} {file.title}</td>
                 <td key={file.size + key}>{Math.round( file.size/1000 * 10 ) / 10}</td>
                 <td key={file.date + key}>{date.toLocaleDateString("en-US",options)}</td>
                 <td key={active + key}>

@@ -175,6 +175,7 @@ export default class Dashboard extends React.Component {
     deleteStorage() {
         let storageRef = firebase.storage().ref(this.state.query + "/Files/"); 
         this.state.checked.forEach(function(file) {
+            console.log(file);
             var deleteRef = storageRef.child(file);
             // Delete the file
             deleteRef.delete().then(function() {
