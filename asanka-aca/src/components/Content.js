@@ -152,6 +152,12 @@ export default class Content extends React.Component {
                 console.log(setTime);
                 console.log(setSize);
                 this.upload(storeLocationClean, setTime, setSize);
+                var elements = document.getElementsByClassName("input");
+                for(var i=0; i<elements.length; i++) {
+                    elements[i].value='';
+                }
+                alert("File uploaded!");
+
             });
         })
         
@@ -274,18 +280,18 @@ export default class Content extends React.Component {
                                         <h2>Select Subject Folder(s):</h2>
                                         <div>
                                             <h6>Subjects:</h6>
-                                            <Categories id="subjects" disabled={this.state.disabledS} uncheck={(e) => this.uncheck(e, "Subject")} checkSelect={(e) => this.subSelect(e)} refPath="Categories/Subjects/"/>
+                                            <Categories class="input" id="subjects" disabled={this.state.disabledS} uncheck={(e) => this.uncheck(e, "Subject")} checkSelect={(e) => this.subSelect(e)} refPath="Categories/Subjects/"/>
                                         </div>
                                         <div>
                                             <h6>Grade Level:</h6>
-                                            <Categories id="grade" disabled={this.state.disabledG} uncheck={(e) => this.uncheck(e, "Grade")} checkSelect={(e) => this.gradeSelect(e)} refPath="Categories/Grade/"/>
+                                            <Categories class="input" id="grade" disabled={this.state.disabledG} uncheck={(e) => this.uncheck(e, "Grade")} checkSelect={(e) => this.gradeSelect(e)} refPath="Categories/Grade/"/>
                                         </div>
                                     </div>
                                     <div>
                                         <h2>Select Teacher Folder(s):</h2>
                                         <div>
                                             <h6>Teachers:</h6>
-                                            <Categories id="teachers" disabled={this.state.disabledT} uncheck={(e) => this.uncheck(e, "Teacher")} checkSelect={(e) => this.teachSelect(e)} refPath="Categories/Teachers/"/>
+                                            <Categories class="input" id="teachers" disabled={this.state.disabledT} uncheck={(e) => this.uncheck(e, "Teacher")} checkSelect={(e) => this.teachSelect(e)} refPath="Categories/Teachers/"/>
                                         </div>
                                     </div>
                                     <div>
