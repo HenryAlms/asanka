@@ -57,7 +57,7 @@ export class MyNav extends React.Component {
                 <NavItem className="navText">
                     <NavLink to={constants.routes.dashboard}>
                         <Button onClick={() => this.props.signOutCallback()} className="btn">Log Out</Button>
-                    </NavLink>
+                    </NavLink>                
                 </NavItem>
             </Nav>
         )

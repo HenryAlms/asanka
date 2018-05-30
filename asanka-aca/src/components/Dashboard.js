@@ -199,7 +199,7 @@ export default class Dashboard extends React.Component {
             )
         });
         return (
-            <div className="container-fluid main">
+            <div className="container-fluid main fade-in">
                 {!this.state.user && <Redirect to={constants.routes.welcome} />}    
                 <div className="jumbotron-fluid">
                     <h1 className="mt-4 mb-3">Dashboard</h1>
@@ -217,15 +217,17 @@ export default class Dashboard extends React.Component {
                 
                 {this.state.prevPath !== '' && <Button color="danger" onClick={() => this.backOnClick()} className="m-2"><i className="fas fa-chevron-left back-icon mr-2"></i>{this.state.prev}</Button>}
                 
-                
-                <div className="container-fluid folders-section p-4 mt-3 mb-5">
-                    <div className="p-1">
-                        <h4 id="folder">Folders</h4>
+                {this.state.folders.length !== 0 &&
+                    <div className="container-fluid folders-section p-4 mt-3 mb-5">
+                        <div className="p-1">
+                            <h4 id="folder">Folders</h4>
+                        </div>
+                        <div className="mt-3">
+                            {folderItems}
+                        </div>
                     </div>
-                    <div className="mt-3">
-                        {folderItems}
-                    </div>
-                </div>
+                }    
+            
                    
 
                 <div>
@@ -234,7 +236,7 @@ export default class Dashboard extends React.Component {
                 </div>}
                     <div className="row justify-content-between">
                         <div className="col-auto mr-auto mt-2">
-                            <h4><i className="fas fa-file-alt mr-2"></i>Files</h4>
+                            <h4><i className="fas fa-file-alt mr-2"></i>Files | {this.state.current}</h4>
                         </div>
                         <div className="col-auto fileBtns">
                             <Button color="danger" className="m-2"><i className="fas fa-plus-circle mr-2"></i><Link className="add-file-btn" to={constants.routes.content}>Add New File</Link></Button>

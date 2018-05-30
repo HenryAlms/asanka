@@ -58,7 +58,7 @@ export default class AllCat extends React.Component {
         if(this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<li key={category.name}>{category.name}</li>);
+                this.state.selections.push(<li className="cat-list-item" key={category.name}>{category.name}</li>);
             }); 
         } else {
             return (

@@ -17,7 +17,7 @@ export default class DeviceHome extends React.Component {
 
     render() {
         return(
-            <div>
+            <div className="fade-in">
                 {!this.props.user && <Redirect to={constants.routes.welcome} />}
                 <div className="row" id="welcome">
                     <div className="message">

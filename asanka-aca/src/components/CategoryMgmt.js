@@ -52,28 +52,28 @@ export default class CategoryMgmt extends React.Component {
 
     render() {
         return (
-            <div id="ctgr">
-                <div className="text-left">
+            <div id="ctgr" className="fade-in">
+                <div>
                     <h1>Manage Categories</h1>
                 </div>
-                <div className="row">
-                    <div>
-                        <h2 className="mt-2">Subjects</h2>
+                <div className="row mt-4">
+                    <div className="col-md-4 col-sm-12 mb-5">
+                        <h2 className="mt-3 mb-2 cat-title">Subjects</h2>
                         <CatOption refPath="Categories/Subjects"/>
-                        <Input className="mt-2 w-75" id="sub-input"></Input>
-                        <Button className="mt-2" id="sub-btn" onClick={() => this.addOption("Subjects", document.getElementById("sub-input").value)}>Add Teacher</Button>
+                        <Input className="my-3 w-75" id="sub-input"></Input>
+                        <Button color="danger" className="mt-2" id="sub-btn" onClick={() => this.addOption("Subjects", document.getElementById("sub-input").value)}>Add Teacher</Button>
                     </div>
-                    <div>
-                        <h2 className="mt-2">Teachers</h2>
+                    <div className="col-md-4 col-sm-12 mb-5">
+                        <h2 className="mt-3 mb-2 cat-title">Teachers</h2>
                         <CatOption refPath="Categories/Teachers"/>
-                        <Input className="mt-2 w-75" id="teach-input"></Input>
-                        <Button className="mt-2" id="teach-btn" onClick={() => this.addOption("Teachers", document.getElementById("teach-input").value)}>Add Teacher</Button>
+                        <Input className="my-3 w-75" id="teach-input"></Input>
+                        <Button color="danger" className="mt-2" id="teach-btn" onClick={() => this.addOption("Teachers", document.getElementById("teach-input").value)}>Add Teacher</Button>
                     </div>
-                    <div>
-                        <h2 className="mt-2">Grade Levels</h2>
+                    <div className="col-md-4 col-sm-12 mb-5">
+                        <h2 className="mt-3 mb-2 cat-title">Grade Levels</h2>
                         <CatOption refPath="Categories/Grade"/>
-                        <Input className="mt-2 w-75" id="grade-input"></Input>
-                        <Button className="mt-2" id="grade-btn" onClick={() => this.addOption("Grades", document.getElementById("grade-input").value)}>Add Grade Level</Button>
+                        <Input className="my-3 w-75" id="grade-input"></Input>
+                        <Button color="danger" className="mt-2" id="grade-btn" onClick={() => this.addOption("Grades", document.getElementById("grade-input").value)}>Add Grade Level</Button>
                     </div>
                 </div>
             </div>
