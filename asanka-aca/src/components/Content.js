@@ -152,6 +152,12 @@ export default class Content extends React.Component {
                 console.log(setTime);
                 console.log(setSize);
                 this.upload(storeLocationClean, setTime, setSize);
+                var elements = document.getElementsByClassName("input");
+                for(var i=0; i<elements.length; i++) {
+                    elements[i].value='';
+                }
+                alert("File uploaded!");
+
             });
         })
         
