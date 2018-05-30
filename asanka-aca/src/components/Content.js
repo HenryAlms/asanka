@@ -259,10 +259,12 @@ export default class Content extends React.Component {
     render() {
         return (
             <div>
-                <div className='container'>
+                <div className='container fade-in'>
+                    <h1 className="mb-4">Add New Content</h1>
+
                     <div>
                         <div className='form-group'>
-                            <label className="form-title" htmlFor='FileTitle'>Title:</label>
+                            <label className="form-title" htmlFor='FileTitle'>Title</label>
                             <input id='FileTitle' type='text'
                             className='form-control w-50' 
                             placeholder='Enter Document Title'
@@ -270,7 +272,7 @@ export default class Content extends React.Component {
                             onInput={evt => this.setState({title: evt.target.value})}/>
                         </div>
                         <div className='form-group'>
-                            <label className="form-title" htmlFor='Date'>Date:</label>
+                            <label className="form-title" htmlFor='Date'>Date</label>
                             <input id="Date" type='date'
                             className='form-control w-50' 
                             placeholder='File Description'
@@ -278,24 +280,24 @@ export default class Content extends React.Component {
                             onInput={evt => this.setState({date: evt.target.value})}/>
                         </div>
                     </div>
-                    <div className='form-group'>
-                        <label className="form-title" htmlFor='Description'>Description:</label>
+                    <div className='form-group mb-4'>
+                        <label className="form-title" htmlFor='Description'>Description</label>
                         <input id="Description" type='text'
                         className='form-control w-50 h-250'
                         placeholder='File Description'
                         value={this.state.description}
                         onInput={evt => this.setState({description: evt.target.value})}/>
                     </div>
-                    <div className="form-group">
-                        <label className="form-title" htmlFor='Active'>Active on Device:</label>
+                    <div className="form-group mb-4">
+                        <label className="form-title" htmlFor='Active'>Active on Device?</label>
                         <FormGroup>
-                            <FormGroup check>
+                            <FormGroup  className="mb-2" check>
                                 <Label check>
                                     <Input type="radio" value="true" checked={this.state.selectedButton === "true"} onChange={(evt) => this.handleRB(evt)}/>{' '}
                                     True
                                 </Label>
                             </FormGroup>
-                            <FormGroup check>
+                            <FormGroup  className="mb-2" check>
                                 <Label check>
                                     <Input type="radio" value="false" checked={this.state.selectedButton === "false"} onChange={(evt) => this.handleRB(evt)}/>{' '} 
                                     False
@@ -307,32 +309,37 @@ export default class Content extends React.Component {
                         <div>
                             <div>
                                 <form onSubmit={(e) => this.submitFile(e)}>
-                                    <div>
-                                        <h2>Choose Storage Devices:</h2>
+                                    <div className="mb-4">
+                                        <h2 className="">Select Device(s)</h2>
                                         <Categories uncheck={(e) => this.uncheck(e, "Device")} checkSelect={(e) => this.devSelect(e)} refPath="Categories/Devices/"/>
                                     </div>
-                                    <div id="subDiv">
-                                        <h2>Select Subject Folder(s):</h2>
+                                    <div className="mb-4" id="subDiv">
+                                        <h2>Select Subject(s)</h2>
                                         <div>
-                                            <h6>Subjects:</h6>
                                             <Categories id="subjects" disabled={this.state.disabledS} uncheck={(e) => this.uncheck(e, "Subject")} checkSelect={(e) => this.subSelect(e)} refPath="Categories/Subjects/"/>
                                         </div>
+
+                                    </div>
+                                    <div className="mb-4" id="subDiv">
+                                        <h2>Select Grade Level(s)</h2>
                                         <div>
-                                            <h6>Grade Level:</h6>
                                             <Categories id="grade" disabled={this.state.disabledG} uncheck={(e) => this.uncheck(e, "Grade")} checkSelect={(e) => this.gradeSelect(e)} refPath="Categories/Grade/"/>
                                         </div>
                                     </div>
-                                    <div>
-                                        <h2>Select Teacher Folder(s):</h2>
+                                    <div className="mb-4">
+                                        <h2>OR</h2>
+                                    </div>
+                                    <div className="mb-4">
+                                        <h2>Select Teacher(s)</h2>
                                         <div>
-                                            <h6>Teachers:</h6>
                                             <Categories id="teachers" disabled={this.state.disabledT} uncheck={(e) => this.uncheck(e, "Teacher")} checkSelect={(e) => this.teachSelect(e)} refPath="Categories/Teachers/"/>
                                         </div>
                                     </div>
-                                    <div>
-                                        <button type="submit">Submit</button>
-                                        <input id="input" className="mr-auto" type="file" onChange={(evt) => {this.storeFile(evt)}}/>
+                                    <div className="mb-4">
+                                        <input id="input" className="" type="file" onChange={(evt) => {this.storeFile(evt)}}/>
                                     </div>
+                                    <button className="btn btn-lg btn-danger mr-2 mb-5" type="submit">Submit</button>
+
                                 </form>
                             </div>
                         </div>
