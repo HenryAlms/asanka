@@ -17,7 +17,7 @@ Security issue: On /index.php from the device side, if you click on the Admin ta
 
 ACA Page Before
 
-![alt text]()
+![alt text](https://github.com/HenryAlms/asanka/blob/master/images/image1.png)
 
 After
 
