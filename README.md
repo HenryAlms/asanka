@@ -45,4 +45,6 @@ Before
 
 After
 
-![alt text]()
+![alt text](https://github.com/HenryAlms/asanka/blob/master/images/image4.png)
+
+- In our new "Add New File" page we have the admin create a title, select the upload date, add a description, and select where they want to store the file. The admin will then add the file at the bottom and hit the submit button to add the selected file to the asanka devices
