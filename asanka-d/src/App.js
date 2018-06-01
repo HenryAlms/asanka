@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import './App.css';
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
-import constants from "./components/constants";
 import { Col, Row } from 'reactstrap';
-import Welcome from "./components/homepage";
-import DeviceHome from './components/devicehome'
-import Header from "./components/header";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+
+import constants from "./components/constants";
+
+import Welcome from "./components/homepage";
+import DeviceHome from './components/devicehome'
+import Header from "./components/header";
 import ACA from "./components/aca.js";
 
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -54,26 +57,26 @@ class App extends Component {
     // this is how you pass props to the components you render through the switch. pass props here, 
     //and use "render={renderComponentName}" in the switch
     let renderWelcome = (routerProps) => {
-      return <Welcome {...routerProps} user={this.state.user} signInCallback={(email, password) => this.handleSignIn(email, password)}  />
+      return <Welcome {...routerProps} user={this.state.user} signInCallback={(email, password) => this.handleSignIn(email, password)} />
     }
     let renderDevice = (routerProps) => {
       return <DeviceHome {...routerProps} user={this.state.user} />
-    }   
-    
+    }
+
     return (
       <BrowserRouter>
         <Row>
-          {this.state.user && <Header handleSignOut={() => this.handleSignOut()}/>}
+          {this.state.user && <Header handleSignOut={() => this.handleSignOut()} />}
           <Col>
-            <div className="switch">  
+            <div className="switch">
               <Switch>
                 <Route exact path={constants.routes.welcome} render={renderWelcome} />
                 <Route path={constants.routes.device} render={renderDevice} />
                 <Route path={constants.routes.aca} render={renderACA} />
               </Switch>
-            </div>  
+            </div>
           </Col>
-        </Row>  
+        </Row>
       </BrowserRouter>
     )
   }
