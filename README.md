@@ -19,9 +19,9 @@ ACA Page Before
 
 ![alt text](https://github.com/HenryAlms/asanka/blob/master/images/image1.png)
 
-After
+ACA Page After Redesign
 
-![alt text]()
+![alt text](https://github.com/HenryAlms/asanka/blob/master/images/image2.png)
 
 These are the before and after of our redesign of the ACA dashboard. While it has the same general feel, there are many little things that we changed to help make Asanka better to use and easier to understand. I will now list all of the changes that we made to the ACA content management interface and our reasoning behind each one.
 
@@ -41,7 +41,7 @@ These are the before and after of our redesign of the ACA dashboard. While it ha
 
 Before
 
-![alt text]()
+![alt text](https://github.com/HenryAlms/asanka/blob/master/images/image3.png)
 
 After
 
