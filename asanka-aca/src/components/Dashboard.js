@@ -1,6 +1,6 @@
 import React from "react";
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
-import { Container, Table, Button } from 'reactstrap';
+import { Redirect, Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -8,7 +8,6 @@ import 'firebase/database';
 
 import constants from './constants';
 
-import MyNav from './Navbar.js';
 import Folder from './Folder.js';
 import FileTable from './FileTable.js';
 import CategoryList from './CategoryList.js';
@@ -225,7 +224,7 @@ export default class Dashboard extends React.Component {
                     </div>
                 }
                 <div>
-                    {this.state.editMode == true &&
+                    {this.state.editMode === true &&
                         <div className="delete-button">
                             <Button color="danger" className="m-2" onClick={() => this.deleteFiles()} >Delete Selected</Button>
                         </div>
@@ -245,7 +244,3 @@ export default class Dashboard extends React.Component {
         )
     }
 }
-
-
-
-

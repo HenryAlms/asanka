@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -22,10 +22,7 @@ export default class Profile extends React.Component {
         this.loadData();
     }
 
-    componentWillUnmount() {
-        this.authUnsub();
-    }
-
+    //loads user information
     loadData() {
         this.folderRef = firebase.database().ref(this.state.query);
         this.folderRef.on('value', (snapshot) => {
@@ -56,9 +53,8 @@ export default class Profile extends React.Component {
                                 <input type="file" className="form-control"></input>
                             </div>
                         </div>
-
                         <div className="col-md-9 personal-info">
-                            <form className="form-horizontal" role="form">
+                            <form className="form-horizontal">
                                 <div className="form-group row">
                                     <label className="col-lg-3 col-form-label">Email:</label>
                                     <div className="col-lg-8">

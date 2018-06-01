@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; //React imports at the top
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import { Col, Row } from 'reactstrap';
 
 import firebase from 'firebase/app';  //Firebase imports second

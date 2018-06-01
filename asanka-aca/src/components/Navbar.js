@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Col, Container, Button } from 'reactstrap';
+import { Nav, NavItem, Col, Container, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 import constants from './constants';
@@ -8,9 +8,6 @@ import '../css/Navbar.css';
 
 //Builds the right hand Navigation bar
 export class MyNav extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (

@@ -1,13 +1,8 @@
 import React from "react";
-import { Label, Input, FormGroup } from 'reactstrap';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-
-import constants from './constants';
-
-import Checkbox from './Checkbox';
 
 import '../css/Content.css';
 

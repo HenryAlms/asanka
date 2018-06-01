@@ -1,10 +1,7 @@
 import React from "react";
-import { Table, Input, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { Table, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import firebase from 'firebase/app';
-
-import constants from './constants';
 
 import '../css/Dashboard.css';
 
@@ -35,7 +32,7 @@ export default class FileTable extends React.Component {
 
     render() {
         let fileItems = [];
-        if (this.state.files.length !== 0 && this.state.files != undefined && this.state.files != null) {
+        if (this.state.files.length !== 0 && this.state.files !== undefined && this.state.files != null) {
             fileItems = this.state.files.map((file, i) => {
                 return (
                     <File handleEditCheckCallback={(e) => this.props.handleEditCheckCallback(e)} editMode={this.state.editMode} file={file} key={i} i={i} active={file.active} changeCallback={(e) => this.props.changeCallback(e)} />
@@ -88,11 +85,6 @@ class File extends React.Component {
     }
 
     toggle() {
-        let open;
-        if (this.state.dropdownOpen === true)
-            open = false;
-        else
-            open = true;
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });

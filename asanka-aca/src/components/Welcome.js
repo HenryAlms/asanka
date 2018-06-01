@@ -1,11 +1,9 @@
 import React from "react";
 import {Redirect} from 'react-router-dom';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
+
+import constants from './constants';
 
 import "../css/headimg.css";
-import constants from './constants';
 
 export default class Welcome extends React.Component {
     constructor(props) {
@@ -32,7 +30,6 @@ export default class Welcome extends React.Component {
                         </div>
                         : undefined}
                     {this.props.user && <Redirect to={constants.routes.dashboard} />}    
-
                     <div className='formContainer rounded'>
                     <div className='Asanka-Logo text-center'>
                         <img src="./imgs/Asanka-logo.png" alt="Logo"/>
@@ -75,5 +72,4 @@ export default class Welcome extends React.Component {
         </div>
         );
     }
-
 }

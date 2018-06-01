@@ -1,15 +1,10 @@
 import React from "react";
-import { Label, Input, FormGroup } from 'reactstrap';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-import constants from './constants';
-
 import Checkbox from './Checkbox';
-
-import '../css/Categories.css';
 
 //Takes the specific list of category values and converts them to checkboxes. Used for New Content Selections
 export default class Categories extends React.Component {

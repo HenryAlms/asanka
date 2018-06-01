@@ -1,12 +1,8 @@
 import React from "react";
-import { Label, Input, FormGroup } from 'reactstrap';
-import { checkServerIdentity } from "tls";
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-
-import constants from './constants';
 
 import '../css/Content.css';
 

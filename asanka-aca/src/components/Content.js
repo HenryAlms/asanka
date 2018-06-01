@@ -5,8 +5,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-import constants from './constants';
-
 import Categories from './Categories';
 
 import '../css/Content.css';
@@ -156,7 +154,7 @@ export default class Content extends React.Component {
     //and enables/disables teacher/grade level checkboxes.
     uncheck(selected, value) {
         let index = "";
-        if (value == "Device") {
+        if (value === "Device") {
             index = this.state.devSel.indexOf(selected);
             this.state.devSel.splice(index, 1);
         } else if (value === "Subject") {

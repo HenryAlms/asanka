@@ -4,8 +4,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-import constants from './constants';
-
 import '../css/Dashboard.css';
 
 //Provides the dropdown to manage the devices on the dashboard
@@ -65,7 +63,7 @@ export default class CategoryList extends React.Component {
         if (this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<li key={category.name}><a className="device-list-item" href="#" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
+                this.state.selections.push(<li key={category.name}><a className="device-list-item" onClick={() => this.handleClick(category.name)}>{category.name}</a></li>);
             });
         } else {
             return (
