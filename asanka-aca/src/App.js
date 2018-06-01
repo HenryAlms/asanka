@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import './App.css';
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
-import constants from "./components/constants";
+import React, { Component } from 'react'; //React imports at the top
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import { Col, Row } from 'reactstrap';
-import Welcome from "./components/Welcome";
+
+import firebase from 'firebase/app';  //Firebase imports second
+import 'firebase/auth';
+import 'firebase/database';
+
+import constants from "./components/constants"; //Imports paths used for navigating between pages
+
+import Welcome from "./components/Welcome";  //Imports for the different components
+import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import MyNav from "./components/Navbar";
 import Profile from "./components/Profile";
-import Users from "./components/Users";
-import Devices from "./components/Devices";
-import Header from "./components/Header";
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
-import Content from "./components/Content";
 import Categories from './components/CategoryMgmt';
+import Content from "./components/Content";
 
+import './App.css'; //CSS styling elements imported last
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class App extends Component {
     }
   }
 
+  //Authenticates the firebase user when loading each component
   componentDidMount() {
     this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
@@ -41,18 +43,21 @@ class App extends Component {
     this.unregisterFunction();
   }
 
+  //Sign in the user through firebase
   handleSignIn(email, password) {
     this.setState({ errorMessage: null });
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => this.setState({ errorMessage: err.message }))
   }
 
+  //Sign the user out of the application through firebase
   handleSignOut() {
     this.setState({ errorMessage: null });
     firebase.auth().signOut()
       .catch((err) => this.setState({ errorMessage: err.message }))
   }
 
+  //Keeps track of the device the ACA is managing
   currentDevice(d) {
     this.setState({device: d});
     return d;
@@ -70,15 +75,9 @@ class App extends Component {
     let renderProfile = (routerProps) => {
       return <Profile {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
-    let renderUsers = (routerProps) => {
-      return <Users {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
-    }
     let renderCategories = (routerProps) => {
       return <Categories {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
     }
-    let renderDevices = (routerProps) => {
-      return <Devices {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user} />
-    }  
     let renderContent = (routerProps) => {
       return <Content {...routerProps} currDevice={this.state.device} device={(d) => this.currentDevice(d)} user={this.state.user}/>
     }
@@ -94,9 +93,7 @@ class App extends Component {
                 <Route exact path={constants.routes.dashboard} render={renderDashboard} />
                 <Route path={constants.routes.welcome} render={renderWelcome} />
                 <Route path={constants.routes.profile} render={renderProfile} />
-                <Route path={constants.routes.users} render={renderUsers} />
                 <Route path={constants.routes.categories} render={renderCategories} />
-                <Route path={constants.routes.devices} render={renderDevices} />
                 <Route path={constants.routes.content} render={renderContent} />
               </Switch>
             </div>

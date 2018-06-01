@@ -1,23 +1,19 @@
 import React from "react";
+
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import {Label, Input, FormGroup} from 'reactstrap';
 
-import constants from './constants';
 import '../css/Content.css';
-import { checkServerIdentity } from "tls";
 
+//Creates a checkbox for each list item for the New Content Section
 export default class Checkbox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user:undefined,
-            categories: [],
-            selections: [],
+            user: undefined,
             label: this.props.name,
             isChecked: false,
-            curDevice: this.props.deivce,
             disabled: false
         }
     }
@@ -25,12 +21,12 @@ export default class Checkbox extends React.Component {
     componentDidMount() {
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
-              this.setState({user: firebaseUser, disabled: this.props.disabled});
+                this.setState({ user: firebaseUser, disabled: this.props.disabled });
             }
             else {
-              this.setState({ user: null});
+                this.setState({ user: null });
             }
-          });
+        });
     }
 
     componentWillUnmount() {
@@ -38,11 +34,13 @@ export default class Checkbox extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({refPathQ: nextProps.refPath, disabled: nextProps.disabled});
+        this.setState({ disabled: nextProps.disabled });
     }
 
+    
+    //Updates information on state to pass to the content upload section
     toggleCheckboxChange() {
-        this.setState(({isChecked}) => (
+        this.setState(({ isChecked }) => (
             {
                 isChecked: !isChecked
             }
@@ -50,9 +48,10 @@ export default class Checkbox extends React.Component {
         this.props.handleClick(this.state.label, !this.state.isChecked);
     }
 
+    //Changes checkbox from unselected to selected or vice versa
     check() {
-        if(this.state.label === this.state.deivce) {
-            this.setState({isChecked:true});
+        if (this.state.label === this.state.deivce) {
+            this.setState({ isChecked: true });
             return true;
         } else {
             return this.state.isChecked;
@@ -60,13 +59,13 @@ export default class Checkbox extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <div className="checkbox">
                 <label>
-                    <input type="checkbox" disabled={this.state.disabled} value={this.state.label} checked={this.check()} onClick={() => this.toggleCheckboxChange()}/>
+                    <input type="checkbox" disabled={this.state.disabled} value={this.state.label} checked={this.check()} onClick={() => this.toggleCheckboxChange()} />
                     {" " + this.state.label}
                 </label>
-             </div>
+            </div>
         )
     }
 }
