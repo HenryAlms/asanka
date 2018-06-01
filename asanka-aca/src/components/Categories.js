@@ -1,21 +1,24 @@
 import React from "react";
+import { Label, Input, FormGroup } from 'reactstrap';
+
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import {Label, Input, FormGroup} from 'reactstrap';
 
 import constants from './constants';
-import '../css/Categories.css';
+
 import Checkbox from './Checkbox';
 
+import '../css/Categories.css';
+
+//Takes the specific list of category values and converts them to checkboxes. Used for New Content Selections
 export default class Categories extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userID:undefined,
+            userID: undefined,
             categories: [],
             selections: [],
-            options: [],
             disabled: "false"
         }
     }
@@ -23,16 +26,16 @@ export default class Categories extends React.Component {
     componentDidMount() {
         this.unregisterFunction = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
-              this.setState({ user: firebaseUser, disabled: this.props.disabled});
-              this.loadData();
+                this.setState({ user: firebaseUser, disabled: this.props.disabled });
+                this.loadData();
             } else {
-              this.setState({ user: null});
+                this.setState({ user: null });
             }
-          });
+        });
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({refPathQ: nextProps.refPath, disabled: nextProps.disabled});
+        this.setState({ refPathQ: nextProps.refPath, disabled: nextProps.disabled });
     }
 
     componentWillUnmount() {
@@ -40,39 +43,36 @@ export default class Categories extends React.Component {
     }
 
     loadData() {
-        let ref; //firebase.database().ref("Categories/");
-        if(this.props.refPath) {
+        let ref;
+        if (this.props.refPath) {
             ref = firebase.database().ref(this.props.refPath);
         } else {
             ref = firebase.database().ref();
         }
         ref.on('value', (snapshot) => {
-            // console.log(snapshot)
             let value = snapshot.val();
             let list = Object.keys(value).map((key) => {
-                return {name: key};
+                return { name: key };
             })
-            this.setState({categories: list});
+            this.setState({ categories: list });
         });
     }
 
+    //Listens for a checkbox click, if selected, changes the checkbox state
     handleClick(name, state) {
-        console.log(name);
-        console.log(state);
-        if(state === true) {
+        if (state === true) {
             this.props.checkSelect(name);
         } else {
             this.props.uncheck(name);
         }
-        
     }
 
     render() {
-        if(this.state.categories) {
+        if (this.state.categories) {
             this.state.selections = [];
             this.state.categories.forEach(category => {
-                this.state.selections.push(<Checkbox className="mb-4" disabled={this.state.disabled} name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name}/>);
-            }); 
+                this.state.selections.push(<Checkbox className="mb-4" disabled={this.state.disabled} name={category.name} handleClick={(e, state) => this.handleClick(e, state)} key={category.name} />);
+            });
         } else {
             return (
                 <div>
@@ -84,7 +84,6 @@ export default class Categories extends React.Component {
             <div>
                 {this.state.selections}
             </div>
-            
         )
     }
 }
